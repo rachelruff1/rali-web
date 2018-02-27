@@ -9,9 +9,10 @@ export function getUser() {
     type: GET_USER,
     payload: axios
       .get("/api/me")
-      .then(resp => {
+      .then(resp => {console.log(resp)
         return resp.data;
       })
+      
       .catch(console.log)
   };
 }

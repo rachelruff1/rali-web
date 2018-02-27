@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import { Field, reduxForm, reset } from 'redux-form';
 import { getUser } from "../../ducks/UserReducer";
-import {withRouter} from "react-router-dom";
 
 class NetworkSelector extends Component {
     componentDidMount() {
         this.props.getUser();
       }
       render() {
-        console.log(this.props.user.name);
+        console.log(this.props.user);
         return (
           <div>
             {this.props.user ? (
@@ -28,6 +26,6 @@ class NetworkSelector extends Component {
 
 let mapStateToProps = state => state;
 
-export default withRouter(connect(mapStateToProps), { getUser })(NetworkSelector);
 
-// export default connect(mapStateToProps, { getUser })(NetworkSelector);
+export default connect(mapStateToProps, { getUser })(NetworkSelector);
+

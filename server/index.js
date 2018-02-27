@@ -1,14 +1,15 @@
 require("dotenv").config();
 const express = require("express");
 const { json } = require("body-parser");
-const cors = require("cors");
 const session = require("express-session");
+const cors = require("cors");
+const passport = require("passport");
 const massive = require("massive");
-const Auth0Strategy = require('passport-auth0')
-const passport = require('passport');
+const Auth0Strategy = require("passport-auth0");
+const ctrl = require("./controllers/mainCtrl");
 
 const port = 3001;
-const app = (express());
+const app = express();
 app.use(json());
 app.use(cors());
 
@@ -51,12 +52,13 @@ passport.use(
     (accessToken, refreshToken, extraParams, profile, done) => {
       app
         .get("db")
-        .getUser(profile.id)
+        .user.get_user(profile.id)
         .then(response => {
+          console.log(profile);
           if (!response[0]) {
             app
               .get("db")
-              .addUser([profile.id, profile.displayName])
+              .user.add_user([profile.id, profile.name.givenName, profile.name.familyName])
               .then(created => done(null, created[0]));
           } else {
             return done(null, response[0]);
@@ -66,28 +68,13 @@ passport.use(
   )
 );
 
-passport.serializeUser((user, done) => done(null, user));
+passport.serializeUser((user, done) =>  done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
-app.get(
-  "/login",
-  passport.authenticate("auth0", {
-    successRedirect: "http://localhost:3000/#/",
-    failureRedirect: "http://localhost:3000/#/login"
-  })
-);
+app.get("/login", ctrl.login);
 
-app.get("/api/me", (req, res) => {
-  if (req.user) res.status(200).json(req.user);
-  else res.redirect("http://localhost:3000/#/login");
-});
+app.get("/api/me", ctrl.getUser);
 
-app.get("/api/logout", (req, res) => {
-  req.session.destroy(() => {
-    res.redirect("http://localhost:3000/#/login");
-  });
-});
-
-
+app.get("/api/logout", ctrl.logout);
 
 app.listen(port, console.log(`Listening on port ${port}`));

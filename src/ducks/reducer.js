@@ -3,7 +3,8 @@ import UserReducer from './UserReducer';
 
 const reducer = combineReducers({
     user: UserReducer
-    // network: NetworkReducer
+    // network: NetworkReducer,
+    // event: EventReducer
 })
 
 export default reducer;
