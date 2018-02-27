@@ -1,62 +1,40 @@
-import { auth } from "../fire";
+import axios from "axios";
 
-export const GET_USER = "get_user";
+//CONSTANTS
+const GET_USER = "GET_USER";
 
+//ACTION CREATORS
 export function getUser() {
-  return dispatch => {
-    auth.onAuthStateChanged(user => {
-      dispatch({
-        type: "GET_USER",
-        payload: user
-      });
-    });
+  return {
+    type: GET_USER,
+    payload: axios
+      .get("/api/me")
+      .then(resp => {
+        return resp.data;
+      })
+      .catch(console.log)
   };
 }
+//INITIAL STATE
 
-export default function(state = { loading: true }, action) {
+const initialState = {
+  user: {},
+  isLoading: false,
+  didErr: false
+};
+
+export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case GET_USER:
-      return { ...state, user: action.payload };
+    case `${GET_USER}_PENDING`:
+      return Object.assign({}, state, { isLoading: true });
+    case `${GET_USER}_FULFILLED`:
+      return Object.assign({}, state, {
+        isLoading: false,
+        user: action.payload
+      });
+    case `${GET_USER}_REJECTED` :
+      return Object.assign({}, state, {isLoading: false, didErr: true})
     default:
       return state;
   }
 }
-// btnLogin.addEventListener("click", e => {
-//   const email = txtEmail.value;
-//   const pass = txtPassword.value;
-
-//   auth.signInWithEmailAndPassword(email, pass);
-//   promise.catch(e => console.log(e.message));
-// });
-
-// btnSignUp.addEventListener("click", e => {
-//   const email = txtEmail.value;
-//   const pass = txtPassword.value;
-//   //check for real email
-//   auth.createUserWithEmailAndPassword(email, pass);
-//   promise.catch(e => console.log(e.message));
-// });
-
-// firebase.auth().onAuthStateChanged(firebaseUser => {
-//   if (firebaseUser) {
-//     console.log(firebaseUser);
-//   } else {
-//     console.log("not logged in");
-//   }
-// });
-
-// btnLogout.addEventListener('click', e => {
-//     firebase.auth().signOut();
-// });
-
-
-
-// componentDidMount() {
-//     firebase.auth().onAuthStateChanged((result) => {
-//       if (result) {
-//         this.setState({ userid: result.uid, checkAuth: true });
-//       } else {
-//         this.setState({ checkAuth: true });
-//       }
-//     });
-//   }
