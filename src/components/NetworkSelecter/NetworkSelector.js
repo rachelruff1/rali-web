@@ -14,7 +14,7 @@ class NetworkSelector extends Component {
       console.log(this.props.networks);
     const networksMap =
       this.props.networks.length>0 &&
-      this.props.networks.map((c, i) => <NetworkCard key={i} networks={c} />);
+      this.props.networks.map((c, i) => <NetworkCard key={i} network={c} />);
     return (
       <div>
         <Header />
@@ -25,7 +25,7 @@ class NetworkSelector extends Component {
            
           </h1>
           <div className="networks grid">{networksMap}</div>
-          <Link to="/create_network">
+          <Link to="/create-network">
             <button>+ Create</button>
           </Link>
           <button>Search</button>

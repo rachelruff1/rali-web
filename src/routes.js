@@ -9,9 +9,9 @@ import SearchNetwork from './components/NetworkSelecter/components/SearchNetwork
 export default (
     <Switch>
         <Route exact path= '/' component={HomePage} />
-        <Route path='/networkselector' component={NetworkSelector} />
-        <Route path='/view_network' component={ViewNetwork} />
-        <Route path='create_network' component={CreateNetwork} />
-        <Route path='search_network' component={SearchNetwork} />
+        <Route path='/network-selector' component={NetworkSelector} />
+        <Route path='/view-network' component={ViewNetwork} />
+        <Route path='/create-network' component={CreateNetwork} />
+        <Route path='/search-network' component={SearchNetwork} />
     </Switch>
 )

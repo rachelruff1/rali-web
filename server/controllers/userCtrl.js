@@ -1,7 +1,7 @@
 const passport = require("passport");
 
 const login = passport.authenticate("auth0", {
-  successRedirect: "http://localhost:3000/#/networkselector",
+  successRedirect: "http://localhost:3000/#/network-selector",
   failureRedirect: "http://localhost:3000/#/"
 });
 
