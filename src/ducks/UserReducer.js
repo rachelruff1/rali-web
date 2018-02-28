@@ -8,11 +8,10 @@ export function getUser() {
   return {
     type: GET_USER,
     payload: axios
-      .get("/api/me")
-      .then(resp => {console.log(resp)
-        return resp.data;
+      .get("/api/getUser")
+      .then(resp => {
+        return resp.data[0];
       })
-      
       .catch(console.log)
   };
 }
@@ -28,13 +27,14 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case `${GET_USER}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
+    case `${GET_USER}_REJECTED`:
+      return Object.assign({}, state, { isLoading: false, didErr: true });
     case `${GET_USER}_FULFILLED`:
       return Object.assign({}, state, {
         isLoading: false,
         user: action.payload
       });
-    case `${GET_USER}_REJECTED` :
-      return Object.assign({}, state, {isLoading: false, didErr: true})
+
     default:
       return state;
   }
