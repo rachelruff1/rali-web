@@ -3,11 +3,15 @@ import { Route, Switch } from 'react-router-dom';
 import HomePage from './components/HomePage/HomePage';
 import NetworkSelector from './components/NetworkSelecter/NetworkSelector';
 import ViewNetwork from './components/ViewNetwork/ViewNetwork';
+import CreateNetwork from './components/NetworkSelecter/components/CreateNetwork/CreateNetwork';
+import SearchNetwork from './components/NetworkSelecter/components/SearchNetwork/SearchNetwork';
 
 export default (
     <Switch>
         <Route exact path= '/' component={HomePage} />
         <Route path='/networkselector' component={NetworkSelector} />
-        <Route path='/viewnetwork' component={ViewNetwork} />
+        <Route path='/view_network' component={ViewNetwork} />
+        <Route path='create_network' component={CreateNetwork} />
+        <Route path='search_network' component={SearchNetwork} />
     </Switch>
 )

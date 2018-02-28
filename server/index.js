@@ -54,6 +54,7 @@ passport.use(
       callbackURL: "/login"
     },
     (accessToken, refreshToken, extraParams, profile, done) => {
+      console.log(profile);
       app
         .get("db")
         .user.get_user(profile.id)
@@ -63,7 +64,7 @@ passport.use(
               .get("db")
               .user.add_user([profile.id, profile.name.givenName, profile.name.familyName])
               .then(created => done(null, created[0]));
-              console.log(profile);
+              
           } else {
             return done(null, response[0]);
           }
@@ -88,6 +89,6 @@ app.get('/api/me', (req, res, next) => {
 app.get("/login", uCtrl.login);
 app.get("/api/getUser", uCtrl.getUser);
 app.get("/api/logout", uCtrl.logout);
-app.get('/api/getNetwork', nCtrl.getNetwork)
+app.get('/api/getNetworks', nCtrl.getNetworks)
 
 app.listen(port, console.log(`Listening on port ${port}`));

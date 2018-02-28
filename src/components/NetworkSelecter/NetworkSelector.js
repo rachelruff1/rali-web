@@ -1,30 +1,48 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getUser } from "../../ducks/UserReducer";
+import { getUser, getNetworks } from "../../ducks/reducer";
 import Header from "../Header/Header";
+import NetworkCard from "./components/NetworkCard/NetworkCard";
 
 class NetworkSelector extends Component {
-    componentDidMount() {
-        this.props.getUser();
-      }
-      render() {
-        return (
-          <div>
-              < Header />
-            
-            <div>
-                <h1>{ this.props.user.user ? this.props.user.user.firstname : 'Blank' }'s Networks</h1>
-                <button>+ Create</button>
-                <button>Search</button>
-                </div>
-          </div>
-        );
-      }
-    }
+  componentDidMount() {
+    this.props.getNetworks();
+    this.props.getUser();
+  }
+  render() {
+      console.log(this.props.networks);
+    const networksMap =
+      this.props.networks.length>0 &&
+      this.props.networks.map((c, i) => <NetworkCard key={i} networks={c} />);
+    return (
+      <div>
+        <Header />
 
+        <div>
+          <h1>
+            {this.props.user ? this.props.user.firstname : "Blank"}'s Networks
+           
+          </h1>
+          <div className="networks grid">{networksMap}</div>
+          <Link to="/create_network">
+            <button>+ Create</button>
+          </Link>
+          <button>Search</button>
+        </div>
+      </div>
+    );
+  }
+}
 
-let mapStateToProps = state => state;
+let mapStateToProps = state => {
+  const { user, networks } = state;
+  return {
+    user,
+    networks
+  };
+};
 
-
-export default connect(mapStateToProps, { getUser })(NetworkSelector);
-
+export default connect(mapStateToProps, { getUser, getNetworks })(
+  NetworkSelector
+);
