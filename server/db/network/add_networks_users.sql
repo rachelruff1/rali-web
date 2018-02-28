@@ -1,0 +1,1 @@
+INSERT INTO networks_users (networkid, userid) VALUES ($1, $2);

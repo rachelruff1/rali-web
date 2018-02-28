@@ -54,7 +54,7 @@ passport.use(
       callbackURL: "/login"
     },
     (accessToken, refreshToken, extraParams, profile, done) => {
-      console.log(profile);
+      // console.log(profile);
       app
         .get("db")
         .user.get_user(profile.id)
@@ -90,5 +90,6 @@ app.get("/login", uCtrl.login);
 app.get("/api/getUser", uCtrl.getUser);
 app.get("/api/logout", uCtrl.logout);
 app.get('/api/getNetworks', nCtrl.getNetworks)
+app.post('/api/createNetwork', nCtrl.createNetwork)
 
 app.listen(port, console.log(`Listening on port ${port}`));

@@ -11,7 +11,7 @@ class NetworkSelector extends Component {
     this.props.getUser();
   }
   render() {
-      console.log(this.props.networks);
+      // console.log(this.props.networks);
     const networksMap =
       this.props.networks.length>0 &&
       this.props.networks.map((c, i) => <NetworkCard key={i} network={c} />);
