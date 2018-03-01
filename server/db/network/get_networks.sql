@@ -1,6 +1,3 @@
--- SELECT * from networks n
--- JOIN users u ON u.id = n.userid
--- WHERE authid = $1;
 
 SELECT *
 FROM networks n

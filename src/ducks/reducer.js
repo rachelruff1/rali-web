@@ -6,7 +6,10 @@ const initialState = {
   didErr: false,
   networks: {},
   networkName: "",
-  networkPassword: ""
+  networkSearch:'',
+  networkPassword: "",
+  myEvents: {},
+  networkEvents: {}
 };
 
 const GET_USER = "GET_USER";
@@ -15,7 +18,7 @@ const UPDATE_NETWORK_NAME = "UPDATE_NETWORK_NAME ";
 const UPDATE_NETWORK_PASSWORD = "UPDATE_NETWORK_PASSWORD";
 const CREATE_NETWORK = "CREATE_NETWORK";
 
-///REDUCER FUNTION
+///REDUCER FUNCTION
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -78,6 +81,7 @@ export function getNetworks() {
 }
 
 export function updateNetworkName(networkName) {
+
   return {
     type: UPDATE_NETWORK_NAME,
     payload: networkName
@@ -92,11 +96,19 @@ export function updateNetworkPassword(networkPassword) {
 }
 
 export function createNetwork(networkName, networkPassword) {
+  console.log('Reducer:', networkName, networkPassword)
   return {
     type: CREATE_NETWORK,
     payload: axios
-      .post("/api/createNetwork", { networkName, networkPassword }, console.log('Reducer:', networkName, networkPassword))
+      .post("/api/createNetwork", { networkName, networkPassword })
       .then(resp => resp.data)
       .catch(console.log)
   };
 }
+
+export function searchNetworkName(networkSearch) {
+  
+}
+
+// '/api/getMyEvents', eCtrl.getMyEvents);
+// app.get('/api/getNetworkEvents'

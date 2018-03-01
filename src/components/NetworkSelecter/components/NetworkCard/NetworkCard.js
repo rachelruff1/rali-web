@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const NetworkCard = props => (
   <div className="network-container">
-    <Link to='/network-selector'>
+    <Link to={`/network/${props.network.networkid}`}>
       <button>{props.network.name}</button>
     </Link>
   </div>

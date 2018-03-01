@@ -6,8 +6,10 @@ const cors = require("cors");
 const passport = require("passport");
 const massive = require("massive");
 const Auth0Strategy = require("passport-auth0");
+
 const uCtrl = require("./controllers/userCtrl");
 const nCtrl = require('./controllers/networkCtrl');
+const eCtrl = require('./controllers/eventCtrl');
 
 const port = 3001;
 
@@ -89,7 +91,11 @@ app.get('/api/me', (req, res, next) => {
 app.get("/login", uCtrl.login);
 app.get("/api/getUser", uCtrl.getUser);
 app.get("/api/logout", uCtrl.logout);
-app.get('/api/getNetworks', nCtrl.getNetworks)
-app.post('/api/createNetwork', nCtrl.createNetwork)
+
+app.get('/api/getNetworks', nCtrl.getNetworks);
+app.post("/api/createNetwork", nCtrl.createNetwork);
+
+app.get('/api/getMyEvents', eCtrl.getMyEvents);
+app.get('/api/getNetworkEvents', eCtrl.getNetworkEvents);
 
 app.listen(port, console.log(`Listening on port ${port}`));

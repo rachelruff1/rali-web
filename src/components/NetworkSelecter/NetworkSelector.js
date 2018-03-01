@@ -28,7 +28,9 @@ class NetworkSelector extends Component {
           <Link to="/create-network">
             <button>+ Create</button>
           </Link>
-          <button>Search</button>
+          <Link to="/search-networks">
+            <button>Search</button>
+          </Link>
         </div>
       </div>
     );
