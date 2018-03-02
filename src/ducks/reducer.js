@@ -6,10 +6,13 @@ const initialState = {
   didErr: false,
   networks: {},
   networkName: "",
-  networkSearch:'',
+  networkSearch: "",
   networkPassword: "",
+  networkVerifyPassword: "",
+  networkSearchResults: [],
   myEvents: {},
-  networkEvents: {}
+  networkEvents: {},
+  optionJoinNetwork: false
 };
 
 const GET_USER = "GET_USER";
@@ -17,6 +20,11 @@ const GET_NETWORKS = "GET_NETWORKS";
 const UPDATE_NETWORK_NAME = "UPDATE_NETWORK_NAME ";
 const UPDATE_NETWORK_PASSWORD = "UPDATE_NETWORK_PASSWORD";
 const CREATE_NETWORK = "CREATE_NETWORK";
+const UPDATE_NETWORK_SEARCH = "UPDATE_NETWORK_SEARCH";
+const PERFORM_SEARCH = "PERFORM-SEARCH";
+const UPDATE_OPTION_JOIN_NETWORK = "UPDATE_OPTION_JOIN_NETWORK";
+const VERIFY_NETWORK = "VERIFY_NETWORK";
+const UPDATE_VERIFY_NETWORK = "UPDATE_VERIFY_NETWORK";
 
 ///REDUCER FUNCTION
 
@@ -44,6 +52,25 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, { networkName: action.payload });
     case UPDATE_NETWORK_PASSWORD:
       return Object.assign({}, state, { networkPassword: action.payload });
+    case UPDATE_NETWORK_SEARCH:
+      return Object.assign({}, state, { networkSearch: action.payload });
+    case `${PERFORM_SEARCH}_PENDING`:
+      return Object.assign({}, state, { isLoading: true });
+    case `${PERFORM_SEARCH}_REJECTED`:
+      return Object.assign({}, state, { isLoading: false, didErr: true });
+    case `${PERFORM_SEARCH}_FULFILLED`:
+      return Object.assign({}, state, {
+        isLoading: false,
+        networkSearchResults: action.payload
+      });
+    case UPDATE_VERIFY_NETWORK:
+      return Object.assign({}, state, {
+        networkVerifyPassword: action.payload
+      });
+    case UPDATE_OPTION_JOIN_NETWORK:
+      return Object.assign({}, state, {
+        optionJoinNetwork: true
+      });
 
     default:
       return state;
@@ -81,7 +108,6 @@ export function getNetworks() {
 }
 
 export function updateNetworkName(networkName) {
-
   return {
     type: UPDATE_NETWORK_NAME,
     payload: networkName
@@ -96,7 +122,7 @@ export function updateNetworkPassword(networkPassword) {
 }
 
 export function createNetwork(networkName, networkPassword) {
-  console.log('Reducer:', networkName, networkPassword)
+  // console.log("Reducer:", networkName, networkPassword);
   return {
     type: CREATE_NETWORK,
     payload: axios
@@ -106,9 +132,56 @@ export function createNetwork(networkName, networkPassword) {
   };
 }
 
-export function searchNetworkName(networkSearch) {
-  
+export function updateNetworkSearch(networkSearch) {
+  return {
+    type: UPDATE_NETWORK_SEARCH,
+    payload: networkSearch
+  };
+}
+
+export function performSearch(networkSearch) {
+  return {
+    type: PERFORM_SEARCH,
+    payload: axios
+      .get(`/api/performSearch/?networkSearch=${networkSearch}`)
+      .then(resp => {
+        // console.log("performSearch reducer:", resp);
+        return resp.data;
+      })
+      .catch(console.log)
+  };
+}
+
+export function updateVerifyNetwork(networkVerifyPassword) {
+  return {
+    type: UPDATE_VERIFY_NETWORK,
+    payload: networkVerifyPassword
+  };
+}
+
+export function updateOptionJoinNetwork(optionJoinNetwork) {
+  return {
+    type: UPDATE_OPTION_JOIN_NETWORK,
+    payload: optionJoinNetwork
+  };
+}
+
+export function verifyNetwork(networkVerifyPassword, networkNameForVerify) {
+  return {
+    type: VERIFY_NETWORK,
+    payload: axios
+      .get(
+        `/api/verifyNetwork/?networkVerifyPassword=${networkVerifyPassword}&networkNameForVerify=${networkNameForVerify}`
+      )
+      .then(resp => {
+        console.log(resp)
+        return resp;
+      })
+      .catch(console.log)
+  };
 }
 
 // '/api/getMyEvents', eCtrl.getMyEvents);
 // app.get('/api/getNetworkEvents'
+
+//.then(response => this.props.history.push("/network-selector")

@@ -1,0 +1,1 @@
+SELECT * FROM events where networkid = $1 AND eventid = $2;

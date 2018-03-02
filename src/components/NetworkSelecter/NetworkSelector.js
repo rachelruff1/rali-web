@@ -24,6 +24,7 @@ class NetworkSelector extends Component {
             {this.props.user ? this.props.user.firstname : "Blank"}'s Networks
            
           </h1>
+          <p> Click to view Network </p>
           <div className="networks grid">{networksMap}</div>
           <Link to="/create-network">
             <button>+ Create</button>

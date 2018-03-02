@@ -8,8 +8,8 @@ const massive = require("massive");
 const Auth0Strategy = require("passport-auth0");
 
 const uCtrl = require("./controllers/userCtrl");
-const nCtrl = require('./controllers/networkCtrl');
-const eCtrl = require('./controllers/eventCtrl');
+const nCtrl = require("./controllers/networkCtrl");
+const eCtrl = require("./controllers/eventCtrl");
 
 const port = 3001;
 
@@ -26,7 +26,7 @@ const {
   SESSION_SECRET
 } = process.env;
 
-massive(process.env.CONNECTION_STRING)
+massive(CONNECTION_STRING)
   .then(db => {
     app.set("db", db);
   })
@@ -34,7 +34,7 @@ massive(process.env.CONNECTION_STRING)
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
     cookie: {
@@ -64,9 +64,12 @@ passport.use(
           if (!response[0]) {
             app
               .get("db")
-              .user.add_user([profile.id, profile.name.givenName, profile.name.familyName])
+              .user.add_user([
+                profile.id,
+                profile.name.givenName,
+                profile.name.familyName
+              ])
               .then(created => done(null, created[0]));
-              
           } else {
             return done(null, response[0]);
           }
@@ -76,26 +79,28 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  return done(null, user)
+  return done(null, user);
 });
 
 passport.deserializeUser((user, done) => {
-  return done(null, user)
+  return done(null, user);
 });
 
-app.get('/api/me', (req, res, next) => {
-  if (req.user) res.json(req.user);
-  else res.json('NO USER')
-})
+// app.get("/api/me", (req, res, next) => {
+//   if (req.user) res.json(req.user);
+//   else res.json("NO USER");
+// });
 
 app.get("/login", uCtrl.login);
 app.get("/api/getUser", uCtrl.getUser);
 app.get("/api/logout", uCtrl.logout);
 
-app.get('/api/getNetworks', nCtrl.getNetworks);
+app.get("/api/getNetworks", nCtrl.getNetworks);
 app.post("/api/createNetwork", nCtrl.createNetwork);
+app.get("/api/performSearch", nCtrl.performSearch);
+app.get("/api/verifyNetwork", nCtrl.verifyNetwork);;
 
-app.get('/api/getMyEvents', eCtrl.getMyEvents);
-app.get('/api/getNetworkEvents', eCtrl.getNetworkEvents);
+app.get("/api/getMyEvents", eCtrl.getMyEvents);
+app.get("/api/getNetworkEvents", eCtrl.getNetworkEvents);
 
 app.listen(port, console.log(`Listening on port ${port}`));

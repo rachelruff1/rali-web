@@ -4,9 +4,7 @@ import mainPic from "./old-lady-music.jpg";
 import "./HomePage.css";
 
 export default class HomePage extends Component {
- 
   render() {
-
     return (
       <div className="hp-container">
         <div className="header-box">
@@ -18,7 +16,7 @@ export default class HomePage extends Component {
           </div>
           <div className="hp-content-container">
             <p className="hp-text">It's time to Ralī.</p>
-            <a href={process.env.REACT_APP_LOGIN}>
+            <a href="http://localhost:3001/login">
               <button className="hp-login">Login/Register</button>
             </a>
           </div>
@@ -27,4 +25,3 @@ export default class HomePage extends Component {
     );
   }
 }
-
