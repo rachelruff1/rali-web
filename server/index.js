@@ -100,7 +100,7 @@ app.post("/api/createNetwork", nCtrl.createNetwork);
 app.get("/api/performSearch", nCtrl.performSearch);
 app.get("/api/verifyNetwork", nCtrl.verifyNetwork);;
 
-app.get("/api/getMyEvents", eCtrl.getMyEvents);
-app.get("/api/getNetworkEvents", eCtrl.getNetworkEvents);
+app.get("/api/getMyNetworkEvents/:id", eCtrl.getMyNetworkEvents);
+app.get("/api/getAllNetworkEvents/:id", eCtrl.getAllNetworkEvents);
 
 app.listen(port, console.log(`Listening on port ${port}`));

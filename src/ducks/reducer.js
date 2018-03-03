@@ -12,7 +12,9 @@ const initialState = {
   networkSearchResults: [],
   myEvents: {},
   networkEvents: {},
-  optionJoinNetwork: false
+  optionJoinNetwork: false,
+  myNetworkEvents: {},
+  allNetworkEvents: {}
 };
 
 const GET_USER = "GET_USER";
@@ -25,6 +27,8 @@ const PERFORM_SEARCH = "PERFORM-SEARCH";
 const UPDATE_OPTION_JOIN_NETWORK = "UPDATE_OPTION_JOIN_NETWORK";
 const VERIFY_NETWORK = "VERIFY_NETWORK";
 const UPDATE_VERIFY_NETWORK = "UPDATE_VERIFY_NETWORK";
+const GET_MY_NETWORK_EVENTS = "GET_MY_NETWORK_EVENTS";
+const GET_ALL_NETWORK_EVENTS = "GET_ALL_NETWORK_EVENTS";
 
 ///REDUCER FUNCTION
 
@@ -54,6 +58,7 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, { networkPassword: action.payload });
     case UPDATE_NETWORK_SEARCH:
       return Object.assign({}, state, { networkSearch: action.payload });
+
     case `${PERFORM_SEARCH}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
     case `${PERFORM_SEARCH}_REJECTED`:
@@ -63,6 +68,8 @@ export default function reducer(state = initialState, action) {
         isLoading: false,
         networkSearchResults: action.payload
       });
+
+
     case UPDATE_VERIFY_NETWORK:
       return Object.assign({}, state, {
         networkVerifyPassword: action.payload
@@ -71,6 +78,27 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, {
         optionJoinNetwork: true
       });
+
+      case `${GET_MY_NETWORK_EVENTS}_PENDING`:
+      return Object.assign({}, state, { isLoading: true });
+    case `${GET_MY_NETWORK_EVENTS}_REJECTED`:
+      return Object.assign({}, state, { isLoading: false, didErr: true });
+    case `${GET_MY_NETWORK_EVENTS}_FULFILLED`:
+      return Object.assign({}, state, {
+        isLoading: false,
+        myNetworkEvents: action.payload
+      });
+
+    case `${GET_ALL_NETWORK_EVENTS}_PENDING`:
+      return Object.assign({}, state, { isLoading: true });
+    case `${GET_ALL_NETWORK_EVENTS}_REJECTED`:
+      return Object.assign({}, state, { isLoading: false, didErr: true });
+    case `${GET_ALL_NETWORK_EVENTS}_FULFILLED`:
+      return Object.assign({}, state, {
+        isLoading: false,
+        allNetworkEvents: action.payload
+      });
+
 
     default:
       return state;
@@ -98,7 +126,7 @@ export function getNetworks() {
   return {
     type: GET_NETWORKS,
     payload: axios
-      .get("http://localhost:3000/api/getNetworks")
+      .get("/api/getNetworks")
       .then(resp => {
         // console.log("getNetworks reducer:", resp.data);
         return resp.data;
@@ -181,7 +209,31 @@ export function verifyNetwork(networkVerifyPassword, networkNameForVerify) {
   };
 }
 
-// '/api/getMyEvents', eCtrl.getMyEvents);
-// app.get('/api/getNetworkEvents'
 
-//.then(response => this.props.history.push("/network-selector")
+//EVENTS
+
+export function getMyNetworkEvents(networkid) {
+    return {
+      type: GET_MY_NETWORK_EVENTS,
+      payload: axios
+        .get(`/api/getMyNetworkEvents/${networkid}`, )
+        .then(resp => {
+          console.log("getMyNetworkEvents reducer:", resp);
+          return resp.data;
+        })
+        .catch(console.log)
+    };
+  }
+
+  export function getAllNetworkEvents(networkid) {
+    return {
+      type: GET_ALL_NETWORK_EVENTS,
+      payload: axios
+        .get(`api/getMyNetworkEvents/${networkid}`)
+        .then(resp => {
+          console.log("getAllNetworkEvents reducer:", resp.data);
+          return resp.data;
+        })
+        .catch(console.log)
+    };
+  }
