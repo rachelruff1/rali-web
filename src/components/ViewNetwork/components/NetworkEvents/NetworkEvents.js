@@ -1,27 +1,37 @@
 import React, { Component } from "react";
-import {connect} from 'react-redux';
-import EventCard from '../EventCard/EventCard';
-import {getAllNetworkEvents} from '../../../../ducks/reducer';
+import { connect } from "react-redux";
+import EventCard from "../EventCard/EventCard";
+import { getAllNetworkEvents } from "../../../../ducks/reducer";
+import { withRouter } from "react-router-dom";
 
 class NetworkEvents extends Component {
+  constructor(props) {
+    super(props);
+  }
   componentDidMount() {
-    this.props.getAllNetworkEvents(this.props.match.params.id);
+    this.props.getAllNetworkEvents(this.props.networkid);
   }
   render() {
-    // const myNetworkEventsMap =
-    //   this.props.myNetworkEvents.length > 0 &&
-    //   this.props.myNetworkEvents.map((c, i) => <EventCard key={i} event={c} />);
+    const { allNetworkEvents } = this.props;
+    const allNetworkEventsMap =
+      allNetworkEvents.length > 0 &&
+      allNetworkEvents.map((c, i) => <EventCard key={i} events={c} />);
     return (
       <div className="network-events container">
         <h3>Network Events</h3>
-        {/* <div>{myNetworkEventsMap}</div> */}
+        <button>Create New Event</button>
+        <div>{allNetworkEventsMap}</div>
       </div>
     );
   }
 }
 
-let mapStateToProps = state => state;
-
-export default connect(mapStateToProps, { getAllNetworkEvents })(
-  NetworkEvents
+let mapStateToProps = state => {
+  const { allNetworkEvents } = state;
+  return {
+    allNetworkEvents
+  };
+};
+export default withRouter(
+  connect(mapStateToProps, { getAllNetworkEvents })(NetworkEvents)
 );

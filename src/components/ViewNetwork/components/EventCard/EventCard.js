@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NetworkCard = props => (
+const EventCard = props => (
   <div className="event-card container">
-    <Link to={`/event/${props.event.eventid}`}>
-      <button>{props.event.name}</button>
+    <Link to={`/event/${props.events.eventid}`}>
+      <button>{props.events.name}</button>
     </Link>
   </div>
 );
 
-export default NetworkCard;
+export default EventCard;

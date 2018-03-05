@@ -13,8 +13,8 @@ const initialState = {
   myEvents: {},
   networkEvents: {},
   optionJoinNetwork: false,
-  myNetworkEvents: {},
-  allNetworkEvents: {}
+  myNetworkEvents: [],
+  allNetworkEvents: []
 };
 
 const GET_USER = "GET_USER";
@@ -128,7 +128,7 @@ export function getNetworks() {
     payload: axios
       .get("/api/getNetworks")
       .then(resp => {
-        // console.log("getNetworks reducer:", resp.data);
+        console.log("getNetworks reducer:", resp.data);
         return resp.data;
       })
       .catch(console.log)
@@ -218,7 +218,7 @@ export function getMyNetworkEvents(networkid) {
       payload: axios
         .get(`/api/getMyNetworkEvents/${networkid}`, )
         .then(resp => {
-          console.log("getMyNetworkEvents reducer:", resp);
+          console.log("getMyNetworkEvents reducer:", resp.data);
           return resp.data;
         })
         .catch(console.log)
@@ -229,9 +229,9 @@ export function getMyNetworkEvents(networkid) {
     return {
       type: GET_ALL_NETWORK_EVENTS,
       payload: axios
-        .get(`api/getMyNetworkEvents/${networkid}`)
+        .get(`api/getAllNetworkEvents/${networkid}`)
         .then(resp => {
-          console.log("getAllNetworkEvents reducer:", resp.data);
+          console.log("getAllNetworkEvents reducer:", resp.data.name);
           return resp.data;
         })
         .catch(console.log)

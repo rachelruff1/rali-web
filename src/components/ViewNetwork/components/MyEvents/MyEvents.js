@@ -1,31 +1,40 @@
 import React, { Component } from "react";
-import EventCard from '../EventCard/EventCard';
-import {getMyNetworkEvents} from '../../../../ducks/reducer';
-import {connect} from 'react-redux';
+import EventCard from "../EventCard/EventCard";
+import { getMyNetworkEvents } from "../../../../ducks/reducer";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 class MyEvents extends Component {
+  constructor(props) {
+    super(props);
+  }
   componentDidMount() {
-    console.log(this.props.match.params.id);
-    this.props.getMyNetworkEvents(this.props.match.params.id);
+    this.props.getMyNetworkEvents(this.props.networkid);
   }
   render() {
-    // const myJoinedEventsMap =
-    //   this.props.myJoinedEvents.length > 0 &&
-    //   this.props.myJoinedEvents.map((c, i) => (
-    //     <EventCard key={i} event={c} />
-    //   ));
+    const {myNetworkEvents} = this.props;
+    const myJoinedEventsMap =
+      myNetworkEvents.length > 0 &&
+      myNetworkEvents.map((c, i) => 
+        <EventCard key={i} events={c} />
+      );
+
     return (
       <div className="My-Events container">
         <h3>My Joined Events</h3>
-        {/* <div>{myJoinedEventsMap}</div> */}
-      
+        <div>{myJoinedEventsMap}</div>
       </div>
     );
   }
 }
 
-let mapStateToProps = state => state;
+let mapStateToProps = state => {
+  const { myNetworkEvents } = state;
+  return {
+    myNetworkEvents
+  };
+};
 
-export default connect(mapStateToProps, { getMyNetworkEvents })(
-  MyEvents
+export default withRouter(
+  connect(mapStateToProps, { getMyNetworkEvents })(MyEvents)
 );

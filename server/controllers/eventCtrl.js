@@ -1,8 +1,8 @@
 const getMyNetworkEvents = (req, res, next) => {
     const db = req.app.get('db')
-    console.log(req.params);
+    // console.log('getMNE CTRL:', req.params.id, req.user.authid);
     db.event
-    .get_my_events([req.params, req.user.authid])
+    .get_my_network_events([req.params.id, req.user.authid])
     .then(events => {
         res.status(200).send(events);
       })
@@ -11,8 +11,9 @@ const getMyNetworkEvents = (req, res, next) => {
 
 const getAllNetworkEvents = (req, res, next) => {
     const db = req.app.get('db')
+    // console.log('getANE CTRL:', req.params.id);
     db.event
-    .get_network_events([req.params])
+    .get_all_network_events([req.params.id])
     .then(events => {
         res.status(200).send(events);
       })
