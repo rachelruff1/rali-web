@@ -20,7 +20,23 @@ const getAllNetworkEvents = (req, res, next) => {
       .catch(() => res.status(500).send())
 }
 
+const createEvent = (req, res, next) => {
+    const db = req.app.get("db");
+    console.log('createEvent reqbody:',req.body);
+    //get the networkid
+    const { networkid, eventName, eventDate, eventTime, eventLocation, eventDescription } = req.body;
+    db.event
+      .add_event([networkid, req.user.id, eventName, eventDate, eventTime, eventLocation, eventDescription])
+      .then(response => {
+        console.log('CE resp:',response[0]);
+        db.event.add_events_users([req.user.id, response[0].eventid]);
+        res.status(200).send(response);
+      })
+      .catch(() => res.status(500).send());
+  };
+
 module.exports = {
     getMyNetworkEvents,
-    getAllNetworkEvents
+    getAllNetworkEvents,
+    createEvent
 }

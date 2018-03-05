@@ -14,7 +14,12 @@ const initialState = {
   networkEvents: {},
   optionJoinNetwork: false,
   myNetworkEvents: [],
-  allNetworkEvents: []
+  allNetworkEvents: [],
+  eventName: "",
+  eventDate: "",
+  eventTime: "",
+  eventLocation: "",
+  eventDescription: ""
 };
 
 const GET_USER = "GET_USER";
@@ -29,6 +34,12 @@ const VERIFY_NETWORK = "VERIFY_NETWORK";
 const UPDATE_VERIFY_NETWORK = "UPDATE_VERIFY_NETWORK";
 const GET_MY_NETWORK_EVENTS = "GET_MY_NETWORK_EVENTS";
 const GET_ALL_NETWORK_EVENTS = "GET_ALL_NETWORK_EVENTS";
+const UPDATE_EVENT_NAME = "UPDATE_EVENT_NAME";
+const UPDATE_EVENT_DATE = "UPDATE_EVENT_DATE";
+const UPDATE_EVENT_TIME = "UPDATE_EVENT_TIME";
+const UPDATE_EVENT_LOCATION = "UPDATE_EVENT_LOCATION";
+const UPDATE_EVENT_DESCRIPTION = "UPDATE_EVENT_DESCRIPTION";
+const CREATE_EVENT = "CREATE-EVENT";
 
 ///REDUCER FUNCTION
 
@@ -69,7 +80,6 @@ export default function reducer(state = initialState, action) {
         networkSearchResults: action.payload
       });
 
-
     case UPDATE_VERIFY_NETWORK:
       return Object.assign({}, state, {
         networkVerifyPassword: action.payload
@@ -79,7 +89,7 @@ export default function reducer(state = initialState, action) {
         optionJoinNetwork: true
       });
 
-      case `${GET_MY_NETWORK_EVENTS}_PENDING`:
+    case `${GET_MY_NETWORK_EVENTS}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
     case `${GET_MY_NETWORK_EVENTS}_REJECTED`:
       return Object.assign({}, state, { isLoading: false, didErr: true });
@@ -99,7 +109,28 @@ export default function reducer(state = initialState, action) {
         allNetworkEvents: action.payload
       });
 
-
+    case UPDATE_EVENT_NAME:
+      return Object.assign({}, state, {
+        eventName: action.payload
+      });
+    case UPDATE_EVENT_DATE:
+      return Object.assign({}, state, {
+        eventDate: action.payload
+      });
+    case UPDATE_EVENT_TIME:
+      return Object.assign({}, state, {
+        eventTime: action.payload
+      });
+    case UPDATE_EVENT_LOCATION:
+      return Object.assign({}, state, {
+        eventLocation: action.payload
+      });
+    case UPDATE_EVENT_DESCRIPTION:
+      return Object.assign({}, state, {
+        eventDescription: action.payload
+      });
+    // case CREATE_EVENT:
+    //   return
     default:
       return state;
   }
@@ -202,38 +233,96 @@ export function verifyNetwork(networkVerifyPassword, networkNameForVerify) {
         `/api/verifyNetwork/?networkVerifyPassword=${networkVerifyPassword}&networkNameForVerify=${networkNameForVerify}`
       )
       .then(resp => {
-        console.log(resp)
+        console.log(resp);
         return resp;
       })
       .catch(console.log)
   };
 }
 
-
 //EVENTS
 
 export function getMyNetworkEvents(networkid) {
-    return {
-      type: GET_MY_NETWORK_EVENTS,
-      payload: axios
-        .get(`/api/getMyNetworkEvents/${networkid}`, )
-        .then(resp => {
-          console.log("getMyNetworkEvents reducer:", resp.data);
-          return resp.data;
-        })
-        .catch(console.log)
-    };
-  }
+  return {
+    type: GET_MY_NETWORK_EVENTS,
+    payload: axios
+      .get(`/api/getMyNetworkEvents/${networkid}`)
+      .then(resp => {
+        console.log("getMyNetworkEvents reducer:", resp.data);
+        return resp.data;
+      })
+      .catch(console.log)
+  };
+}
 
-  export function getAllNetworkEvents(networkid) {
-    return {
-      type: GET_ALL_NETWORK_EVENTS,
-      payload: axios
-        .get(`api/getAllNetworkEvents/${networkid}`)
-        .then(resp => {
-          console.log("getAllNetworkEvents reducer:", resp.data.name);
-          return resp.data;
-        })
-        .catch(console.log)
-    };
-  }
+export function getAllNetworkEvents(networkid) {
+  return {
+    type: GET_ALL_NETWORK_EVENTS,
+    payload: axios
+      .get(`api/getAllNetworkEvents/${networkid}`)
+      .then(resp => {
+        console.log("getAllNetworkEvents reducer:", resp.data.name);
+        return resp.data;
+      })
+      .catch(console.log)
+  };
+}
+
+export function updateEventName(eventName) {
+  return {
+    type: UPDATE_EVENT_NAME,
+    payload: eventName
+  };
+}
+
+export function updateEventDate(eventDate) {
+  return {
+    type: UPDATE_EVENT_DATE,
+    payload: eventDate
+  };
+}
+export function updateEventTime(eventTime) {
+  return {
+    type: UPDATE_EVENT_TIME,
+    payload: eventTime
+  };
+}
+export function updateEventLocation(eventLocation) {
+  return {
+    type: UPDATE_EVENT_LOCATION,
+    payload: eventLocation
+  };
+}
+export function updateEventDescription(eventDescription) {
+  return {
+    type: UPDATE_EVENT_DESCRIPTION,
+    payload: eventDescription
+  };
+}
+
+export function createEvent(
+    networkid,
+  eventName,
+  eventDate,
+  eventTime,
+  eventLocation,
+  eventDescription
+) {
+  return {
+    type: CREATE_EVENT,
+    payload: axios
+      .post("/api/createEvent", {
+          networkid,
+        eventName,
+        eventDate,
+        eventTime,
+        eventLocation,
+        eventDescription
+      })
+      .then(resp => {
+        console.log(resp);
+        return resp.data;
+      })
+      .catch(console.log)
+  };
+}

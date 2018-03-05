@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import EventCard from "../EventCard/EventCard";
 import { getAllNetworkEvents } from "../../../../ducks/reducer";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 class NetworkEvents extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class NetworkEvents extends Component {
     return (
       <div className="network-events container">
         <h3>Network Events</h3>
-        <button>Create New Event</button>
+       <Link to={`/network/${this.props.networkid}/create-event/`}> <button>Create New Event</button></Link>
         <div>{allNetworkEventsMap}</div>
       </div>
     );

@@ -102,5 +102,6 @@ app.get("/api/verifyNetwork", nCtrl.verifyNetwork);;
 
 app.get("/api/getMyNetworkEvents/:id", eCtrl.getMyNetworkEvents);
 app.get("/api/getAllNetworkEvents/:id", eCtrl.getAllNetworkEvents);
+app.post('/api/createEvent', eCtrl.createEvent);
 
 app.listen(port, console.log(`Listening on port ${port}`));
