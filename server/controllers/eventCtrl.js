@@ -22,7 +22,7 @@ const getAllNetworkEvents = (req, res, next) => {
 
 const createEvent = (req, res, next) => {
   const db = req.app.get("db");
-  console.log("createEvent reqbody:", req.body);
+  // console.log("createEvent reqbody:", req.body);
   //get the networkid
   const {
     networkid,
@@ -53,7 +53,7 @@ const createEvent = (req, res, next) => {
 const getEvent = (req, res, next) => {
   const db = req.app.get("db");
 
-  console.log(req.params);
+  console.log('get:',req.params);
   const { id } = req.params;
   db.event
     .get_event([id, req.user.id])
@@ -63,7 +63,7 @@ const getEvent = (req, res, next) => {
 
 const adminDeleteEvent = (req, res, next) => {
     const db = req.app.get('db');
-    console.log(req.params.id);
+    // console.log(req.params.id);
     db.event
         .admin_delete_event([req.params.id])
         .then(res.status(200).send())
@@ -72,8 +72,8 @@ const adminDeleteEvent = (req, res, next) => {
 
 const editEvent = (req, res, next) => {
   const db = req.app.get('db');
-  const {id, name, date, time, location, description} = req.params;
-  console.log(req.params.id, 'params:',req.params);
+  const {id, name, date, time, location, description} = req.body.eventDetail;
+  console.log('req.body edit:', req.body);
   db.event
     .edit_event([id, name, date, time, location, description ])
     .then(res.status(200).send())

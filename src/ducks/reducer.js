@@ -341,7 +341,7 @@ export function createEvent(
 }
 
 export function getEvent(eventid) {
-  // console.log('hit reducer:', eventid)
+  console.log('hit getevent reducer:', eventid)
   return {
     type: GET_EVENT,
     payload: axios
@@ -364,12 +364,14 @@ export function adminDeleteEvent(eventid) {
     }
 }
 
-export function editEvent(eventDetail){
-  console.log('hit', eventDetail);
+export function editEvent(eventDetail
+){
+  console.log('hit edit', eventDetail);
+  //eventid, name, date, time, location, description
   return {
     type: EDIT_EVENT,
     payload: axios
-    .put(`/api/editEvent/${eventDetail.eventid}`, eventDetail)
+    .put('/api/editEvent/', {eventDetail})
     .then(resp=>resp.data)
     .catch(console.log)
   }

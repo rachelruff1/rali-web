@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   getEvent,
@@ -6,7 +6,7 @@ import {
   editEvent
 } from "../../../../ducks/reducer";
 import { withRouter, Link } from "react-router-dom";
-import EditEvent from './EditEvent/EditEvent';
+import EditEvent from "./EditEvent/EditEvent";
 
 class ExpandEvent extends Component {
   constructor(props) {
@@ -38,9 +38,9 @@ class ExpandEvent extends Component {
     e.preventDefault();
     this.props.editEvent(this.state.eventDetail);
   }
-
+  //this.state.eventDetail.eventid, this.state.eventDetail.name, this.state.eventDetail.date, this.state.eventDetail.time, this.state.eventDetail.location, this.state.eventDetail.description
   componentWillReceiveProps(nextProps) {
-    if (this.props.eventDetail.eventid != nextProps.eventDetail.eventid) {
+    if (this.props.eventDetail.eventid !== nextProps.eventDetail.eventid) {
       this.setState({ eventDetail: nextProps.eventDetail });
     }
   }
@@ -68,6 +68,7 @@ class ExpandEvent extends Component {
           description={this.state.eventDetail.description}
           onSave={this.saveEventDetail}
           onChange={this.updateEventDetailState}
+          toggle={this.toggleEdit}
         />
       </div>
     ) : (
@@ -92,7 +93,6 @@ class ExpandEvent extends Component {
     );
   }
 }
-
 
 function mapStateToProps(state) {
   return {
