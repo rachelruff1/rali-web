@@ -98,10 +98,12 @@ app.get("/api/logout", uCtrl.logout);
 app.get("/api/getNetworks", nCtrl.getNetworks);
 app.post("/api/createNetwork", nCtrl.createNetwork);
 app.get("/api/performSearch", nCtrl.performSearch);
-app.get("/api/verifyNetwork", nCtrl.verifyNetwork);;
+app.get("/api/verifyNetwork", nCtrl.verifyNetwork);
 
 app.get("/api/getMyNetworkEvents/:id", eCtrl.getMyNetworkEvents);
 app.get("/api/getAllNetworkEvents/:id", eCtrl.getAllNetworkEvents);
-app.post('/api/createEvent', eCtrl.createEvent);
+app.post("/api/createEvent", eCtrl.createEvent);
+app.get("/api/getEvent/:id", eCtrl.getEvent);
+app.delete('/api/adminDeleteEvent/:id', eCtrl.adminDeleteEvent);
 
 app.listen(port, console.log(`Listening on port ${port}`));

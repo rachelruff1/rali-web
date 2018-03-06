@@ -19,7 +19,8 @@ const initialState = {
   eventDate: "",
   eventTime: "",
   eventLocation: "",
-  eventDescription: ""
+  eventDescription: "",
+  eventDetail: {}
 };
 
 const GET_USER = "GET_USER";
@@ -40,6 +41,8 @@ const UPDATE_EVENT_TIME = "UPDATE_EVENT_TIME";
 const UPDATE_EVENT_LOCATION = "UPDATE_EVENT_LOCATION";
 const UPDATE_EVENT_DESCRIPTION = "UPDATE_EVENT_DESCRIPTION";
 const CREATE_EVENT = "CREATE-EVENT";
+const GET_EVENT = "GET_EVENT";
+const ADMIN_DELETE_EVENT = 'ADMIN_DELETE_EVENT';
 
 ///REDUCER FUNCTION
 
@@ -129,8 +132,17 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, {
         eventDescription: action.payload
       });
-    // case CREATE_EVENT:
-    //   return
+
+    case `${GET_EVENT}_PENDING`:
+      return Object.assign({}, state, { isLoading: true });
+    case `${GET_EVENT}_REJECTED`:
+      return Object.assign({}, state, { isLoading: false, didErr: true });
+    case `${GET_EVENT}_FULFILLED`:
+      return Object.assign({}, state, {
+        isLoading: false,
+        eventDetail: action.payload[0]
+      });
+
     default:
       return state;
   }
@@ -159,7 +171,7 @@ export function getNetworks() {
     payload: axios
       .get("/api/getNetworks")
       .then(resp => {
-        console.log("getNetworks reducer:", resp.data);
+        // console.log("getNetworks reducer:", resp.data);
         return resp.data;
       })
       .catch(console.log)
@@ -248,7 +260,7 @@ export function getMyNetworkEvents(networkid) {
     payload: axios
       .get(`/api/getMyNetworkEvents/${networkid}`)
       .then(resp => {
-        console.log("getMyNetworkEvents reducer:", resp.data);
+        // console.log("getMyNetworkEvents reducer:", resp.data);
         return resp.data;
       })
       .catch(console.log)
@@ -261,7 +273,7 @@ export function getAllNetworkEvents(networkid) {
     payload: axios
       .get(`api/getAllNetworkEvents/${networkid}`)
       .then(resp => {
-        console.log("getAllNetworkEvents reducer:", resp.data.name);
+        // console.log("getAllNetworkEvents reducer:", resp.data.name);
         return resp.data;
       })
       .catch(console.log)
@@ -301,7 +313,7 @@ export function updateEventDescription(eventDescription) {
 }
 
 export function createEvent(
-    networkid,
+  networkid,
   eventName,
   eventDate,
   eventTime,
@@ -312,7 +324,7 @@ export function createEvent(
     type: CREATE_EVENT,
     payload: axios
       .post("/api/createEvent", {
-          networkid,
+        networkid,
         eventName,
         eventDate,
         eventTime,
@@ -325,4 +337,28 @@ export function createEvent(
       })
       .catch(console.log)
   };
+}
+
+export function getEvent(eventid) {
+  // console.log('hit reducer:', eventid)
+  return {
+    type: GET_EVENT,
+    payload: axios
+      .get(`/api/getEvent/${eventid}`)
+      .then(resp => {
+        console.log(resp.data[0]);
+        return resp.data;
+      })
+      .catch(console.log)
+  };
+}
+
+export function adminDeleteEvent(eventid) {
+    return {
+        type: ADMIN_DELETE_EVENT,
+        payload: axios
+        .delete(`/api/adminDeleteEvent/${eventid}`)
+        .then(resp => resp.data)
+        .catch(console.log)
+    }
 }

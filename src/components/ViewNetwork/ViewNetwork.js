@@ -8,7 +8,7 @@ class ViewNetwork extends Component {
     super(props);
   }
   render(){
-    console.log(this.props);
+    // console.log(this.props);
     const networkid= this.props.match.params.id;
     
   return (

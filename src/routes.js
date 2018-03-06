@@ -16,7 +16,7 @@ export default (
     <Route path="/search-networks" component={SearchNetwork} />
     <Route exact path="/network/:id" component={ViewNetwork} />
     <Route path="/network/:id/create-event/" component={CreateEvent} />
-    <Route path="/network/event/:id" component={ExpandEvent} />
+    <Route path="/network/:netId/event/:evId" component={ExpandEvent} />
 
   </Switch>
 );

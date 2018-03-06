@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getUser, getNetworks } from "../../ducks/reducer";
 import Header from "../Header/Header";
 import NetworkCard from "./components/NetworkCard/NetworkCard";
+import AppHeader from '../Header/AppHeader/AppHeader';
 
 class NetworkSelector extends Component {
   componentDidMount() {
@@ -11,13 +12,13 @@ class NetworkSelector extends Component {
     this.props.getUser();
   }
   render() {
-      // console.log(this.props.networks);
+      console.log(this.props.user);
     const networksMap =
       this.props.networks.length>0 &&
       this.props.networks.map((c, i) => <NetworkCard key={i} network={c} />);
     return (
       <div>
-        <Header />
+        <AppHeader />
 
         <div>
           <h1>
