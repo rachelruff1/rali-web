@@ -43,6 +43,7 @@ const UPDATE_EVENT_DESCRIPTION = "UPDATE_EVENT_DESCRIPTION";
 const CREATE_EVENT = "CREATE-EVENT";
 const GET_EVENT = "GET_EVENT";
 const ADMIN_DELETE_EVENT = 'ADMIN_DELETE_EVENT';
+const EDIT_EVENT = 'EDIT_EVENT';
 
 ///REDUCER FUNCTION
 
@@ -361,4 +362,15 @@ export function adminDeleteEvent(eventid) {
         .then(resp => resp.data)
         .catch(console.log)
     }
+}
+
+export function editEvent(eventDetail){
+  console.log('hit', eventDetail);
+  return {
+    type: EDIT_EVENT,
+    payload: axios
+    .put(`/api/editEvent/${eventDetail.eventid}`, eventDetail)
+    .then(resp=>resp.data)
+    .catch(console.log)
+  }
 }

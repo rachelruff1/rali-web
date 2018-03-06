@@ -105,5 +105,6 @@ app.get("/api/getAllNetworkEvents/:id", eCtrl.getAllNetworkEvents);
 app.post("/api/createEvent", eCtrl.createEvent);
 app.get("/api/getEvent/:id", eCtrl.getEvent);
 app.delete('/api/adminDeleteEvent/:id', eCtrl.adminDeleteEvent);
+app.put('/api/editEvent/:id', eCtrl.editEvent);
 
 app.listen(port, console.log(`Listening on port ${port}`));

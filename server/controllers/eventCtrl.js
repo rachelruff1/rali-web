@@ -69,10 +69,23 @@ const adminDeleteEvent = (req, res, next) => {
         .then(res.status(200).send())
         .catch(() =>res.status(500).send())
 }
+
+const editEvent = (req, res, next) => {
+  const db = req.app.get('db');
+  const {id, name, date, time, location, description} = req.params;
+  console.log(req.params.id, 'params:',req.params);
+  db.event
+    .edit_event([id, name, date, time, location, description ])
+    .then(res.status(200).send())
+    .catch(() => res.status(500).send())
+}
+
+
 module.exports = {
   getMyNetworkEvents,
   getAllNetworkEvents,
   createEvent,
   getEvent,
-  adminDeleteEvent
+  adminDeleteEvent,
+  editEvent
 };

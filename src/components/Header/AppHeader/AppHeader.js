@@ -5,9 +5,10 @@ import "./AppHeader.css";
 export default function AppHeader() {
   return (
     <header className="ahp-header">
-      <img className="logo" src={logo} alt="logo" />
+      
 
       <div className="navbar">
+      <img className="logo" src={logo} alt="logo" />
         <div className="dropdown">
           <button>
             <div className='hamburger-menu'/>
@@ -15,6 +16,7 @@ export default function AppHeader() {
             <div className='hamburger-menu'/>
           </button>
           <div className="dropdown-content">
+          <a href="/network-selector">Home</a>
             <a href="/profile">Edit Profile</a>
             <a href="/manage-networks">Manage Networks</a>
           </div>

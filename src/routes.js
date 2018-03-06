@@ -7,10 +7,14 @@ import CreateNetwork from "./components/NetworkSelecter/components/CreateNetwork
 import SearchNetwork from "./components/NetworkSelecter/components/SearchNetwork/SearchNetwork";
 import ExpandEvent from "./components/ViewNetwork/components/ExpandEvent/ExpandEvent";
 import CreateEvent from "./components/ViewNetwork/components/CreateEvent/CreateEvent";
+import Profile from "./components/Header/Profile/Profile";
+import ManageNetworks from "./components/Header/ManageNetworks/ManageNetworks";
 
 export default (
   <Switch>
     <Route exact path="/" component={HomePage} />
+    <Route path='/profile' component={Profile} />
+    <Route path='/manage-networks' component={ManageNetworks} />
     <Route path="/network-selector" component={NetworkSelector} />
     <Route path="/create-network" component={CreateNetwork} />
     <Route path="/search-networks" component={SearchNetwork} />

@@ -1,15 +1,48 @@
-import React, { Component } from "react";
+import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
-import { getEvent, adminDeleteEvent } from "../../../../ducks/reducer";
+import {
+  getEvent,
+  adminDeleteEvent,
+  editEvent
+} from "../../../../ducks/reducer";
 import { withRouter, Link } from "react-router-dom";
+import EditEvent from './EditEvent/EditEvent';
 
 class ExpandEvent extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isEditing: false,
+      eventDetail: this.props.eventDetail
+    };
+    this.toggleEdit = this.toggleEdit.bind(this);
+    this.updateEventDetailState = this.updateEventDetailState.bind(this);
+    this.saveEventDetail = this.saveEventDetail.bind(this);
   }
 
   componentDidMount() {
     this.props.getEvent(this.props.match.params.evId);
+  }
+
+  toggleEdit() {
+    this.setState({ isEditing: !this.state.isEditing });
+  }
+
+  updateEventDetailState(e) {
+    const field = e.target.name;
+    const eventDetail = this.state.eventDetail;
+    eventDetail[field] = e.target.value;
+    return this.setState({ eventDetail: eventDetail });
+  }
+  saveEventDetail(e) {
+    e.preventDefault();
+    this.props.editEvent(this.state.eventDetail);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.eventDetail.eventid != nextProps.eventDetail.eventid) {
+      this.setState({ eventDetail: nextProps.eventDetail });
+    }
   }
 
   render() {
@@ -22,9 +55,22 @@ class ExpandEvent extends Component {
       userid,
       eventid
     } = this.props.eventDetail;
-    console.log("this.props:", this.props);
+    console.log("this", this);
 
-    return (
+    return this.state.isEditing ? (
+      <div>
+        <h1>Edit Event</h1>
+        <EditEvent
+          name={this.state.eventDetail.name}
+          date={this.state.eventDetail.date}
+          time={this.state.eventDetail.time}
+          location={this.state.eventDetail.location}
+          description={this.state.eventDetail.description}
+          onSave={this.saveEventDetail}
+          onChange={this.updateEventDetailState}
+        />
+      </div>
+    ) : (
       <div>
         <Link to={`/network/${this.props.match.params.netId}`}>
           <button>Back</button>
@@ -37,16 +83,16 @@ class ExpandEvent extends Component {
         <div>
           {creatorid === userid ? (
             <div>
-              <button>Edit</button>
-              <button onClick={()=>adminDeleteEvent(eventid)}>Delete</button>
+              <button onClick={this.toggleEdit}>Edit</button>
+              <button onClick={() => adminDeleteEvent(eventid)}>Delete</button>
             </div>
           ) : null}
         </div>
-        {/* <p>Attendees: </p> */}
       </div>
     );
   }
 }
+
 
 function mapStateToProps(state) {
   return {
@@ -54,4 +100,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default withRouter(connect(mapStateToProps, { getEvent, adminDeleteEvent })(ExpandEvent));
+export default withRouter(
+  connect(mapStateToProps, { getEvent, adminDeleteEvent, editEvent })(
+    ExpandEvent
+  )
+);

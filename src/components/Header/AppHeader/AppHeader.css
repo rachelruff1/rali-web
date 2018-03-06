@@ -1,6 +1,6 @@
 .navbar {
     overflow: hidden;
-    background-color: #333;
+    background-color: rgb(230, 202, 202);
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -14,7 +14,7 @@
 }
 
 .dropdown {
-    float: left;
+    float: right;
     overflow: hidden;
 }
 
