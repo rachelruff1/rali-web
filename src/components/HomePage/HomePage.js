@@ -8,7 +8,7 @@ export default class HomePage extends Component {
     return (
       <div className="hp-container">
         <div className="header-box">
-          <Header />
+          {/* <Header /> */}
         </div>
         <div className="hp-page-container">
           <div className="hp-img-container">

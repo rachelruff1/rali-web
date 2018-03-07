@@ -24,6 +24,7 @@ const initialState = {
 };
 
 const GET_USER = "GET_USER";
+const EDIT_USER = 'EDIT_USER';
 const GET_NETWORKS = "GET_NETWORKS";
 const UPDATE_NETWORK_NAME = "UPDATE_NETWORK_NAME ";
 const UPDATE_NETWORK_PASSWORD = "UPDATE_NETWORK_PASSWORD";
@@ -45,6 +46,7 @@ const GET_EVENT = "GET_EVENT";
 const ADMIN_DELETE_EVENT = 'ADMIN_DELETE_EVENT';
 const EDIT_EVENT = 'EDIT_EVENT';
 
+
 ///REDUCER FUNCTION
 
 export default function reducer(state = initialState, action) {
@@ -58,6 +60,10 @@ export default function reducer(state = initialState, action) {
         isLoading: false,
         user: action.payload
       });
+    // case EDIT_USER:
+    //   return Object.assign({}, state, {user: action.payload})
+    
+
     case `${GET_NETWORKS}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
     case `${GET_NETWORKS}_REJECTED`:
@@ -162,6 +168,19 @@ export function getUser() {
       })
       .catch(console.log)
   };
+}
+
+export function editUser(user
+){
+  console.log('hit edit', user);
+  //eventid, name, date, time, location, description
+  return {
+    type: EDIT_USER,
+    payload: axios
+    .put('/api/editUser/', {user})
+    .then(resp=>resp.data)
+    .catch(console.log)
+  }
 }
 
 ///NETWORK ACTIONS

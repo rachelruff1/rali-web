@@ -16,6 +16,15 @@ const getUser = (req, res, next) => {
     .catch(() => res.status(500).send());
 };
 
+const editUser = (req, res, next) => {
+  const db = req.app.get('db');
+  const {firstname, lastname, cell, email, picture} = req.body.user;
+  db.user
+  .edit_user([req.user.authid, firstname, lastname, email, cell, picture])
+  .then(res.status(200).send())
+  .catch(()=>res.status(500).send())
+}
+
 const logout = (req, res) => {
   req.session.destroy(() => {
     res.redirect("http://localhost:3000/#/");
@@ -25,5 +34,6 @@ const logout = (req, res) => {
 module.exports = {
   login,
   getUser,
-  logout
+  logout,
+  editUser
 };

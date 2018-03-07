@@ -94,6 +94,7 @@ passport.deserializeUser((user, done) => {
 app.get("/login", uCtrl.login);
 app.get("/api/getUser", uCtrl.getUser);
 app.get("/api/logout", uCtrl.logout);
+app.put('/api/editUser', uCtrl.editUser);
 
 app.get("/api/getNetworks", nCtrl.getNetworks);
 app.post("/api/createNetwork", nCtrl.createNetwork);

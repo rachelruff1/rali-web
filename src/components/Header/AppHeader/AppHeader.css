@@ -4,7 +4,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.navbar a {
+.navbar p {
     float: left;
     font-size: 16px;
     color: white;
@@ -29,7 +29,7 @@
     margin: 0;
 }
 
-.navbar a:hover, .dropdown:hover .dropbtn {
+.navbar p:hover, .dropdown:hover .dropbtn {
     background-color: red;
 }
 
@@ -42,8 +42,8 @@
     z-index: 1;
 }
 
-.dropdown-content a {
-    float: none;
+.dropdown-content p {
+    /* float: none; */
     color: black;
     padding: 12px 16px;
     text-decoration: none;
@@ -51,7 +51,7 @@
     text-align: left;
 }
 
-.dropdown-content a:hover {
+.dropdown-content p:hover {
     background-color: #ddd;
 }
 

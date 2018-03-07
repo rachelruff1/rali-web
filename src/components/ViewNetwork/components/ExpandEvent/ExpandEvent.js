@@ -38,7 +38,7 @@ class ExpandEvent extends Component {
     e.preventDefault();
     this.props.editEvent(this.state.eventDetail);
   }
-  //this.state.eventDetail.eventid, this.state.eventDetail.name, this.state.eventDetail.date, this.state.eventDetail.time, this.state.eventDetail.location, this.state.eventDetail.description
+  
   componentWillReceiveProps(nextProps) {
     if (this.props.eventDetail.eventid !== nextProps.eventDetail.eventid) {
       this.setState({ eventDetail: nextProps.eventDetail });
