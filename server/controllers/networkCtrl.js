@@ -78,10 +78,20 @@ const verifyNetwork = (req, res, next) => {
     .catch(() => res.status(500).send());
 };
 
+const leaveNetwork = (req, res, next) =>{
+  const db = req.app.get('db');
+  console.log(req.params);
+  db.network
+    .leave_network([req.params.userid, req.params.networkid])
+    .then(()=>res.status(200).send())
+    .catch(()=>res.status(500).catch())
+}
+
 module.exports = {
   getNetworks,
   createNetwork,
   performSearch,
-  verifyNetwork
+  verifyNetwork,
+  leaveNetwork
 };
 //[req.user.authid]

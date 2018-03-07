@@ -100,6 +100,7 @@ app.get("/api/getNetworks", nCtrl.getNetworks);
 app.post("/api/createNetwork", nCtrl.createNetwork);
 app.get("/api/performSearch", nCtrl.performSearch);
 app.get("/api/verifyNetwork", nCtrl.verifyNetwork);
+app.delete('/api/leaveNetwork/:userid/:networkid', nCtrl.leaveNetwork);
 
 app.get("/api/getMyNetworkEvents/:id", eCtrl.getMyNetworkEvents);
 app.get("/api/getAllNetworkEvents/:id", eCtrl.getAllNetworkEvents);

@@ -45,6 +45,7 @@ const CREATE_EVENT = "CREATE-EVENT";
 const GET_EVENT = "GET_EVENT";
 const ADMIN_DELETE_EVENT = 'ADMIN_DELETE_EVENT';
 const EDIT_EVENT = 'EDIT_EVENT';
+const LEAVE_NETWORK = LEAVE_NETWORK;
 
 
 ///REDUCER FUNCTION
@@ -270,6 +271,17 @@ export function verifyNetwork(networkVerifyPassword, networkNameForVerify) {
       })
       .catch(console.log)
   };
+}
+
+export function leaveNetwork(userid, networkid){
+  (console.log(userid, networkid))
+  return {
+    type: LEAVE_NETWORK,
+    payload: axios
+      .delete(`/api/leaveNetwork/${userid}/${networkid}`)
+      .then(res=>res.data)
+      .catch(console.log)
+  }
 }
 
 //EVENTS
