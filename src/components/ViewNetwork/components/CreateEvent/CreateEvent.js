@@ -67,6 +67,7 @@ class NewEvent extends Component {
               eventLocation,
               eventDescription
             )
+            .then(response => this.props.history.push(`/network/${networkid}`))
             // .then(response => this.props.history.push(`/network/${networkid}`))
           }
         >

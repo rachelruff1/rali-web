@@ -1,37 +1,53 @@
-/* .hp-container {
-   background: black;
-    } */
-
-.hp-img-container {
-  width: 50%;
-}
-.mainPic {
-    width: 90%; 
-   padding-left: 70px;
-}
 .hp-page-container {
-    display: flex;
-    height: 100%;
-    padding-top: 100px;
+    background: 
+
+    /* linear-gradient(
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2)
+    ), */
+    url(park.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    
+    /* opacity: .9; */
+
 }
 .hp-content-container {
-  text-align: center;
-  margin: auto;
+  text-align: center; 
+  height: 300px; 
 }
 
-.hp-text {
+.hp-content-container p {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 400%;
+    font-size: 230%;
+    color: white;
+    /* opacity: .9; */
+    margin-top: 0px;
+    /* font-weight: bold; */
+    margin-top: 10px;
 }
-
+.hp-content-container img {
+    background-color: white;
+    opacity: 0.9;
+    margin-top: 90px;
+    height: 270px;
+    width: 270px;
+}
 .hp-content-container button {
     font-size: 110%;
     cursor: pointer;
     padding: 10px 25px;
     border-radius: 10px;
     border: 2px solid white;
-    background-color: rgb(42, 32, 177);
-
+    background-color: rgb(131, 55, 78);
     color: white;
     
+}
+
+.hp-content-container button:hover {
+    opacity: .9;
 }

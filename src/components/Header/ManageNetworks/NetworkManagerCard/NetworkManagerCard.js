@@ -12,7 +12,7 @@ class NetworkManagerCard extends Component {
     return this.props.network.creatorid === this.props.network.userid ? (
       <div>
         <button>{this.props.network.name}</button>
-        <button>Edit</button>
+        <Link to={`/edit-network/${this.props.network.networkid}`} network={this.props.network}><button>Edit</button></Link>
         <button>Delete</button>
       </div>
     ) : (

@@ -51,7 +51,8 @@ class EditProfile extends Component {
             disabled={this.props.saving}
             value={this.props.saving ? "Saving..." : "Save"}
             className="btn btn-primary"
-            onClick={this.props.onSave} />
+            onClick={this.props.onSave}
+            />
         </form>
         <button onClick={this.props.toggle}>Back</button>
       </div>

@@ -45,7 +45,8 @@ const CREATE_EVENT = "CREATE-EVENT";
 const GET_EVENT = "GET_EVENT";
 const ADMIN_DELETE_EVENT = 'ADMIN_DELETE_EVENT';
 const EDIT_EVENT = 'EDIT_EVENT';
-const LEAVE_NETWORK = LEAVE_NETWORK;
+const LEAVE_NETWORK = "LEAVE_NETWORK";
+const EDIT_NETWORK = 'EDIT_NETWORK';
 
 
 ///REDUCER FUNCTION
@@ -199,6 +200,14 @@ export function getNetworks() {
   };
 }
 
+// export function getNetwork(networkid) {
+//   return {
+//     type: GET_NETWORK,
+//     payload: axios
+//       .get('api/getNetwork, {networkid}')
+//   }
+// }
+
 export function updateNetworkName(networkName) {
   return {
     type: UPDATE_NETWORK_NAME,
@@ -280,6 +289,16 @@ export function leaveNetwork(userid, networkid){
     payload: axios
       .delete(`/api/leaveNetwork/${userid}/${networkid}`)
       .then(res=>res.data)
+      .catch(console.log)
+  }
+}
+
+export function editNetwork(network){
+  return {
+    type: EDIT_NETWORK,
+    payload: axios
+      .put('/api/editNetwork', {network})
+      .then(resp => resp.data)
       .catch(console.log)
   }
 }

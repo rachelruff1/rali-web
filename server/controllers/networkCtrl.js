@@ -87,11 +87,21 @@ const leaveNetwork = (req, res, next) =>{
     .catch(()=>res.status(500).catch())
 }
 
+const editNetwork = (req, res, next) => {
+  const db = req.app.get('db');
+  console.log('editNetwork ctrl:',req.body)
+  db.network
+    .edit_network([network.networkid, network.name, network.password])
+    .then(()=>res.status(200).send())
+    .catch(() => res.status(500).catch())
+}
+
 module.exports = {
   getNetworks,
   createNetwork,
   performSearch,
   verifyNetwork,
-  leaveNetwork
+  leaveNetwork,
+  editNetwork
 };
 //[req.user.authid]

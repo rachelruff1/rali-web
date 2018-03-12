@@ -9,6 +9,7 @@ import ExpandEvent from "./components/ViewNetwork/components/ExpandEvent/ExpandE
 import CreateEvent from "./components/ViewNetwork/components/CreateEvent/CreateEvent";
 import Profile from "./components/Header/Profile/Profile";
 import ManageNetworks from "./components/Header/ManageNetworks/ManageNetworks";
+import EditNetwork from "./components/Header/ManageNetworks/EditNetwork/EditNetwork";
 
 export default (
   <Switch>
@@ -21,6 +22,7 @@ export default (
     <Route exact path="/network/:id" component={ViewNetwork} />
     <Route path="/network/:id/create-event/" component={CreateEvent} />
     <Route path="/network/:netId/event/:evId" component={ExpandEvent} />
+    <Route path='/edit-network/:id' component={EditNetwork}/>
 
   </Switch>
 );
