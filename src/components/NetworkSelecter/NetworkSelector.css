@@ -25,3 +25,20 @@ width: 100%;
     color: white;
     font-family: 'Roboto', sans-serif;
 }
+  
+  .network-card {
+    background-color: rgba(194, 149, 149, 0.781);
+    height: 55px;
+    cursor: pointer;
+    width: 70%;
+    margin-left: 15%;
+  }
+  
+  .network-card p {
+    padding-top: 2.1%;
+    font-size: 180%;
+    color: rgb(39, 39, 39);
+    text-align: left;
+    margin-left: 30px;
+  }
+  

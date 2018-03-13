@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getUser, editUser } from "../../../ducks/reducer";
 import EditProfile from "./EditProfile/EditProfile";
+import Header from '../../Header/AppHeader/AppHeader';
+import './Profile.css';
+
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +45,8 @@ class Profile extends Component {
     console.log(this.props);
     const { firstname, lastname, email, cell, picture } = this.props.user;
     return this.state.isEditing ? (
-      <div>
+      <div className='edit-profile-container'>
+        <Header/>
         <h1>Edit Profile</h1>
         <EditProfile
           firstname={this.state.user.firstname}
@@ -56,11 +60,12 @@ class Profile extends Component {
         />
       </div>
     ) : (
-      <div>
+      <div className='profile-display'>
+        <Header/>
         <h1>{`${firstname} ${lastname}`}</h1>
         <p>Email: {email}</p>
         <p>Cell: {cell}</p>
-        <p>Profile Picture: {picture}</p>
+        {/* <p>Profile Picture: {picture}</p> */}
         <div>
           <button onClick={this.toggleEdit}>Edit</button>
         </div>

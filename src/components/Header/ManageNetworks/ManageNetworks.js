@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getNetworks } from "../../../ducks/reducer";
 import NetworkManagerCard from './NetworkManagerCard/NetworkManagerCard';
+import Header from '../../Header/AppHeader/AppHeader';
+import './ManageNetworks.css';
 
 class ManageNetworks extends Component {
   constructor(props) {
@@ -17,7 +19,10 @@ class ManageNetworks extends Component {
 
     console.log(this.props);
     return (<div>
+      <Header/>
+      <div className='manage-networks-map'>
         {manageNetworksMap}
+        </div>
     </div>)
   }
 }

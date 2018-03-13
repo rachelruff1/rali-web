@@ -7,7 +7,9 @@ import Header from '../../../Header/AppHeader/AppHeader';
 import { updateNetworkSearch, performSearch } from "../../../../ducks/reducer";
 
 class SearchNetwork extends Component {
-    
+  // componentDidMount(){
+  //       setState({searchResults : []});
+  //   }  
   render() {
     const { updateNetworkSearch, performSearch, networkSearch, networkSearchResults } = this.props;
     // console.log(networkSearchResults);

@@ -1,7 +1,6 @@
 import React from "react";
-import "./NetworkCard.css";
 import { Link } from "react-router-dom";
-import './NetworkCard.css';
+import '../../NetworkSelector.css';
 
 const NetworkCard = props => (
   

@@ -1,0 +1,43 @@
+.profile-display {
+  text-align: center;
+}
+
+.edit-profile {
+  height: 20px;
+  text-align: center;
+  /* display: flex; */
+}
+
+.edit-profile-input input {
+  margin: 10px;
+  height: 20px;
+}
+.edit-profile-container {
+  text-align: center;
+}
+
+.edit-profile button {
+  text-align: center;
+  font-size: 90%;
+  cursor: pointer;
+  padding: 6px 10px;
+  width: 90px;
+  border-radius: 10px;
+  border: 2px solid white;
+  background-color: rgb(131, 55, 78);
+  color: white;
+  font-family: "Roboto", sans-serif;
+}
+
+.profile-display button {
+  text-align: center;
+  font-size: 90%;
+  cursor: pointer;
+  padding: 6px 10px;
+  width: 90px;
+  border-radius: 10px;
+  border: 2px solid white;
+  background-color: rgb(131, 55, 78);
+  color: white;
+  font-family: "Roboto", sans-serif;
+}

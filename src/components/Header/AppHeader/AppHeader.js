@@ -1,11 +1,51 @@
 import React from "react";
 import logo from "../logo.png";
-import "./AppHeader.css";
+import "./Header.css";
 import { Link } from "react-router-dom";
 
 export default function AppHeader() {
   return (
-    <header className="ahp-header">
+    <header className="app-header">
+      <div className="navbar">
+        <img className="logo" src={logo} alt="logo" />
+        <Link to="/profile">
+          <p>Edit Profile</p>
+        </Link>
+        <Link to="/manage-networks">
+          {" "}
+          <p>Manage Networks</p>
+        </Link>
+        <Link to="/network-selector">
+          <p>Home</p>
+        </Link>
+      </div>
+    </header>
+  );
+}
+
+{
+  /* <header className="ahp-header">
+<div className="navbar">
+  <img className="logo" src={logo} alt="logo" />
+  <ul className="navbar-content">
+      <Link to="/network-selector">
+        <li>Home</li>
+      </Link>
+      <Link to="/profile">
+        <li>Edit Profile</li>
+      </Link>
+      <Link to="/manage-networks">
+        {" "}
+        <li>Manage Networks</li>
+      </Link>
+    </ul>
+  
+</div>
+</header> */
+}
+
+{
+  /* <header className="ahp-header">
       <div className="navbar">
         <img className="logo" src={logo} alt="logo" />
         <div className="dropdown">
@@ -28,6 +68,5 @@ export default function AppHeader() {
           </div>
         </div>
       </div>
-    </header>
-  );
+    </header> */
 }

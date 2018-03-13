@@ -65,3 +65,37 @@
     background-color: black;
     margin: 6px 0;
 }
+
+.hamburger-container {
+    padding-right: 10px;
+    background-color: black;
+}
+
+
+
+/* .navbar {
+    overflow: hidden;
+    background-color: rgb(230, 202, 202);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  
+  .navbar-content {
+    float: right;
+  }
+  
+  .navbar-content {
+      /* margin: 0;
+      padding: 0;
+      overflow: hidden; */
+      /* background-color: #333; */
+  }
+  
+  .navbar-content li {
+     
+          display: inline-block;
+          color: white;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+  } */

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import Header from "../Header/Header";
 import mainPic from "./eating-pic.jpg";
 import logo from "../Header/logo.png";
 import "./HomePage.css";
 
 export default class HomePage extends Component {
   render() {
+    console.log(this)
     return (
       <div className="hp-container">
         <div className="hp-page-container">
