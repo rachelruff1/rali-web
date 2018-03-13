@@ -7,6 +7,7 @@ import {
 } from "../../../../ducks/reducer";
 import { withRouter, Link } from "react-router-dom";
 import EditEvent from "./EditEvent/EditEvent";
+import Header from '../../../Header/AppHeader/AppHeader';
 
 class ExpandEvent extends Component {
   constructor(props) {
@@ -59,6 +60,7 @@ class ExpandEvent extends Component {
 
     return this.state.isEditing ? (
       <div>
+        <Header />
         <h1>Edit Event</h1>
         <EditEvent
           name={this.state.eventDetail.name}
@@ -73,6 +75,7 @@ class ExpandEvent extends Component {
       </div>
     ) : (
       <div>
+        <Header/>
         <Link to={`/network/${this.props.match.params.netId}`}>
           <button>Back</button>
         </Link>

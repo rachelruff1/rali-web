@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import swal from "sweetalert";
 import { editNetwork } from "../../../../ducks/reducer";
+import AppHeader from "../../AppHeader/AppHeader";
 
 class EditNetwork extends Component {
   constructor(props) {
@@ -52,6 +53,7 @@ class EditNetwork extends Component {
     console.log("this on edit", this);
     return (
       <div>
+        <AppHeader/>
         <form>
           <input
             name="networkname"

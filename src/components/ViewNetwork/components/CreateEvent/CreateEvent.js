@@ -9,6 +9,7 @@ import {
 } from "../../../../ducks/reducer";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
+import Header from '../../../Header/AppHeader/AppHeader';
 
 class NewEvent extends Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class NewEvent extends Component {
     const networkid = this.props.match.params.id;
     return (
       <div>
+        <Header/>
         <input
           placeholder="Event Name"
           type="text"

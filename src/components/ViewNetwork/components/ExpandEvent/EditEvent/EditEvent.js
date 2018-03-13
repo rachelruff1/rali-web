@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import Header from '../../../../Header/AppHeader/AppHeader';
 
 class EditEvent extends Component {
   render() {
     console.log("this on edit", this);
     return (
       <div>
+      
         <form>
           <input
             name="name"

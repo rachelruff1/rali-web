@@ -15,6 +15,7 @@ const initialState = {
   optionJoinNetwork: false,
   myNetworkEvents: [],
   allNetworkEvents: [],
+  activeNetwork: {},
   eventName: "",
   eventDate: "",
   eventTime: "",
@@ -47,6 +48,7 @@ const ADMIN_DELETE_EVENT = 'ADMIN_DELETE_EVENT';
 const EDIT_EVENT = 'EDIT_EVENT';
 const LEAVE_NETWORK = "LEAVE_NETWORK";
 const EDIT_NETWORK = 'EDIT_NETWORK';
+const GET_NETWORK = "GET_NETWORK";
 
 
 ///REDUCER FUNCTION
@@ -101,6 +103,17 @@ export default function reducer(state = initialState, action) {
         optionJoinNetwork: true
       });
 
+      case `${GET_NETWORK}_PENDING`:
+      return Object.assign({}, state, { isLoading: true });
+    case `${GET_NETWORK}_REJECTED`:
+      return Object.assign({}, state, { isLoading: false, didErr: true });
+    case `${GET_NETWORK}_FULFILLED`:
+      return Object.assign({}, state, {
+        isLoading: false,
+        activeNetwork: action.payload[0]
+      });
+
+
     case `${GET_MY_NETWORK_EVENTS}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
     case `${GET_MY_NETWORK_EVENTS}_REJECTED`:
@@ -151,7 +164,7 @@ export default function reducer(state = initialState, action) {
         isLoading: false,
         eventDetail: action.payload[0]
       });
-
+  
     default:
       return state;
   }
@@ -299,6 +312,17 @@ export function editNetwork(network){
     payload: axios
       .put('/api/editNetwork', {network})
       .then(resp => resp.data)
+      .catch(console.log)
+  }
+}
+
+export function getNetwork(networkid) {
+  console.log('getNetwork hit:', networkid)
+  return {
+    type: GET_NETWORK,
+    payload: axios
+      .get(`/api/getNetwork/${networkid}`)
+      .then(resp => {console.log(resp); return resp.data})
       .catch(console.log)
   }
 }

@@ -3,6 +3,7 @@ import EventCard from "../EventCard/EventCard";
 import { getMyNetworkEvents } from "../../../../ducks/reducer";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import '../../ViewNetwork.css';
 
 class MyEvents extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class MyEvents extends Component {
       );
 
     return (
-      <div className="My-Events container">
+      <div className="my-events-map container">
         <h3>My Joined Events</h3>
         <div>{myJoinedEventsMap}</div>
       </div>

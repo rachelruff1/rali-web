@@ -96,12 +96,22 @@ const editNetwork = (req, res, next) => {
     .catch(() => res.status(500).catch())
 }
 
+const getNetwork = (req, res, next) => {
+  const db = req.app.get('db');
+  console.log(req.body, req.params)
+  db.network
+  .get_network([req.params.id])
+  .then((resp)=>res.status(200).send(resp))
+  .catch(() => res.status(500).catch())
+}
+
 module.exports = {
   getNetworks,
   createNetwork,
   performSearch,
   verifyNetwork,
   leaveNetwork,
-  editNetwork
+  editNetwork,
+  getNetwork
 };
 //[req.user.authid]
