@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import SearchCard from "./SearchCard";
 import { connect } from "react-redux";
+import './SearchNetwork.css';
+import Header from '../../../Header/AppHeader/AppHeader';
 import { updateNetworkSearch, performSearch } from "../../../../ducks/reducer";
 
 class SearchNetwork extends Component {
-    // componentDidMount(){
-    //     performSearch();
-    // }
+    
   render() {
     const { updateNetworkSearch, performSearch, networkSearch, networkSearchResults } = this.props;
     // console.log(networkSearchResults);
@@ -17,7 +17,9 @@ class SearchNetwork extends Component {
         <SearchCard key={i} network={c} />
       ));
     return (
-      <div className="network-search container">
+      <div>
+        <Header/>
+      <div className="network-search-container">
         <input
           type="text"
           placeholder="Enter network name.."
@@ -29,6 +31,7 @@ class SearchNetwork extends Component {
         </Link>
         <div className="search-results container" />
         {(networkSearchResults) ? searchResults : 'No networks found'}
+      </div>
       </div>
     );
   }

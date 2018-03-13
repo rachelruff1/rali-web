@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import swal from "sweetalert";
+import './SearchNetwork.css';
 import {
   updateOptionJoinNetwork,
   verifyNetwork,
@@ -17,7 +18,7 @@ class SearchCard extends Component {
     } = this.props;
 
     return (
-      <div className="search-result container">
+      <div className="search-result-container">
         {this.props.optionJoinNetwork === false ? (
           <div
             className="clickable-search-result"

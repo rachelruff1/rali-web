@@ -1,0 +1,37 @@
+.network-search-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.network-search-container button {
+  text-align: center;
+  font-size: 90%;
+  cursor: pointer;
+  padding: 6px 10px;
+  width: 90px;
+  border-radius: 10px;
+  border: 2px solid white;
+  background-color: rgb(131, 55, 78);
+  color: white;
+  font-family: "Roboto", sans-serif;
+}
+
+.network-search-container input {
+  height: 30px;
+  width: 200px;
+  margin-right: 10px;
+}
+
+.clickable-search-result {
+  font-size: 150%;
+  margin: 20px;
+  text-align: left;
+  padding-left: 6%;
+  height: 30px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.clickable-search-result p {
+  font-size: 200%;
+}

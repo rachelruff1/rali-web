@@ -1,0 +1,27 @@
+.network-big-container {
+width: 100%;
+}
+.network-selector-container {
+    text-align: center;
+    align-content: center;
+    width: 80%;
+    padding-left: 10%;
+
+}
+
+.networks-grid {
+    padding-bottom: 30px;
+    /* background-color: black; */
+   
+}
+.create-search-buttons button{
+    font-size: 90%;
+    cursor: pointer;
+    padding: 8px 20px;
+    width: 120px;
+    border-radius: 10px;
+    border: 2px solid white;
+    background-color: rgb(131, 55, 78);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}

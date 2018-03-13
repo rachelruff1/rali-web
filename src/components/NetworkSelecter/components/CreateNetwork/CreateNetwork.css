@@ -1,0 +1,21 @@
+.network-creator-container {
+text-align: center;
+}
+
+.network-creator-container input {
+height: 30px;
+width: 200px;
+margin-right: 10px;
+}
+.network-creator-container button{
+    text-align: center;
+    font-size: 90%;
+    cursor: pointer;
+    padding: 6px 10px;
+    width: 90px;
+    border-radius: 10px;
+    border: 2px solid white;
+    background-color: rgb(131, 55, 78);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    }

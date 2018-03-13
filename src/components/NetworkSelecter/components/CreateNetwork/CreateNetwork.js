@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import './CreateNetwork.css';
+import Header from '../../../Header/AppHeader/AppHeader';
 import {
   updateNetworkName,
   updateNetworkPassword,
@@ -11,7 +13,10 @@ class CreateNetwork extends Component {
   render() {
     console.log(this.props);
     return (
+      <div>
+      <Header/>
       <div className="network-creator-container">
+      <h1>Create New Network </h1>
         <input
           type="text"
           placeholder="Enter network name.."
@@ -22,6 +27,7 @@ class CreateNetwork extends Component {
           placeholder="Enter network password.."
           onChange={e => this.props.updateNetworkPassword(e.target.value)}
         />
+        
         <button
           onClick={() =>
             this.props
@@ -29,11 +35,13 @@ class CreateNetwork extends Component {
               .then(response => this.props.history.push("/network-selector"))
           }
         >
+        
           Submit
         </button>
         <Link to="/network-selector">
           <button>Back</button>
         </Link>
+      </div>
       </div>
     );
   }
