@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import {
   getEvent,
   adminDeleteEvent,
-  editEvent
+  editEvent,
+  joinEvent
 } from "../../../../ducks/reducer";
 import { withRouter, Link } from "react-router-dom";
 import EditEvent from "./EditEvent/EditEvent";
@@ -124,9 +125,9 @@ class ExpandEvent extends Component {
           {creatorid === userid ? (
             <div>
               <button onClick={this.toggleEdit}>Edit</button>
-              <button onClick={() => adminDeleteEvent(eventid)}>Delete</button>
+              <button onClick={() => this.props.adminDeleteEvent(eventid)}>Delete</button>
             </div>
-          ) : null}
+          ) : <button onClick={()=>this.props.joinEvent(eventid)}>Join</button>}
         </div>
       </div>
     );
@@ -140,7 +141,7 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { getEvent, adminDeleteEvent, editEvent })(
+  connect(mapStateToProps, { getEvent, adminDeleteEvent, editEvent, joinEvent })(
     ExpandEvent
   )
 );

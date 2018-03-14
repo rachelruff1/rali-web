@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getUser, editUser } from "../../../ducks/reducer";
+import { getUser, editUser, logout } from "../../../ducks/reducer";
 import EditProfile from "./EditProfile/EditProfile";
 import Header from '../../Header/AppHeader/AppHeader';
 import './Profile.css';
@@ -68,6 +68,7 @@ class Profile extends Component {
         {/* <p>Profile Picture: {picture}</p> */}
         <div>
           <button onClick={this.toggleEdit}>Edit</button>
+          <button onClick={()=>this.props.logout().then(this.props.history.push("/"))}>Log Out</button>
         </div>
       </div>
     );
@@ -77,4 +78,4 @@ class Profile extends Component {
 function mapStateToProps(state) {
   return { user: state.user };
 }
-export default connect(mapStateToProps, { getUser, editUser })(Profile);
+export default connect(mapStateToProps, { getUser, editUser, logout })(Profile);

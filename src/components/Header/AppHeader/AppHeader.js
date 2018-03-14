@@ -9,7 +9,7 @@ export default function AppHeader() {
       <div className="navbar">
         <img className="logo" src={logo} alt="logo" />
         <Link to="/profile">
-          <p>Edit Profile</p>
+          <p>Profile</p>
         </Link>
         <Link to="/manage-networks">
           {" "}

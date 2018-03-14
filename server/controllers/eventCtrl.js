@@ -79,6 +79,14 @@ const editEvent = (req, res, next) => {
     .catch(() => res.status(500).send())
 }
 
+const joinEvent = (req, res, next) => {
+  const db = req.app.get('db');
+  const {eventid} = req.body;
+  db.event
+    .join_event([req.user.id, eventid])
+    .then(res.status(200).send())
+    .catch(() => res.status(500).send())
+}
 
 module.exports = {
   getMyNetworkEvents,
@@ -86,5 +94,6 @@ module.exports = {
   createEvent,
   getEvent,
   adminDeleteEvent,
-  editEvent
+  editEvent,
+  joinEvent
 };

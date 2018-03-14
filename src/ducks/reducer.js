@@ -19,11 +19,13 @@ const initialState = {
   eventTime: "",
   eventLocation: "",
   eventDescription: "",
-  eventDetail: {},
+  eventDetail: {}
 };
 
 const GET_USER = "GET_USER";
 const EDIT_USER = "EDIT_USER";
+const LOGOUT = "LOGOUT";
+
 const GET_NETWORK = "GET_NETWORK";
 const GET_NETWORKS = "GET_NETWORKS";
 const UPDATE_NETWORK_NAME = "UPDATE_NETWORK_NAME ";
@@ -32,10 +34,13 @@ const CREATE_NETWORK = "CREATE_NETWORK";
 const UPDATE_NETWORK_SEARCH = "UPDATE_NETWORK_SEARCH";
 const PERFORM_SEARCH = "PERFORM-SEARCH";
 const CLEAR_NETWORK_SEARCH = "CLEAR_NETWORK_SEARCH";
-const UPDATE_OPTION_JOIN_NETWORK = "UPDATE_OPTION_JOIN_NETWORK";
 const VERIFY_NETWORK = "VERIFY_NETWORK";
 const JOIN_NETWORK = "JOIN_NETWORK";
-const UPDATE_VERIFY_NETWORK = "UPDATE_VERIFY_NETWORK";
+const LEAVE_NETWORK = "LEAVE_NETWORK";
+const EDIT_NETWORK_NAME = "EDIT_NETWORK_NAME";
+const EDIT_NETWORK_PASSWORD = "EDIT_NETWORK_PASSWORD";
+const ADMIN_DELETE_NETWORK = "ADMIN_DELETE_NETWORK";
+
 const GET_MY_NETWORK_EVENTS = "GET_MY_NETWORK_EVENTS";
 const GET_ALL_NETWORK_EVENTS = "GET_ALL_NETWORK_EVENTS";
 const UPDATE_EVENT_NAME = "UPDATE_EVENT_NAME";
@@ -47,10 +52,7 @@ const CREATE_EVENT = "CREATE-EVENT";
 const GET_EVENT = "GET_EVENT";
 const ADMIN_DELETE_EVENT = "ADMIN_DELETE_EVENT";
 const EDIT_EVENT = "EDIT_EVENT";
-const LEAVE_NETWORK = "LEAVE_NETWORK";
-const EDIT_NETWORK_NAME = "EDIT_NETWORK_NAME";
-const EDIT_NETWORK_PASSWORD = "EDIT_NETWORK_PASSWORD";
-const ADMIN_DELETE_NETWORK = "ADMIN_DELETE_NETWORK";
+const JOIN_EVENT = "JOIN_EVENT";
 
 ///REDUCER FUNCTION
 
@@ -207,6 +209,16 @@ export function editUser(user) {
   };
 }
 
+export function logout() {
+  return {
+    type: LOGOUT,
+    payload: axios
+      .get("/api/logout")
+      .then(resp => resp.data)
+      .catch(console.log)
+  };
+}
+
 ///NETWORK ACTIONS
 
 export function getNetworks() {
@@ -274,8 +286,6 @@ export function clearNetworkSearch(networkSearch) {
     payload: networkSearch
   };
 }
-
-
 
 export function joinNetwork(networkid) {
   console.log(networkid);
@@ -468,6 +478,17 @@ export function editEvent(eventDetail) {
     type: EDIT_EVENT,
     payload: axios
       .put("/api/editEvent/", { eventDetail })
+      .then(resp => resp.data)
+      .catch(console.log)
+  };
+}
+
+export function joinEvent(eventid) {
+  console.log("hit join", eventid);
+  return {
+    type: JOIN_EVENT,
+    payload: axios
+      .put("api/joinEvent", { eventid })
       .then(resp => resp.data)
       .catch(console.log)
   };
