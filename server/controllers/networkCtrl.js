@@ -118,7 +118,11 @@ const getNetwork = (req, res, next) => {
 
 const adminDeleteNetwork = (req, res, next) => {
   const db = req.app.get('db');
-  
+  const {networkid} = req.params;
+  db.network
+  .admin_delete_network([networkid])
+  .then((resp)=>res.status(200).send(resp))
+  .catch(() => res.status(500).catch())
 }
 
 module.exports = {

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { leaveNetwork} from '../../../../ducks/reducer';
+import swal from 'sweetalert';
+import { leaveNetwork, adminDeleteNetwork} from '../../../../ducks/reducer';
 import '../ManageNetworks.css';
 
 class NetworkManagerCard extends Component {
@@ -14,7 +15,7 @@ class NetworkManagerCard extends Component {
       <div className='network-manager-card'>
         <p>{this.props.network.name}</p>
         <Link to={`/edit-network/${this.props.network.networkid}`} network={this.props.network}><button>Edit</button></Link>
-        <button onClick={this.props.deleteNetwork}>Delete</button>
+        <button onClick={()=>this.props.adminDeleteNetwork(this.props.network.networkid).then(swal('Network Deleted'))}>Delete</button>
       </div>
     ) : (
       <div className="network-manager-card">
@@ -27,4 +28,4 @@ class NetworkManagerCard extends Component {
 function mapStateToProps(state) {
   return state;
 }
-export default connect(mapStateToProps, { leaveNetwork })(NetworkManagerCard);
+export default connect(mapStateToProps, { leaveNetwork, adminDeleteNetwork })(NetworkManagerCard);
