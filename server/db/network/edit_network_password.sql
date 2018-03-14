@@ -1,3 +1,3 @@
 UPDATE networks 
-Set name = $2, password = $3
+Set password = $2
 WHERE networkid = $1;

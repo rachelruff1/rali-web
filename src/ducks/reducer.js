@@ -26,6 +26,7 @@ const initialState = {
 
 const GET_USER = "GET_USER";
 const EDIT_USER = 'EDIT_USER';
+const GET_NETWORK = 'GET_NETWORK';
 const GET_NETWORKS = "GET_NETWORKS";
 const UPDATE_NETWORK_NAME = "UPDATE_NETWORK_NAME ";
 const UPDATE_NETWORK_PASSWORD = "UPDATE_NETWORK_PASSWORD";
@@ -47,8 +48,10 @@ const GET_EVENT = "GET_EVENT";
 const ADMIN_DELETE_EVENT = 'ADMIN_DELETE_EVENT';
 const EDIT_EVENT = 'EDIT_EVENT';
 const LEAVE_NETWORK = "LEAVE_NETWORK";
-const EDIT_NETWORK = 'EDIT_NETWORK';
-const GET_NETWORK = "GET_NETWORK";
+const EDIT_NETWORK_NAME = 'EDIT_NETWORK_NAME';
+const EDIT_NETWORK_PASSWORD = 'EDIT_NETWORK_PASSWORD';
+const ADMIN_DELETE_NETWORK = 'ADMIN_DELETE_NETWORK';
+
 
 
 ///REDUCER FUNCTION
@@ -66,7 +69,6 @@ export default function reducer(state = initialState, action) {
       });
     // case EDIT_USER:
     //   return Object.assign({}, state, {user: action.payload})
-    
 
     case `${GET_NETWORKS}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
@@ -213,14 +215,6 @@ export function getNetworks() {
   };
 }
 
-// export function getNetwork(networkid) {
-//   return {
-//     type: GET_NETWORK,
-//     payload: axios
-//       .get('api/getNetwork, {networkid}')
-//   }
-// }
-
 export function updateNetworkName(networkName) {
   return {
     type: UPDATE_NETWORK_NAME,
@@ -306,11 +300,25 @@ export function leaveNetwork(userid, networkid){
   }
 }
 
-export function editNetwork(network){
+export function editNetworkName(networkid, name){
+  console.log('editnetworkname hit', networkid, name)
+
   return {
-    type: EDIT_NETWORK,
+    type: EDIT_NETWORK_NAME,
     payload: axios
-      .put('/api/editNetwork', {network})
+      .put('/api/editNetworkName', {networkid, name})
+      .then(resp => resp.data)
+      .catch(console.log)
+  }
+}
+
+export function editNetworkPassword(networkid, password){
+  console.log('editnetworkpass hit', networkid, password)
+
+  return {
+    type: EDIT_NETWORK_PASSWORD,
+    payload: axios
+      .put('/api/editNetworkPassword', {networkid, password})
       .then(resp => resp.data)
       .catch(console.log)
   }
@@ -323,6 +331,16 @@ export function getNetwork(networkid) {
     payload: axios
       .get(`/api/getNetwork/${networkid}`)
       .then(resp => {console.log(resp); return resp.data})
+      .catch(console.log)
+  }
+}
+
+export function adminDeleteNetwork(networkid) {
+  return {
+      type: ADMIN_DELETE_NETWORK,
+      payload: axios
+      .delete(`/api/adminDeleteNetwork/${networkid}`)
+      .then(resp => resp.data)
       .catch(console.log)
   }
 }

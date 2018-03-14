@@ -31,7 +31,6 @@ class EventCard extends Component {
     let hourCheck = () => {
       let hour = Number(time.slice(0, 2));
       let minutes = time.slice(3, 6);
-      console.log("hour:", hour, "minutes:", minutes);
       if (hour > 12) {
         return `${hour - 12}:${minutes} pm`;
       } else {

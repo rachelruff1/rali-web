@@ -56,8 +56,44 @@ class ExpandEvent extends Component {
       userid,
       eventid
     } = this.props.eventDetail;
-    console.log("this", this);
+    console.log("this", date);
+    
+    // let monthsArr = [
+    //   "January",
+    //   "February",
+    //   "March",
+    //   "April",
+    //   "May",
+    //   "June",
+    //   "July",
+    //   "August",
+    //   "September",
+    //   "October",
+    //   "November",
+    //   "December"
+    // ];
 
+    // let displayDate = date;
+    // let month = Number(displayDate.slice(5,7));
+    // let day = Number(displayDate.slice(8, 11));
+    // console.log( month, day)
+    // let date = this.props.events.date;
+    // let month = Number(date.slice(5, 7));
+    // let day = Number(date.slice(8, 11));
+    // let time = this.props.events.time;
+    // let monthDisplay = monthsArr[month - 1];
+    // let hourCheck = () => {
+    //   let hour = Number(time.slice(0, 2));
+    //   let minutes = time.slice(3, 6);
+    //   console.log("hour:", hour, "minutes:", minutes);
+    //   if (hour > 12) {
+    //     return `${hour - 12}:${minutes} pm`;
+    //   } else {
+    //     return `${hour}:${minutes} am`;
+    //   }
+    // };
+
+    
     return this.state.isEditing ? (
       <div>
         <Header />

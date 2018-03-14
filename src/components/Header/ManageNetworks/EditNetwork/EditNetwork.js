@@ -2,95 +2,104 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import swal from "sweetalert";
-import { editNetwork } from "../../../../ducks/reducer";
+import { editNetworkName, editNetworkPassword, getNetwork } from "../../../../ducks/reducer";
 import AppHeader from "../../AppHeader/AppHeader";
 
 class EditNetwork extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      network: this.props.network,
-      verifyNetworkPassword: ""
+      currentPassword: '',
+      newPassword:'',
+      confirmNewPassword:'',
+      networkName: '',
+      editName: false
     };
-    this.updateNetworkState = this.updateNetworkState.bind(this);
-    this.saveNetwork = this.saveNetwork.bind(this);
-  }
-  // componentDidMount() {
-  //   this.props.getNetwork(this.props.match.params.id);
-  // }
-
-  updateNetworkState(e) {
-    const field = e.target.name;
-    const network = this.state.network;
-    network[field] = e.target.value;
-    return this.setState({ network: network });
+    // this.updateNetworkState = this.updateNetworkState.bind(this);
+    this.saveNetworkName = this.saveNetworkName.bind(this);
+    this.saveNetworkPassword = this.saveNetworkPassword.bind(this);
+    this.updateCurrentPassword = this.updateCurrentPassword.bind(this);
+    this.updateNewPassword = this.updateNewPassword.bind(this);
+    this.updateConfirmNewPassword = this.updateConfirmNewPassword.bind(this);
+    this.updateNetworkName = this.updateNetworkName.bind(this);
   }
 
-  updateNewPassword(e) {
-    return this.setState({
-      verifyNetworkPassword: this.state.verifyNetworkPassword
+  componentDidMount() {
+    this.props.getNetwork(this.props.match.params.id);
+    this.setState({
+      networkName: this.props.activeNetwork
     });
   }
 
-  saveNetwork(e) {
-    e.preventDefault();
-    this.props.editNetwork(this.state.network);
+  updateCurrentPassword(e) {
+    return this.setState({
+      currentPassword: e
+    });
   }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.network.id !== nextProps.network.id) {
-      this.setState({ network: nextProps.network });
+  updateNewPassword(e) {
+    return this.setState({
+      newPassword: e
+    });
+  }
+
+  updateConfirmNewPassword(e) {
+    return this.setState({
+      confirmNewPassword: e
+    });
+  }
+
+  updateNetworkName(e) {
+      return this.setState({ networkName: e , editName: true});
     }
+
+
+  saveNetworkName(e) {
+
+    this.props.editNetworkName(this.props.activeNetwork.networkid, this.state.networkName);
+    swal('Name updated!');
   }
+
+  saveNetworkPassword(e) {
+    if (this.state.currentPassword !== this.props.activeNetwork.password) {
+      swal(`Uh oh. Looks like your password isn't correct.`)
+    } else if (this.state.newPassword !== this.state.confirmNewPassword) {
+      swal(`Hmm. Looks like your passwords don't match.`)
+    } else if (this.state.currentPassword === this.props.activeNetwork.password && this.state.newPassword === this.state.confirmNewPassword) {
+     this.props.editNetworkPassword(this.props.activeNetwork.networkid, this.state.confirmNewPassword) && swal('Password updated!')
+  } else swal(`Sorry, something isn't working right now.`)}
+
 
   render() {
-    console.log(this.props);
-    const check = () => {
-      this.state.verifyNetworkPassword === this.props.network.password
-        ? this.state.saveNetwork(this.state.network)
-        : swal(`Passwords don't match`);
-    };
-
     console.log("this on edit", this);
     return (
       <div>
-        <AppHeader/>
-        <form>
-          <input
-            name="networkname"
-            label="networkname"
-            value={this.props.network.name}
-            onChange={this.props.updateNetworkState}
-          />
+        <AppHeader />
 
-          <input
-            name="networkpassword"
-            label="networkpassword"
-            value={this.props.password}
-            onChange={this.props.updateNetworkState}
-          />
+        <h1>Change Network Name</h1>
 
-          <input
-            name="newpassword"
-            placeholder="New Password"
-            label="newpassword"
-            // value={this.props.password}
-            onChange={this.props.updateNewPassword}
-          />
-          <input
-            name="verifyNewpassword"
-            placeholder="Confirm New Password"
-            label="verifynewpassword"
-            onChange={this.state.updateVerifyNewPassword}
-          />
+        <input
+          value={(this.state.editName) ? this.state.networkName : this.props.activeNetwork.name }
+          onChange={e => this.updateNetworkName(e.target.value)}
+        />
+        <button onClick={() => this.saveNetworkName(this.state.networkName)}>
+          Save
+        </button>
+        <h1>Change Password</h1>
+        <p>Old password</p>
+        <input type="password" onChange={e => this.updateCurrentPassword(e.target.value)} />
+        <p>New Password</p>
+        <input type="password" onChange={e => this.updateNewPassword(e.target.value)} />
+        <p>Confirm New Password</p>
+        <input type="password" 
+         onChange={e => this.updateConfirmNewPassword(e.target.value)} />
 
-          <input
-            type="submit"
-            disabled={this.props.saving}
-            value={this.props.saving ? "Saving..." : "Save"}
-            className="btn btn-primary"
-            onClick={check}
-          />
-        </form>
+        <button
+          onClick={() => this.saveNetworkPassword(this.state.confirmNewPassword)
+            // .then(this.props.history.push("/manage-networks"))
+          }
+        >
+          Save
+        </button>
         <Link to="/manage-networks">
           <button>Back</button>
         </Link>
@@ -100,9 +109,11 @@ class EditNetwork extends Component {
 }
 
 function mapStateToProps(state) {
-  return state;
+  return {
+    activeNetwork: state.activeNetwork
+  };
 }
 
 export default withRouter(
-  connect(mapStateToProps, { editNetwork })(EditNetwork)
+  connect(mapStateToProps, { editNetworkName, editNetworkPassword, getNetwork })(EditNetwork)
 );

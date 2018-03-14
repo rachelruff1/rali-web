@@ -102,7 +102,9 @@ app.get("/api/performSearch", nCtrl.performSearch);
 app.get("/api/verifyNetwork", nCtrl.verifyNetwork);
 app.delete('/api/leaveNetwork/:userid/:networkid', nCtrl.leaveNetwork);
 app.get('/api/getNetwork/:id', nCtrl.getNetwork);
-// app.put('/api/editNetwork', nCtrl.editNetwork);
+app.put('/api/editNetworkName', nCtrl.editNetworkName);
+app.put('/api/editNetworkPassword', nCtrl.editNetworkPassword);
+app.delete(`/api/adminDeleteNetwork/:networkid`, nCtrl.adminDeleteNetwork)
 
 app.get("/api/getMyNetworkEvents/:id", eCtrl.getMyNetworkEvents);
 app.get("/api/getAllNetworkEvents/:id", eCtrl.getAllNetworkEvents);

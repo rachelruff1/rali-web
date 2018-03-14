@@ -87,22 +87,38 @@ const leaveNetwork = (req, res, next) =>{
     .catch(()=>res.status(500).catch())
 }
 
-const editNetwork = (req, res, next) => {
+const editNetworkName = (req, res, next) => {
   const db = req.app.get('db');
-  console.log('editNetwork ctrl:',req.body)
+  const {networkid, name} = req.body;
+  console.log('editNetworkName ctrl:',req.body)
   db.network
-    .edit_network([network.networkid, network.name, network.password])
+    .edit_network_name([networkid, name])
+    .then(()=>res.status(200).send())
+    .catch(() => res.status(500).catch())
+}
+
+const editNetworkPassword = (req, res, next) => {
+  const db = req.app.get('db');
+  const {networkid, password} = req.body
+  // console.log('editNetworkPass ctrl:',req.body)
+  db.network
+    .edit_network_password([networkid, password])
     .then(()=>res.status(200).send())
     .catch(() => res.status(500).catch())
 }
 
 const getNetwork = (req, res, next) => {
   const db = req.app.get('db');
-  console.log(req.body, req.params)
+  // console.log(req.body, req.params)
   db.network
   .get_network([req.params.id])
   .then((resp)=>res.status(200).send(resp))
   .catch(() => res.status(500).catch())
+}
+
+const adminDeleteNetwork = (req, res, next) => {
+  const db = req.app.get('db');
+  
 }
 
 module.exports = {
@@ -111,7 +127,9 @@ module.exports = {
   performSearch,
   verifyNetwork,
   leaveNetwork,
-  editNetwork,
-  getNetwork
+  editNetworkName,
+  editNetworkPassword,
+  getNetwork,
+  adminDeleteNetwork
 };
 //[req.user.authid]
