@@ -1,75 +1,54 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import swal from "sweetalert";
-import './SearchNetwork.css';
-import {
-  updateOptionJoinNetwork,
-  verifyNetwork,
-  updateVerifyNetwork
-} from "../../../../ducks/reducer";
+import "./SearchNetwork.css";
+import { joinNetwork } from "../../../../ducks/reducer";
 
 class SearchCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      confirmPassword: ""
+    };
+    this.updateConfirmPassword = this.updateConfirmPassword.bind(this);
+    this.verifyPasswordMatch = this.verifyPasswordMatch.bind(this);
+  }
+
+  updateConfirmPassword(e) {
+    this.setState({
+      confirmPassword: e
+    });
+  }
+
+  verifyPasswordMatch() {
+    if (this.state.confirmPassword !== this.props.network.password) {
+      swal(`Oops. Looks like that's not the right password`);
+    } else joinNetwork(this.props.network.networkid) && swal("Network joined!");
+  }
   render() {
-    const {
-      updateOptionJoinNetwork,
-      verifyNetwork,
-      updateVerifyNetwork,
-      networkVerifyPassword
-    } = this.props;
+    console.log(this);
 
     return (
       <div className="search-result-container">
-        {this.props.optionJoinNetwork === false ? (
-          <div
-            className="clickable-search-result"
-            onClick={() => updateOptionJoinNetwork()}
-          >
-            {this.props.network.name}
-          </div>
-        ) : (
-          <div className="hidden-network-password container">
-            <div className="nonclickable-search-result">
-              {this.props.network.name}
-            </div>
-            <input
-              type="password"
-              placeholder="Enter network password.."
-              onChange={e => updateVerifyNetwork(e.target.value)}
-            />
-            <button
-              onClick={
-                () =>
-                  verifyNetwork(
-                    networkVerifyPassword,
-                    this.props.network.name
-                  ).then(resp => {
-                    console.log(resp);
-                    // if (resp.action.payload.data) {
-                    //   swal("Network Joined!");
-                    // } else {
-                    //   swal("Incorrect Password");
-                    // }
-                  })
-                // .then(resp => this.props.history.push("/network-selector")).alert('Added to network!')
-              }
-            >
-              Submit
-            </button>
-          </div>
-        )}
+        <div>{this.props.network.name}</div>
+        <input
+          type="password"
+          placeholder="Enter network password.."
+          onChange={e => this.updateConfirmPassword(e.target.value)}
+        />
+        <button onClick={() => this.verifyPasswordMatch()}>Submit</button>
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return {
-    networkVerifyPassword: state.networkVerifyPassword,
-    optionJoinNetwork: state.optionJoinNetwork
-  };
+  return state;
 }
 export default connect(mapStateToProps, {
-  updateOptionJoinNetwork,
-  updateVerifyNetwork,
-  verifyNetwork
+  joinNetwork
 })(SearchCard);
+
+//verifyNetwork === false ? swal(`Oops. Looks like that's not the right password`) :
+
+//(() => {console.log(joinedNetwork);joinedNetwork === false ? swal(`Oops. Looks like that's not the right password`) :swal('Network joined!')})

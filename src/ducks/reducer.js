@@ -8,11 +8,9 @@ const initialState = {
   networkName: "",
   networkSearch: "",
   networkPassword: "",
-  networkVerifyPassword: "",
   networkSearchResults: [],
   myEvents: {},
   networkEvents: {},
-  optionJoinNetwork: false,
   myNetworkEvents: [],
   allNetworkEvents: [],
   activeNetwork: {},
@@ -21,20 +19,22 @@ const initialState = {
   eventTime: "",
   eventLocation: "",
   eventDescription: "",
-  eventDetail: {}
+  eventDetail: {},
 };
 
 const GET_USER = "GET_USER";
-const EDIT_USER = 'EDIT_USER';
-const GET_NETWORK = 'GET_NETWORK';
+const EDIT_USER = "EDIT_USER";
+const GET_NETWORK = "GET_NETWORK";
 const GET_NETWORKS = "GET_NETWORKS";
 const UPDATE_NETWORK_NAME = "UPDATE_NETWORK_NAME ";
 const UPDATE_NETWORK_PASSWORD = "UPDATE_NETWORK_PASSWORD";
 const CREATE_NETWORK = "CREATE_NETWORK";
 const UPDATE_NETWORK_SEARCH = "UPDATE_NETWORK_SEARCH";
 const PERFORM_SEARCH = "PERFORM-SEARCH";
+const CLEAR_NETWORK_SEARCH = "CLEAR_NETWORK_SEARCH";
 const UPDATE_OPTION_JOIN_NETWORK = "UPDATE_OPTION_JOIN_NETWORK";
 const VERIFY_NETWORK = "VERIFY_NETWORK";
+const JOIN_NETWORK = "JOIN_NETWORK";
 const UPDATE_VERIFY_NETWORK = "UPDATE_VERIFY_NETWORK";
 const GET_MY_NETWORK_EVENTS = "GET_MY_NETWORK_EVENTS";
 const GET_ALL_NETWORK_EVENTS = "GET_ALL_NETWORK_EVENTS";
@@ -45,14 +45,12 @@ const UPDATE_EVENT_LOCATION = "UPDATE_EVENT_LOCATION";
 const UPDATE_EVENT_DESCRIPTION = "UPDATE_EVENT_DESCRIPTION";
 const CREATE_EVENT = "CREATE-EVENT";
 const GET_EVENT = "GET_EVENT";
-const ADMIN_DELETE_EVENT = 'ADMIN_DELETE_EVENT';
-const EDIT_EVENT = 'EDIT_EVENT';
+const ADMIN_DELETE_EVENT = "ADMIN_DELETE_EVENT";
+const EDIT_EVENT = "EDIT_EVENT";
 const LEAVE_NETWORK = "LEAVE_NETWORK";
-const EDIT_NETWORK_NAME = 'EDIT_NETWORK_NAME';
-const EDIT_NETWORK_PASSWORD = 'EDIT_NETWORK_PASSWORD';
-const ADMIN_DELETE_NETWORK = 'ADMIN_DELETE_NETWORK';
-
-
+const EDIT_NETWORK_NAME = "EDIT_NETWORK_NAME";
+const EDIT_NETWORK_PASSWORD = "EDIT_NETWORK_PASSWORD";
+const ADMIN_DELETE_NETWORK = "ADMIN_DELETE_NETWORK";
 
 ///REDUCER FUNCTION
 
@@ -96,16 +94,12 @@ export default function reducer(state = initialState, action) {
         networkSearchResults: action.payload
       });
 
-    case UPDATE_VERIFY_NETWORK:
+    case CLEAR_NETWORK_SEARCH:
       return Object.assign({}, state, {
-        networkVerifyPassword: action.payload
-      });
-    case UPDATE_OPTION_JOIN_NETWORK:
-      return Object.assign({}, state, {
-        optionJoinNetwork: true
+        networkSearchResults: []
       });
 
-      case `${GET_NETWORK}_PENDING`:
+    case `${GET_NETWORK}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
     case `${GET_NETWORK}_REJECTED`:
       return Object.assign({}, state, { isLoading: false, didErr: true });
@@ -115,6 +109,20 @@ export default function reducer(state = initialState, action) {
         activeNetwork: action.payload[0]
       });
 
+    case `${VERIFY_NETWORK}_PENDING`:
+      return Object.assign({}, state, { isLoading: true });
+    case `${VERIFY_NETWORK}_REJECTED`:
+      return Object.assign({}, state, { isLoading: false, didErr: true });
+    case `${VERIFY_NETWORK}_FULFILLED`:
+      console.log(
+        "action.payload:",
+        action.payload,
+        "joinedNetwork:",
+        initialState.joinedNetwork
+      );
+      return Object.assign({}, state, {
+        joinedNetwork: action.payload
+      });
 
     case `${GET_MY_NETWORK_EVENTS}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
@@ -166,7 +174,7 @@ export default function reducer(state = initialState, action) {
         isLoading: false,
         eventDetail: action.payload[0]
       });
-  
+
     default:
       return state;
   }
@@ -187,17 +195,16 @@ export function getUser() {
   };
 }
 
-export function editUser(user
-){
-  console.log('hit edit', user);
+export function editUser(user) {
+  console.log("hit edit", user);
   //eventid, name, date, time, location, description
   return {
     type: EDIT_USER,
     payload: axios
-    .put('/api/editUser/', {user})
-    .then(resp=>resp.data)
-    .catch(console.log)
-  }
+      .put("/api/editUser/", { user })
+      .then(resp => resp.data)
+      .catch(console.log)
+  };
 }
 
 ///NETWORK ACTIONS
@@ -260,90 +267,87 @@ export function performSearch(networkSearch) {
   };
 }
 
-export function updateVerifyNetwork(networkVerifyPassword) {
+export function clearNetworkSearch(networkSearch) {
+  console.log("clearNetworkSearch hit");
   return {
-    type: UPDATE_VERIFY_NETWORK,
-    payload: networkVerifyPassword
+    type: CLEAR_NETWORK_SEARCH,
+    payload: networkSearch
   };
 }
 
-export function updateOptionJoinNetwork(optionJoinNetwork) {
-  return {
-    type: UPDATE_OPTION_JOIN_NETWORK,
-    payload: optionJoinNetwork
-  };
-}
 
-export function verifyNetwork(networkVerifyPassword, networkNameForVerify) {
+
+export function joinNetwork(networkid) {
+  console.log(networkid);
   return {
-    type: VERIFY_NETWORK,
+    type: JOIN_NETWORK,
     payload: axios
-      .get(
-        `/api/verifyNetwork/?networkVerifyPassword=${networkVerifyPassword}&networkNameForVerify=${networkNameForVerify}`
-      )
+      .post("/api/joinNetwork/", { networkid })
       .then(resp => {
-        console.log(resp);
-        return resp;
+        return resp.data;
       })
       .catch(console.log)
   };
 }
 
-export function leaveNetwork(userid, networkid){
-  (console.log(userid, networkid))
+export function leaveNetwork(userid, networkid) {
+  console.log(userid, networkid);
   return {
     type: LEAVE_NETWORK,
     payload: axios
       .delete(`/api/leaveNetwork/${userid}/${networkid}`)
-      .then(res=>res.data)
+      .then(res => res.data)
       .catch(console.log)
-  }
+  };
 }
 
-export function editNetworkName(networkid, name){
-  console.log('editnetworkname hit', networkid, name)
+export function editNetworkName(networkid, name) {
+  console.log("editnetworkname hit", networkid, name);
 
   return {
     type: EDIT_NETWORK_NAME,
     payload: axios
-      .put('/api/editNetworkName', {networkid, name})
+      .put("/api/editNetworkName", { networkid, name })
       .then(resp => resp.data)
       .catch(console.log)
-  }
+  };
 }
 
-export function editNetworkPassword(networkid, password){
-  console.log('editnetworkpass hit', networkid, password)
+export function editNetworkPassword(networkid, password) {
+  console.log("editnetworkpass hit", networkid, password);
 
   return {
     type: EDIT_NETWORK_PASSWORD,
     payload: axios
-      .put('/api/editNetworkPassword', {networkid, password})
+      .put("/api/editNetworkPassword", { networkid, password })
       .then(resp => resp.data)
       .catch(console.log)
-  }
+  };
 }
 
 export function getNetwork(networkid) {
-  console.log('getNetwork hit:', networkid)
+  console.log("getNetwork hit:", networkid);
   return {
     type: GET_NETWORK,
     payload: axios
       .get(`/api/getNetwork/${networkid}`)
-      .then(resp => {console.log(resp); return resp.data})
+      .then(resp => {
+        console.log(resp);
+        return resp.data;
+      })
       .catch(console.log)
-  }
+  };
 }
 
 export function adminDeleteNetwork(networkid) {
-  console.log('deleteNet', networkid)
+  console.log("deleteNet", networkid);
   return {
-      type: ADMIN_DELETE_NETWORK,
-      payload: axios
+    type: ADMIN_DELETE_NETWORK,
+    payload: axios
       .delete(`/api/adminDeleteNetwork/${networkid}`)
       .then(resp => resp.data)
       .catch(console.log)
-  }
+  };
 }
 
 //EVENTS
@@ -434,7 +438,7 @@ export function createEvent(
 }
 
 export function getEvent(eventid) {
-  console.log('hit getevent reducer:', eventid)
+  console.log("hit getevent reducer:", eventid);
   return {
     type: GET_EVENT,
     payload: axios
@@ -448,24 +452,23 @@ export function getEvent(eventid) {
 }
 
 export function adminDeleteEvent(eventid) {
-    return {
-        type: ADMIN_DELETE_EVENT,
-        payload: axios
-        .delete(`/api/adminDeleteEvent/${eventid}`)
-        .then(resp => resp.data)
-        .catch(console.log)
-    }
+  return {
+    type: ADMIN_DELETE_EVENT,
+    payload: axios
+      .delete(`/api/adminDeleteEvent/${eventid}`)
+      .then(resp => resp.data)
+      .catch(console.log)
+  };
 }
 
-export function editEvent(eventDetail
-){
-  console.log('hit edit', eventDetail);
+export function editEvent(eventDetail) {
+  console.log("hit edit", eventDetail);
   //eventid, name, date, time, location, description
   return {
     type: EDIT_EVENT,
     payload: axios
-    .put('/api/editEvent/', {eventDetail})
-    .then(resp=>resp.data)
-    .catch(console.log)
-  }
+      .put("/api/editEvent/", { eventDetail })
+      .then(resp => resp.data)
+      .catch(console.log)
+  };
 }

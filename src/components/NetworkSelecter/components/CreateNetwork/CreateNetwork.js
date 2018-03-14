@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import './CreateNetwork.css';
+import swal from 'sweetalert';
 import Header from '../../../Header/AppHeader/AppHeader';
 import {
   updateNetworkName,
@@ -32,6 +33,7 @@ class CreateNetwork extends Component {
           onClick={() =>
             this.props
               .createNetwork(this.props.networkName, this.props.networkPassword)
+              .then(swal('Network created!'))
               .then(response => this.props.history.push("/network-selector"))
           }
         >

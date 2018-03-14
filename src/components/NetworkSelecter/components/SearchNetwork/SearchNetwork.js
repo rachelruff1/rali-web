@@ -2,38 +2,46 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import SearchCard from "./SearchCard";
 import { connect } from "react-redux";
-import './SearchNetwork.css';
-import Header from '../../../Header/AppHeader/AppHeader';
-import { updateNetworkSearch, performSearch } from "../../../../ducks/reducer";
+import "./SearchNetwork.css";
+import Header from "../../../Header/AppHeader/AppHeader";
+import {
+  updateNetworkSearch,
+  performSearch,
+  clearNetworkSearch
+} from "../../../../ducks/reducer";
 
 class SearchNetwork extends Component {
-  // componentDidMount(){
-  //       setState({searchResults : []});
-  //   }  
+  componentDidMount() {
+    this.props.clearNetworkSearch();
+  }
   render() {
-    const { updateNetworkSearch, performSearch, networkSearch, networkSearchResults } = this.props;
+    const {
+      updateNetworkSearch,
+      performSearch,
+      networkSearch,
+      networkSearchResults
+    } = this.props;
     // console.log(networkSearchResults);
     const searchResults =
       networkSearchResults &&
-      networkSearchResults.map((c, i) => (
-        <SearchCard key={i} network={c} />
-      ));
+      networkSearchResults.map((c, i) => <SearchCard key={i} network={c} />);
     return (
       <div>
-        <Header/>
-      <div className="network-search-container">
-        <input
-          type="text"
-          placeholder="Enter network name.."
-          onChange={e => updateNetworkSearch(e.target.value)}
-        />
-        <button onClick={() => performSearch(networkSearch)}>Search</button>
-        <Link to="/network-selector">
-          <button>Back</button>
-        </Link>
-        <div className="search-results container" />
-        {(networkSearchResults) ? searchResults : 'No networks found'}
-      </div>
+        <Header />
+        <div className="network-search-container">
+          <input
+            type="text"
+            placeholder="Enter network name.."
+            onChange={e => updateNetworkSearch(e.target.value)}
+          />
+          <button onClick={() => performSearch(networkSearch)}>Search</button>
+          <Link to="/network-selector">
+            <button>Back</button>
+          </Link>
+        </div>
+        <div className="search-results-container">
+          {networkSearchResults ? searchResults : "No networks found"}
+        </div>
       </div>
     );
   }
@@ -47,5 +55,6 @@ function mapStateToProps(state) {
 }
 export default connect(mapStateToProps, {
   updateNetworkSearch,
-  performSearch
+  performSearch,
+  clearNetworkSearch
 })(SearchNetwork);

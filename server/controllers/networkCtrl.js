@@ -50,33 +50,45 @@ const performSearch = (req, res, next) => {
     .catch(() => res.status(500).send());
 };
 
-const verifyNetwork = (req, res, next) => {
-  const { networkVerifyPassword, networkNameForVerify } = req.query;
-  const db = req.app.get("db");
-  let networkPasswordTest = false;
+// const verifyNetwork = (req, res, next) => {
+//   const { networkVerifyPassword, networkNameForVerify } = req.query;
+//   const db = req.app.get("db");
+//   let networkPasswordTest = false;
+//   db.network
+//     .get_global_networks()
+//     .then(resp => {
+//       resp.map(entry => {
+//         if (
+//           entry.name === networkNameForVerify &&
+//           entry.password === networkVerifyPassword
+//         ) {
+//           networkPasswordTest = true;
+//           db.network
+//             .add_networks_users([entry.networkid, req.user.id])
+//             .then()
+//             .catch(console.log);
+//         }
+//       });
+//       if (networkPasswordTest === true) {
+//         res.status(200).send(true);
+//       } else {
+//         res.status(200).send(false);
+//       }
+//     })
+//     .catch(() => res.status(500).send());
+// };
+
+
+const joinNetwork = (req, res, next) => {
+  console.log('joinNetwork', req.body);
+  const db = req.app.get('db');
+  const {networkid} = req.body;
   db.network
-    .get_global_networks()
-    .then(resp => {
-      resp.map(entry => {
-        if (
-          entry.name === networkNameForVerify &&
-          entry.password === networkVerifyPassword
-        ) {
-          networkPasswordTest = true;
-          db.network
-            .add_networks_users([entry.networkid, req.user.id])
-            .then()
-            .catch(console.log);
-        }
-      });
-      if (networkPasswordTest === true) {
-        res.status(200).send(true);
-      } else {
-        res.status(500).send(false);
-      }
-    })
-    .catch(() => res.status(500).send());
-};
+  .add_networks_users([networkid, req.user.id])
+  .then(()=>res.status(200).send())
+    .catch(()=>res.status(500).catch())
+}
+
 
 const leaveNetwork = (req, res, next) =>{
   const db = req.app.get('db');
@@ -129,11 +141,12 @@ module.exports = {
   getNetworks,
   createNetwork,
   performSearch,
-  verifyNetwork,
+  // verifyNetwork,
   leaveNetwork,
   editNetworkName,
   editNetworkPassword,
   getNetwork,
-  adminDeleteNetwork
+  adminDeleteNetwork,
+  joinNetwork
 };
 //[req.user.authid]

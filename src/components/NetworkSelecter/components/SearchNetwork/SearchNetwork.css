@@ -35,3 +35,9 @@
 .clickable-search-result p {
   font-size: 200%;
 }
+
+.search-results-container{
+  margin:20px;
+  padding:20px;
+
+}
