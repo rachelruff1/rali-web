@@ -15,6 +15,7 @@ class ExpandEvent extends Component {
     super(props);
     this.state = {
       isEditing: false,
+      currentEdit: false,
       eventDetail: this.props.eventDetail
     };
     this.toggleEdit = this.toggleEdit.bind(this);
@@ -34,17 +35,11 @@ class ExpandEvent extends Component {
     const field = e.target.name;
     const eventDetail = this.state.eventDetail;
     eventDetail[field] = e.target.value;
-    return this.setState({ eventDetail: eventDetail });
+    return this.setState({ eventDetail: eventDetail, currentEdit:true });
   }
   saveEventDetail(e) {
     e.preventDefault();
     this.props.editEvent(this.state.eventDetail);
-  }
-  
-  componentWillReceiveProps(nextProps) {
-    if (this.props.eventDetail.eventid !== nextProps.eventDetail.eventid) {
-      this.setState({ eventDetail: nextProps.eventDetail });
-    }
   }
 
   render() {
@@ -57,7 +52,7 @@ class ExpandEvent extends Component {
       userid,
       eventid
     } = this.props.eventDetail;
-    console.log("this", date);
+    console.log(this);
     
     // let monthsArr = [
     //   "January",
@@ -100,11 +95,11 @@ class ExpandEvent extends Component {
         <Header />
         <h1>Edit Event</h1>
         <EditEvent
-          name={this.state.eventDetail.name}
-          date={this.state.eventDetail.date}
-          time={this.state.eventDetail.time}
-          location={this.state.eventDetail.location}
-          description={this.state.eventDetail.description}
+          name=  {(this.state.currentEdit) ? this.state.eventDetail.name : this.props.eventDetail.name }
+          date={(this.state.currentEdit) ? this.state.eventDetail.date : this.props.eventDetail.date }
+          time={(this.state.currentEdit) ? this.state.eventDetail.time : this.props.eventDetail.time }
+          location={(this.state.currentEdit) ? this.state.eventDetail.location : this.props.eventDetail.location }
+          description={(this.state.currentEdit) ? this.state.eventDetail.description : this.props.eventDetail.description }
           onSave={this.saveEventDetail}
           onChange={this.updateEventDetailState}
           toggle={this.toggleEdit}
@@ -122,7 +117,7 @@ class ExpandEvent extends Component {
         <p>Location: {location}</p>
         <p>Description: {description}</p>
         <div>
-          {creatorid === userid ? (
+          {creatorid === this.props.user.id ? (
             <div>
               <button onClick={this.toggleEdit}>Edit</button>
               <button onClick={() => this.props.adminDeleteEvent(eventid)}>Delete</button>
@@ -136,7 +131,8 @@ class ExpandEvent extends Component {
 
 function mapStateToProps(state) {
   return {
-    eventDetail: state.eventDetail
+    eventDetail: state.eventDetail,
+    user: state.user
   };
 }
 

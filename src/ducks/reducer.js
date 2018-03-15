@@ -488,7 +488,7 @@ export function joinEvent(eventid) {
   return {
     type: JOIN_EVENT,
     payload: axios
-      .put("api/joinEvent", { eventid })
+      .post("api/joinEvent", { eventid })
       .then(resp => resp.data)
       .catch(console.log)
   };

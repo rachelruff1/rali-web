@@ -56,7 +56,9 @@ const getEvent = (req, res, next) => {
   console.log('get:',req.params);
   const { id } = req.params;
   db.event
-    .get_event([id, req.user.id])
+    .get_event([id
+      // , req.user.id
+    ])
     .then(event => {console.log(event);res.status(200).send(event)})
     .catch(() => res.status(500).send());
 };
@@ -82,6 +84,7 @@ const editEvent = (req, res, next) => {
 const joinEvent = (req, res, next) => {
   const db = req.app.get('db');
   const {eventid} = req.body;
+  console.log('eventid:', eventid, 'userid:', req.user.id);
   db.event
     .join_event([req.user.id, eventid])
     .then(res.status(200).send())
