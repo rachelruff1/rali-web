@@ -38,7 +38,7 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: {
-      maxAge: 100000
+      maxAge: 100000000
     }
   })
 );
@@ -78,6 +78,12 @@ passport.use(
   )
 );
 
+
+//app.use(express.static(`${__dirname}/../build`));
+// const path = require('path');
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../build/index.html'));});
+
 passport.serializeUser((user, done) => {
   return done(null, user);
 });
@@ -114,5 +120,6 @@ app.get("/api/getEvent/:id", eCtrl.getEvent);
 app.delete('/api/adminDeleteEvent/:id', eCtrl.adminDeleteEvent);
 app.put('/api/editEvent/', eCtrl.editEvent);
 app.post('/api/joinEvent', eCtrl.joinEvent);
+app.delete('/api/leaveEvent/:id', eCtrl.leaveEvent);
 
 app.listen(port, console.log(`Listening on port ${port}`));

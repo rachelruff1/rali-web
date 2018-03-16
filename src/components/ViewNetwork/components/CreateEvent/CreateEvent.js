@@ -9,6 +9,7 @@ import {
 } from "../../../../ducks/reducer";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
+import swal from 'sweetalert';
 import Header from '../../../Header/AppHeader/AppHeader';
 
 class NewEvent extends Component {
@@ -68,7 +69,7 @@ class NewEvent extends Component {
               eventTime,
               eventLocation,
               eventDescription
-            )
+            ).then(swal('Event created!'))
             .then(response => this.props.history.push(`/network/${networkid}`))
             // .then(response => this.props.history.push(`/network/${networkid}`))
           }

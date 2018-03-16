@@ -43,7 +43,7 @@ const createEvent = (req, res, next) => {
       eventDescription
     ])
     .then(response => {
-      console.log("CE resp:", response[0]);
+      // console.log("CE resp:", response[0]);
       db.event.add_events_users([req.user.id, response[0].eventid]);
       res.status(200).send(response);
     })
@@ -53,13 +53,13 @@ const createEvent = (req, res, next) => {
 const getEvent = (req, res, next) => {
   const db = req.app.get("db");
 
-  console.log('get:',req.params);
+  // console.log('get:',req.params);
   const { id } = req.params;
   db.event
     .get_event([id
       // , req.user.id
     ])
-    .then(event => {console.log(event);res.status(200).send(event)})
+    .then(event => {res.status(200).send(event)})
     .catch(() => res.status(500).send());
 };
 
@@ -84,9 +84,20 @@ const editEvent = (req, res, next) => {
 const joinEvent = (req, res, next) => {
   const db = req.app.get('db');
   const {eventid} = req.body;
-  console.log('eventid:', eventid, 'userid:', req.user.id);
+  // console.log('eventid:', eventid, 'userid:', req.user.id);
   db.event
     .join_event([req.user.id, eventid])
+    .then(res.status(200).send())
+    .catch(() => res.status(500).send())
+}
+
+const leaveEvent = (req, res, next) =>{
+  const db = req.app.get('db');
+  const {id} = req.params;
+  console.log('hit leaveEvent')
+  console.log('eventid:', req.params);
+  db.event
+    .leave_event([req.user.id, id])
     .then(res.status(200).send())
     .catch(() => res.status(500).send())
 }
@@ -98,5 +109,6 @@ module.exports = {
   getEvent,
   adminDeleteEvent,
   editEvent,
-  joinEvent
+  joinEvent,
+  leaveEvent
 };

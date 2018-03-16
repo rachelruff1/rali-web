@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../AppHeader/AppHeader";
+import swal from 'sweetalert';
 import "../Profile.css";
+
 
 class EditProfile extends Component {
   render() {

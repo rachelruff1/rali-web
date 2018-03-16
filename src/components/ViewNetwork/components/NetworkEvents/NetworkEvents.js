@@ -8,6 +8,9 @@ import '../../ViewNetwork.css';
 class NetworkEvents extends Component {
   constructor(props) {
     super(props);
+    this.state = ({
+      status: 'all-networks'
+    })
   }
   componentDidMount() {
     this.props.getAllNetworkEvents(this.props.networkid);
@@ -16,7 +19,7 @@ class NetworkEvents extends Component {
     const { allNetworkEvents } = this.props;
     const allNetworkEventsMap =
       allNetworkEvents.length > 0 &&
-      allNetworkEvents.map((c, i) => <EventCard key={i} events={c} />);
+      allNetworkEvents.map((c, i) => <EventCard key={i} events={c} status={this.state.status}/>);
     return (
       <div className="network-events-map-container">
         <h3>Network Events</h3>

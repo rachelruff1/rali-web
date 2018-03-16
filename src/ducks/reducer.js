@@ -53,6 +53,7 @@ const GET_EVENT = "GET_EVENT";
 const ADMIN_DELETE_EVENT = "ADMIN_DELETE_EVENT";
 const EDIT_EVENT = "EDIT_EVENT";
 const JOIN_EVENT = "JOIN_EVENT";
+const LEAVE_EVENT = 'LEAVE_EVENT';
 
 ///REDUCER FUNCTION
 
@@ -492,4 +493,15 @@ export function joinEvent(eventid) {
       .then(resp => resp.data)
       .catch(console.log)
   };
+}
+
+export function leaveEvent(eventid) {
+  console.log('hit leave', eventid);
+  return {
+    type: LEAVE_EVENT,
+    payload: axios
+      .delete(`/api/leaveEvent/${eventid}`)
+      .then(resp=> resp.data)
+      .catch(console.log)
+  }
 }

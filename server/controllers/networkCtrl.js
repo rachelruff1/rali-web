@@ -80,7 +80,7 @@ const performSearch = (req, res, next) => {
 
 
 const joinNetwork = (req, res, next) => {
-  console.log('joinNetwork', req.body);
+  // console.log('joinNetwork', req.body, req.user);
   const db = req.app.get('db');
   const {networkid} = req.body;
   db.network
@@ -92,7 +92,7 @@ const joinNetwork = (req, res, next) => {
 
 const leaveNetwork = (req, res, next) =>{
   const db = req.app.get('db');
-  console.log(req.params);
+  // console.log(req.params);
   db.network
     .leave_network([req.params.userid, req.params.networkid])
     .then(()=>res.status(200).send())
@@ -102,7 +102,7 @@ const leaveNetwork = (req, res, next) =>{
 const editNetworkName = (req, res, next) => {
   const db = req.app.get('db');
   const {networkid, name} = req.body;
-  console.log('editNetworkName ctrl:',req.body)
+  // console.log('editNetworkName ctrl:',req.body)
   db.network
     .edit_network_name([networkid, name])
     .then(()=>res.status(200).send())

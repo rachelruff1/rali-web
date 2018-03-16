@@ -8,7 +8,7 @@ class EventCard extends Component {
     super(props);
   }
   render() {
-    console.log(this.props);
+    console.log('eventCard this.props:',this.props);
     let monthsArr = [
       "Jan",
       "Feb",
@@ -41,7 +41,7 @@ class EventCard extends Component {
     return (
       <div className="event-card-container">
         <Link
-          to={`/network/${this.props.events.networkid}/event/${
+          to={`/network/${this.props.status}/${this.props.events.networkid}/event/${
             this.props.events.eventid
           }`}
           style={{ textDecoration: "none" }}

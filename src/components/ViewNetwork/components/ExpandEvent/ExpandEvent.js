@@ -4,11 +4,14 @@ import {
   getEvent,
   adminDeleteEvent,
   editEvent,
-  joinEvent
+  joinEvent,
+  leaveEvent
 } from "../../../../ducks/reducer";
 import { withRouter, Link } from "react-router-dom";
+import swal from 'sweetalert';
 import EditEvent from "./EditEvent/EditEvent";
-import Header from '../../../Header/AppHeader/AppHeader';
+import Header from "../../../Header/AppHeader/AppHeader";
+import GoogleMaps from "./GoogleMaps/GoogleMaps";
 
 class ExpandEvent extends Component {
   constructor(props) {
@@ -35,7 +38,7 @@ class ExpandEvent extends Component {
     const field = e.target.name;
     const eventDetail = this.state.eventDetail;
     eventDetail[field] = e.target.value;
-    return this.setState({ eventDetail: eventDetail, currentEdit:true });
+    return this.setState({ eventDetail: eventDetail, currentEdit: true });
   }
   saveEventDetail(e) {
     e.preventDefault();
@@ -53,7 +56,7 @@ class ExpandEvent extends Component {
       eventid
     } = this.props.eventDetail;
     console.log(this);
-    
+
     // let monthsArr = [
     //   "January",
     //   "February",
@@ -89,17 +92,36 @@ class ExpandEvent extends Component {
     //   }
     // };
 
-    
     return this.state.isEditing ? (
       <div>
         <Header />
         <h1>Edit Event</h1>
         <EditEvent
-          name=  {(this.state.currentEdit) ? this.state.eventDetail.name : this.props.eventDetail.name }
-          date={(this.state.currentEdit) ? this.state.eventDetail.date : this.props.eventDetail.date }
-          time={(this.state.currentEdit) ? this.state.eventDetail.time : this.props.eventDetail.time }
-          location={(this.state.currentEdit) ? this.state.eventDetail.location : this.props.eventDetail.location }
-          description={(this.state.currentEdit) ? this.state.eventDetail.description : this.props.eventDetail.description }
+          name={
+            this.state.currentEdit
+              ? this.state.eventDetail.name
+              : this.props.eventDetail.name
+          }
+          date={
+            this.state.currentEdit
+              ? this.state.eventDetail.date
+              : this.props.eventDetail.date
+          }
+          time={
+            this.state.currentEdit
+              ? this.state.eventDetail.time
+              : this.props.eventDetail.time
+          }
+          location={
+            this.state.currentEdit
+              ? this.state.eventDetail.location
+              : this.props.eventDetail.location
+          }
+          description={
+            this.state.currentEdit
+              ? this.state.eventDetail.description
+              : this.props.eventDetail.description
+          }
           onSave={this.saveEventDetail}
           onChange={this.updateEventDetailState}
           toggle={this.toggleEdit}
@@ -107,7 +129,7 @@ class ExpandEvent extends Component {
       </div>
     ) : (
       <div>
-        <Header/>
+        <Header />
         <Link to={`/network/${this.props.match.params.netId}`}>
           <button>Back</button>
         </Link>
@@ -116,14 +138,24 @@ class ExpandEvent extends Component {
         <p>Time: {time}</p>
         <p>Location: {location}</p>
         <p>Description: {description}</p>
+        {(creatorid === this.props.user.id) ? (
         <div>
-          {creatorid === this.props.user.id ? (
-            <div>
-              <button onClick={this.toggleEdit}>Edit</button>
-              <button onClick={() => this.props.adminDeleteEvent(eventid)}>Delete</button>
-            </div>
-          ) : <button onClick={()=>this.props.joinEvent(eventid)}>Join</button>}
+          <button onClick={this.toggleEdit}>Edit</button>
+          <button onClick={() => this.props.adminDeleteEvent(eventid)}>
+            Delete
+          </button>
         </div>
+        ) :
+        (this.props.match.params.status === "joined") ? (
+        <div>
+          <button onClick={() => this.props.leaveEvent(eventid).then(swal(`Event left.`)).then(this.props.history.push(`/network/${this.props.match.params.netId}`))}>Leave</button>
+        </div>
+        ):(
+        <div>
+          <button onClick={() => this.props.joinEvent(eventid).then(swal('Event Joined!')).then(this.props.history.push(`/network/${this.props.match.params.netId}`))}>Join</button>
+        </div>
+        )}
+        <GoogleMaps />
       </div>
     );
   }
@@ -137,7 +169,11 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { getEvent, adminDeleteEvent, editEvent, joinEvent })(
-    ExpandEvent
-  )
+  connect(mapStateToProps, {
+    getEvent,
+    adminDeleteEvent,
+    editEvent,
+    joinEvent,
+    leaveEvent
+  })(ExpandEvent)
 );
