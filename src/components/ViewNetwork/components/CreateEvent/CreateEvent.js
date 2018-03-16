@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 import {
-  createEvent,
-  updateEventName,
-  updateEventDate,
-  updateEventTime,
-  updateEventLocation,
-  updateEventDescription
+  createEvent
 } from "../../../../ducks/reducer";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
@@ -19,11 +14,20 @@ class NewEvent extends Component {
     this.state = {
       custom: true,
       map: false,
-      address: ""
+      eventName: "",
+      eventDate: "",
+      eventTime: "",
+      eventLocation: "",
+      eventDescription: ""
     };
     this.displayCustom = this.displayCustom.bind(this);
     this.displayMap = this.displayMap.bind(this);
     this.updateAddress = this.updateAddress.bind(this);
+    this.updateEventName = this.updateEventName.bind(this);
+    this.updateEventDate = this.updateEventDate.bind(this);
+    this.updateEventTime = this.updateEventTime.bind(this);
+    this.updateEventLocation = this.updateEventLocation.bind(this);
+    this.updateEventDescription = this.updateEventDescription.bind(this);
   }
 
   displayCustom() {
@@ -46,30 +50,61 @@ class NewEvent extends Component {
       : this.setState({ address: this.props.eventLocation });
   }
 
+  updateEventName(e) {
+    return this.setState({
+      eventName: e
+    });
+  }
+  updateEventDate(e) {
+    return this.setState({
+      eventDate: e
+    });
+  }
+  updateEventTime(e) {
+    return this.setState({
+      eventTime: e
+    });
+  }
+  updateEventLocation(e) {
+    return this.setState({
+      eventLocation: e
+    });
+  }
+  updateEventDescription(e) {
+    return this.setState({
+      eventDescription: e
+    });
+  }
+
   render() {
     console.log(this);
 
+    const { googleAddress, createEvent } = this.props;
+
     const {
-      googleAddress,
       eventName,
       eventDate,
       eventTime,
       eventLocation,
-      eventDescription,
-      createEvent,
+      eventDescription
+    } = this.state;
+    const {
+      displayCustom,
+      displayMap,
       updateEventName,
       updateEventDate,
       updateEventTime,
       updateEventLocation,
       updateEventDescription
-    } = this.props;
+    } = this;
+
     const networkid = this.props.match.params.id;
 
     return (
       <div>
         <Header />
         <div className="event-name">
-          <p>Location</p>
+          <p>Event Name</p>
           <input
             // placeholder="Event Name"
             type="text"
@@ -101,7 +136,7 @@ class NewEvent extends Component {
               type="radio"
               defaultChecked="checked"
               name="radio"
-              onClick={this.displayCustom}
+              onClick={displayCustom}
             />
             <span className="checkmark" />
           </label>
@@ -115,7 +150,7 @@ class NewEvent extends Component {
 
           <label className="container">
             Find on map
-            <input type="radio" name="radio" onClick={this.displayMap} />
+            <input type="radio" name="radio" onClick={displayMap} />
             <span className="checkmark" />
           </label>
           {this.state.map === true ? <GoogleMaps /> : null}
@@ -131,17 +166,15 @@ class NewEvent extends Component {
         <button
           onClick={
             () =>
-              this.updateAddress()
-                .then(
-                  createEvent(
-                    networkid,
-                    eventName,
-                    eventDate,
-                    eventTime,
-                    this.state.address,
-                    eventDescription
-                  )
-                )
+              createEvent(
+                networkid,
+                eventName,
+                eventDate,
+                eventTime,
+                eventLocation,
+                googleAddress,
+                eventDescription
+              )
                 .then(swal("Event created!"))
                 .then(response =>
                   this.props.history.push(`/network/${networkid}`)
@@ -160,31 +193,14 @@ class NewEvent extends Component {
 }
 
 let mapStateToProps = state => {
-  const {
-    eventName,
-    eventDate,
-    eventTime,
-    eventLocation,
-    eventDescription,
-    googleAddress
-  } = state;
+  const { googleAddress } = state;
   return {
-    eventName,
-    eventDate,
-    eventTime,
-    eventLocation,
-    eventDescription,
     googleAddress
   };
 };
 
 export default withRouter(
   connect(mapStateToProps, {
-    createEvent,
-    updateEventName,
-    updateEventDate,
-    updateEventTime,
-    updateEventLocation,
-    updateEventDescription
+    createEvent
   })(NewEvent)
 );

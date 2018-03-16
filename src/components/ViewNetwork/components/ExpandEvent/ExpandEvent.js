@@ -57,6 +57,7 @@ class ExpandEvent extends Component {
       date,
       time,
       location,
+      glocation,
       description,
       creatorid,
       eventid,
@@ -111,7 +112,7 @@ class ExpandEvent extends Component {
         <h1>{this.props.eventDetail.name}</h1>
         <p>Date: {date}</p>
         <p>Time: {time}</p>
-        <p>Location: {location}</p>
+        <p>Location: {location === '' ? (glocation) : location}</p>
         <p>Description: {description}</p>
         <button onClick={this.toggleContact}>Contact host</button>
     
@@ -134,7 +135,7 @@ class ExpandEvent extends Component {
           <button onClick={() => this.props.joinEvent(eventid).then(swal('Event Joined!')).then(this.props.history.push(`/network/${this.props.match.params.netId}`))}>Join</button>
         </div>
         )}
-        <GoogleMaps />
+        {/* <GoogleMaps /> */}
       </div>
     );
   }

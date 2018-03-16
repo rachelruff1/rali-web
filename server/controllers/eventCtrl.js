@@ -30,6 +30,7 @@ const createEvent = (req, res, next) => {
     eventDate,
     eventTime,
     eventLocation,
+    googleAddress,
     eventDescription
   } = req.body;
   db.event
@@ -40,6 +41,7 @@ const createEvent = (req, res, next) => {
       eventDate,
       eventTime,
       eventLocation,
+      googleAddress,
       eventDescription
     ])
     .then(response => {

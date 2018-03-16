@@ -11,7 +11,8 @@ class GoogleMaps extends Component {
       maptype: "roadmap",
       place_formatted: "",
       place_id: "",
-      place_location: ""
+      place_location: "",
+      place_name: ''
     };
   }
 
@@ -38,13 +39,14 @@ class GoogleMaps extends Component {
     autoComplete.addListener("place_changed", () => {
       let place = autoComplete.getPlace();
       let location = place.geometry.location;
-
+console.log(place);
       this.setState({
         place_formatted: place.formatted_address,
         place_id: place.place_id,
-        place_location: location.toString()
+        place_location: location.toString(),
+        place_name: place.name
       });
-      this.props.updateGoogleAddress(place.formatted_address)
+      this.props.updateGoogleAddress(`${this.state.place_name} ${this.state.place_formatted}`)
 
       // bring the selected place in view on the map
       map.fitBounds(place.geometry.viewport);

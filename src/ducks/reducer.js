@@ -432,9 +432,10 @@ export function createEvent(
   eventName,
   eventDate,
   eventTime,
-  address,
+  eventLocation,
+  googleAddress,
   eventDescription
-) {  console.log('createevent:', address)
+) {
   return {
     type: CREATE_EVENT,
     payload: axios
@@ -443,7 +444,8 @@ export function createEvent(
         eventName,
         eventDate,
         eventTime,
-        address,
+        eventLocation,
+        googleAddress,
         eventDescription
       })
       .then(resp => {
