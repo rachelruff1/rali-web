@@ -19,7 +19,8 @@ const initialState = {
   eventTime: "",
   eventLocation: "",
   eventDescription: "",
-  eventDetail: {}
+  eventDetail: {},
+  googleAddress: ''
 };
 
 const GET_USER = "GET_USER";
@@ -54,6 +55,7 @@ const ADMIN_DELETE_EVENT = "ADMIN_DELETE_EVENT";
 const EDIT_EVENT = "EDIT_EVENT";
 const JOIN_EVENT = "JOIN_EVENT";
 const LEAVE_EVENT = 'LEAVE_EVENT';
+const UPDATE_GOOGLE_ADDRESS = "UPDATE_GOOGLE_ADDRESS";
 
 ///REDUCER FUNCTION
 
@@ -127,6 +129,8 @@ export default function reducer(state = initialState, action) {
         joinedNetwork: action.payload
       });
 
+      //EVENTS
+
     case `${GET_MY_NETWORK_EVENTS}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
     case `${GET_MY_NETWORK_EVENTS}_REJECTED`:
@@ -177,6 +181,8 @@ export default function reducer(state = initialState, action) {
         isLoading: false,
         eventDetail: action.payload[0]
       });
+    case UPDATE_GOOGLE_ADDRESS:
+      return Object.assign({}, state, {googleAddress: action.payload})
 
     default:
       return state;
@@ -426,9 +432,9 @@ export function createEvent(
   eventName,
   eventDate,
   eventTime,
-  eventLocation,
+  address,
   eventDescription
-) {
+) {  console.log('createevent:', address)
   return {
     type: CREATE_EVENT,
     payload: axios
@@ -437,7 +443,7 @@ export function createEvent(
         eventName,
         eventDate,
         eventTime,
-        eventLocation,
+        address,
         eventDescription
       })
       .then(resp => {
@@ -446,6 +452,13 @@ export function createEvent(
       })
       .catch(console.log)
   };
+}
+
+export function updateGoogleAddress(googleAddress) {
+  return {
+    type: UPDATE_GOOGLE_ADDRESS,
+    payload: googleAddress
+  }
 }
 
 export function getEvent(eventid) {

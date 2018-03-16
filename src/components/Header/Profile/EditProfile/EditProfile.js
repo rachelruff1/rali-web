@@ -1,7 +1,4 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import Header from "../../AppHeader/AppHeader";
-import swal from 'sweetalert';
+import React, { Component } from "react";import Header from "../../AppHeader/AppHeader";
 import "../Profile.css";
 
 
@@ -64,9 +61,9 @@ class EditProfile extends Component {
         >
           Save
         </button>
-        <Link to="/network-selector">
-          <button onClick={this.props.toggle}>Back</button>
-        </Link>
+        {/* <Link to="/network-selector"> */}
+          <button onClick={()=>this.props.toggle.then(window.location.reload())}>Back</button>
+        {/* </Link> */}
       </div>
     );
   }

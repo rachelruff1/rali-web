@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Header from '../../../../Header/AppHeader/AppHeader';
 
 class EditEvent extends Component {
   render() {

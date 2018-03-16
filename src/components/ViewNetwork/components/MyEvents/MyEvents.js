@@ -16,7 +16,7 @@ class MyEvents extends Component {
     this.props.getMyNetworkEvents(this.props.networkid);
   }
   render() {
-    console.log(this);
+    // console.log(this);
     const {myNetworkEvents} = this.props;
     const myJoinedEventsMap =
       myNetworkEvents.length > 0 &&

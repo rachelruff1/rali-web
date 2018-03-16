@@ -23,7 +23,7 @@ export default function AppHeader() {
   );
 }
 
-{
+
   /* <header className="ahp-header">
 <div className="navbar">
   <img className="logo" src={logo} alt="logo" />
@@ -42,9 +42,7 @@ export default function AppHeader() {
   
 </div>
 </header> */
-}
 
-{
   /* <header className="ahp-header">
       <div className="navbar">
         <img className="logo" src={logo} alt="logo" />
@@ -69,4 +67,3 @@ export default function AppHeader() {
         </div>
       </div>
     </header> */
-}

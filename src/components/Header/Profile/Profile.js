@@ -35,6 +35,7 @@ class Profile extends Component {
   saveUser(e) {
     e.preventDefault();
     this.props.editUser(this.state.user);
+    window.location.reload();
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.user.id !== nextProps.user.id) {
@@ -43,7 +44,7 @@ class Profile extends Component {
   }
   render() {
     console.log(this.props);
-    const { firstname, lastname, email, cell, picture } = this.props.user;
+    const { firstname, lastname, email, cell } = this.props.user;
     return this.state.isEditing ? (
       <div className='edit-profile-container'>
         <Header/>
@@ -53,7 +54,7 @@ class Profile extends Component {
           lastname={this.state.user.lastname}
           email={this.state.user.email}
           cell={this.state.user.cell}
-          picture={this.state.user.picture}
+          // picture={this.state.user.picture}
           onSave={this.saveUser}
           onChange={this.updateUserState}
           toggle={this.toggleEdit}

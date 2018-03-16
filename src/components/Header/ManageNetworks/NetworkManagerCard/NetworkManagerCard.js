@@ -6,21 +6,19 @@ import { leaveNetwork, adminDeleteNetwork} from '../../../../ducks/reducer';
 import '../ManageNetworks.css';
 
 class NetworkManagerCard extends Component {
-  constructor(props) {
-    super(props);
-  }
+  
   render() {
-      // console.log('this.props', this.props);
+      console.log('this.props', this.props);
     return this.props.network.creatorid === this.props.network.userid ? (
       <div className='network-manager-card'>
         <p>{this.props.network.name}</p>
         <Link to={`/edit-network/${this.props.network.networkid}`} network={this.props.network}><button>Edit</button></Link>
-        <button onClick={()=>this.props.adminDeleteNetwork(this.props.network.networkid).then(swal('Network Deleted'))}>Delete</button>
+        <button onClick={()=>this.props.adminDeleteNetwork(this.props.network.networkid).then(swal('Network Deleted')).then(window.location.reload())}>Delete</button>
       </div>
     ) : (
       <div className="network-manager-card">
         <p>{this.props.network.name}</p>
-        <button onClick={()=>this.props.leaveNetwork(this.props.network.userid, this.props.network.networkid)}>Leave Network</button>
+        <button onClick={()=>this.props.leaveNetwork(this.props.network.userid, this.props.network.networkid).then(swal('Network removed.')).then(window.location.reload())}>Leave Network</button>
       </div>
     );
   }

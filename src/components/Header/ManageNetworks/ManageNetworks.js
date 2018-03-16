@@ -8,14 +8,25 @@ import './ManageNetworks.css';
 class ManageNetworks extends Component {
   constructor(props) {
     super(props);
-  }
+    this.state=({
+      deleted: false
+          })
+          this.updateDeleted = this.updateDeleted.bind(this);
+        }
+      
+        updateDeleted(){
+          this.setState = ({
+            deleted: true
+          })
+        }
 
   componentDidMount() {
     this.props.getNetworks();
   }
   render() {
+    console.log('this.props');
     const manageNetworksMap = this.props.networks.length>0 &&
-    this.props.networks.map((c, i) => <NetworkManagerCard key={i} network={c} />);
+    this.props.networks.map((c, i) => <NetworkManagerCard key={i} network={c} delete={()=>this.updateDeleted()}/>);
 
     console.log(this.props);
     return (<div>

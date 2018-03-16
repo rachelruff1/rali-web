@@ -4,11 +4,9 @@ import { withRouter } from "react-router-dom";
 import "../../ViewNetwork.css";
 
 class EventCard extends Component {
-  constructor(props) {
-    super(props);
-  }
+  
   render() {
-    console.log('eventCard this.props:',this.props);
+    // console.log('eventCard this.props:',this.props);
     let monthsArr = [
       "Jan",
       "Feb",

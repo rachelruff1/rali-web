@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MyEvents from "./components/MyEvents/MyEvents";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { getNetwork } from "../../ducks/reducer";
 import NetworkEvents from "./components/NetworkEvents/NetworkEvents";
@@ -8,9 +8,6 @@ import Header from "../Header/AppHeader/AppHeader";
 import "./ViewNetwork.css";
 
 class ViewNetwork extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     console.log(this.props.match.params.id);
