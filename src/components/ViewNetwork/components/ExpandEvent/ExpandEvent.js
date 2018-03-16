@@ -8,11 +8,11 @@ import {
   leaveEvent
 } from "../../../../ducks/reducer";
 import { withRouter, Link } from "react-router-dom";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 import EditEvent from "./EditEvent/EditEvent";
 import Header from "../../../Header/AppHeader/AppHeader";
 import GoogleMaps from "./GoogleMaps/GoogleMaps";
-import UserContact from './UserContact/UserContact';
+import UserContact from "./UserContact/UserContact";
 
 class ExpandEvent extends Component {
   constructor(props) {
@@ -48,8 +48,8 @@ class ExpandEvent extends Component {
     this.props.editEvent(this.state.eventDetail);
   }
 
-  toggleContact(){
-    this.setState({ contactHost: !this.state.contactHost})
+  toggleContact() {
+    this.setState({ contactHost: !this.state.contactHost });
   }
 
   render() {
@@ -61,7 +61,7 @@ class ExpandEvent extends Component {
       description,
       creatorid,
       eventid,
-      firstname, 
+      firstname,
       lastname,
       email,
       cell
@@ -112,28 +112,82 @@ class ExpandEvent extends Component {
         <h1>{this.props.eventDetail.name}</h1>
         <p>Date: {date}</p>
         <p>Time: {time}</p>
-        <p>Location: {location === '' ? (glocation) : location}</p>
+        <p>Location: {location === "" ? glocation : location}</p>
         <p>Description: {description}</p>
         <button onClick={this.toggleContact}>Contact host</button>
-    
-        {(creatorid === this.props.user.id) ? (
-        <div>
-          <button onClick={this.toggleEdit}>Edit</button>
-          <button onClick={() => this.props.adminDeleteEvent(eventid).then(swal(`Event deleted.`)).then(this.props.history.push(`/network/${this.props.match.params.netId}`))}>
-            Delete
-          </button>
-        </div>
-        ) :
-        (this.props.match.params.status === "joined") ? (
-        <div>
-          <div>{(this.state.contactHost === true) ? <UserContact first={firstname} last={lastname} email={email} cell={cell}/> : null }</div>
-          <button onClick={() => this.props.leaveEvent(eventid).then(swal(`Event left.`)).then(this.props.history.push(`/network/${this.props.match.params.netId}`))}>Leave</button>
-        </div>
-        ):(
-        <div>
-          <div>{(this.state.contactHost === true) ? <UserContact first={firstname} last={lastname} email={email} cell={cell}/> : null }</div>
-          <button onClick={() => this.props.joinEvent(eventid).then(swal('Event Joined!')).then(this.props.history.push(`/network/${this.props.match.params.netId}`))}>Join</button>
-        </div>
+
+        {creatorid === this.props.user.id ? (
+          <div>
+            <button onClick={this.toggleEdit}>Edit</button>
+            <button
+              onClick={() =>
+                this.props
+                  .adminDeleteEvent(eventid)
+                  .then(swal(`Event deleted.`))
+                  .then(
+                    this.props.history.push(
+                      `/network/${this.props.match.params.netId}`
+                    )
+                  )
+              }
+            >
+              Delete
+            </button>
+          </div>
+        ) : this.props.match.params.status === "joined" ? (
+          <div>
+            <div>
+              {this.state.contactHost === true ? (
+                <UserContact
+                  first={firstname}
+                  last={lastname}
+                  email={email}
+                  cell={cell}
+                />
+              ) : null}
+            </div>
+            <button
+              onClick={() =>
+                this.props
+                  .leaveEvent(eventid)
+                  .then(swal(`Event left.`))
+                  .then(
+                    this.props.history.push(
+                      `/network/${this.props.match.params.netId}`
+                    )
+                  )
+              }
+            >
+              Leave
+            </button>
+          </div>
+        ) : (
+          <div>
+            <div>
+              {this.state.contactHost === true ? (
+                <UserContact
+                  first={firstname}
+                  last={lastname}
+                  email={email}
+                  cell={cell}
+                />
+              ) : null}
+            </div>
+            <button
+              onClick={() =>
+                this.props
+                  .joinEvent(eventid)
+                  .then(swal("Event Joined!"))
+                  .then(
+                    this.props.history.push(
+                      `/network/${this.props.match.params.netId}`
+                    )
+                  )
+              }
+            >
+              Join
+            </button>
+          </div>
         )}
         {/* <GoogleMaps /> */}
       </div>
@@ -158,41 +212,37 @@ export default withRouter(
   })(ExpandEvent)
 );
 
+// let monthsArr = [
+//   "January",
+//   "February",
+//   "March",
+//   "April",
+//   "May",
+//   "June",
+//   "July",
+//   "August",
+//   "September",
+//   "October",
+//   "November",
+//   "December"
+// ];
 
-
-
-
-    // let monthsArr = [
-    //   "January",
-    //   "February",
-    //   "March",
-    //   "April",
-    //   "May",
-    //   "June",
-    //   "July",
-    //   "August",
-    //   "September",
-    //   "October",
-    //   "November",
-    //   "December"
-    // ];
-
-    // let displayDate = date;
-    // let month = Number(displayDate.slice(5,7));
-    // let day = Number(displayDate.slice(8, 11));
-    // console.log( month, day)
-    // let date = this.props.events.date;
-    // let month = Number(date.slice(5, 7));
-    // let day = Number(date.slice(8, 11));
-    // let time = this.props.events.time;
-    // let monthDisplay = monthsArr[month - 1];
-    // let hourCheck = () => {
-    //   let hour = Number(time.slice(0, 2));
-    //   let minutes = time.slice(3, 6);
-    //   console.log("hour:", hour, "minutes:", minutes);
-    //   if (hour > 12) {
-    //     return `${hour - 12}:${minutes} pm`;
-    //   } else {
-    //     return `${hour}:${minutes} am`;
-    //   }
-    // };
+// let displayDate = date;
+// let month = Number(displayDate.slice(5,7));
+// let day = Number(displayDate.slice(8, 11));
+// console.log( month, day)
+// let date = this.props.events.date;
+// let month = Number(date.slice(5, 7));
+// let day = Number(date.slice(8, 11));
+// let time = this.props.events.time;
+// let monthDisplay = monthsArr[month - 1];
+// let hourCheck = () => {
+//   let hour = Number(time.slice(0, 2));
+//   let minutes = time.slice(3, 6);
+//   console.log("hour:", hour, "minutes:", minutes);
+//   if (hour > 12) {
+//     return `${hour - 12}:${minutes} pm`;
+//   } else {
+//     return `${hour}:${minutes} am`;
+//   }
+// };

@@ -14,13 +14,8 @@ const initialState = {
   myNetworkEvents: [],
   allNetworkEvents: [],
   activeNetwork: {},
-  eventName: "",
-  eventDate: "",
-  eventTime: "",
-  eventLocation: "",
-  eventDescription: "",
   eventDetail: {},
-  googleAddress: ''
+  googleAddress: ""
 };
 
 const GET_USER = "GET_USER";
@@ -44,17 +39,12 @@ const ADMIN_DELETE_NETWORK = "ADMIN_DELETE_NETWORK";
 
 const GET_MY_NETWORK_EVENTS = "GET_MY_NETWORK_EVENTS";
 const GET_ALL_NETWORK_EVENTS = "GET_ALL_NETWORK_EVENTS";
-const UPDATE_EVENT_NAME = "UPDATE_EVENT_NAME";
-const UPDATE_EVENT_DATE = "UPDATE_EVENT_DATE";
-const UPDATE_EVENT_TIME = "UPDATE_EVENT_TIME";
-const UPDATE_EVENT_LOCATION = "UPDATE_EVENT_LOCATION";
-const UPDATE_EVENT_DESCRIPTION = "UPDATE_EVENT_DESCRIPTION";
 const CREATE_EVENT = "CREATE-EVENT";
 const GET_EVENT = "GET_EVENT";
 const ADMIN_DELETE_EVENT = "ADMIN_DELETE_EVENT";
 const EDIT_EVENT = "EDIT_EVENT";
 const JOIN_EVENT = "JOIN_EVENT";
-const LEAVE_EVENT = 'LEAVE_EVENT';
+const LEAVE_EVENT = "LEAVE_EVENT";
 const UPDATE_GOOGLE_ADDRESS = "UPDATE_GOOGLE_ADDRESS";
 
 ///REDUCER FUNCTION
@@ -129,7 +119,7 @@ export default function reducer(state = initialState, action) {
         joinedNetwork: action.payload
       });
 
-      //EVENTS
+    //EVENTS
 
     case `${GET_MY_NETWORK_EVENTS}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
@@ -151,27 +141,6 @@ export default function reducer(state = initialState, action) {
         allNetworkEvents: action.payload
       });
 
-    case UPDATE_EVENT_NAME:
-      return Object.assign({}, state, {
-        eventName: action.payload
-      });
-    case UPDATE_EVENT_DATE:
-      return Object.assign({}, state, {
-        eventDate: action.payload
-      });
-    case UPDATE_EVENT_TIME:
-      return Object.assign({}, state, {
-        eventTime: action.payload
-      });
-    case UPDATE_EVENT_LOCATION:
-      return Object.assign({}, state, {
-        eventLocation: action.payload
-      });
-    case UPDATE_EVENT_DESCRIPTION:
-      return Object.assign({}, state, {
-        eventDescription: action.payload
-      });
-
     case `${GET_EVENT}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
     case `${GET_EVENT}_REJECTED`:
@@ -182,7 +151,7 @@ export default function reducer(state = initialState, action) {
         eventDetail: action.payload[0]
       });
     case UPDATE_GOOGLE_ADDRESS:
-      return Object.assign({}, state, {googleAddress: action.payload})
+      return Object.assign({}, state, { googleAddress: action.payload });
 
     default:
       return state;
@@ -395,38 +364,6 @@ export function getAllNetworkEvents(networkid) {
   };
 }
 
-export function updateEventName(eventName) {
-  return {
-    type: UPDATE_EVENT_NAME,
-    payload: eventName
-  };
-}
-
-export function updateEventDate(eventDate) {
-  return {
-    type: UPDATE_EVENT_DATE,
-    payload: eventDate
-  };
-}
-export function updateEventTime(eventTime) {
-  return {
-    type: UPDATE_EVENT_TIME,
-    payload: eventTime
-  };
-}
-export function updateEventLocation(eventLocation) {
-  return {
-    type: UPDATE_EVENT_LOCATION,
-    payload: eventLocation
-  };
-}
-export function updateEventDescription(eventDescription) {
-  return {
-    type: UPDATE_EVENT_DESCRIPTION,
-    payload: eventDescription
-  };
-}
-
 export function createEvent(
   networkid,
   eventName,
@@ -460,7 +397,7 @@ export function updateGoogleAddress(googleAddress) {
   return {
     type: UPDATE_GOOGLE_ADDRESS,
     payload: googleAddress
-  }
+  };
 }
 
 export function getEvent(eventid) {
@@ -511,12 +448,12 @@ export function joinEvent(eventid) {
 }
 
 export function leaveEvent(eventid) {
-  console.log('hit leave', eventid);
+  console.log("hit leave", eventid);
   return {
     type: LEAVE_EVENT,
     payload: axios
       .delete(`/api/leaveEvent/${eventid}`)
-      .then(resp=> resp.data)
+      .then(resp => resp.data)
       .catch(console.log)
-  }
+  };
 }

@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import {
-  createEvent
-} from "../../../../ducks/reducer";
+import { createEvent } from "../../../../ducks/reducer";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import swal from "sweetalert";
