@@ -76,7 +76,7 @@ const adminDeleteEvent = (req, res, next) => {
 
 const editEvent = (req, res, next) => {
   const db = req.app.get('db');
-  const {eventid, name, date, time, location, description} = req.body.eventDetail;
+  const {eventid, name, date, time, location, description} = req.body;
   db.event
     .edit_event([eventid, name, date, time, location, description ])
     .then(res.status(200).send())

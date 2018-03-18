@@ -97,7 +97,7 @@ class NewEvent extends Component {
     } = this;
 
     const networkid = this.props.match.params.id;
-
+console.log(this.props.user);
     return (
       <div>
         <Header />
@@ -191,9 +191,9 @@ class NewEvent extends Component {
 }
 
 let mapStateToProps = state => {
-  const { googleAddress } = state;
+  const { googleAddress,user } = state;
   return {
-    googleAddress
+    googleAddress, user
   };
 };
 

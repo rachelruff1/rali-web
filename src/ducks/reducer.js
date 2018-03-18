@@ -424,13 +424,13 @@ export function adminDeleteEvent(eventid) {
   };
 }
 
-export function editEvent(eventDetail) {
-  console.log("hit edit", eventDetail);
+export function editEvent(eventid, name, date, time, location, description) {
+  console.log("hit edit", name, date, time, location, description);
   //eventid, name, date, time, location, description
   return {
     type: EDIT_EVENT,
     payload: axios
-      .put("/api/editEvent/", { eventDetail })
+      .put("/api/editEvent/", { eventid, name, date, time, location, description })
       .then(resp => resp.data)
       .catch(console.log)
   };
