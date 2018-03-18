@@ -89,7 +89,7 @@
       padding: 0;
       overflow: hidden; */
       /* background-color: #333; */
-  }
+  
   
   .navbar-content li {
      
@@ -98,4 +98,9 @@
           text-align: center;
           padding: 14px 16px;
           text-decoration: none;
-  } */
+  } 
+
+  .header-icon img {
+      height: 5px;
+      width:5px;
+  }

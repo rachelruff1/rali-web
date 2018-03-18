@@ -10,7 +10,6 @@ import CreateEvent from "./components/ViewNetwork/components/CreateEvent/CreateE
 import Profile from "./components/Header/Profile/Profile";
 import ManageNetworks from "./components/Header/ManageNetworks/ManageNetworks";
 import EditNetwork from "./components/Header/ManageNetworks/EditNetwork/EditNetwork";
-import GoogleMaps from "./components/ViewNetwork/components/ExpandEvent/GoogleMaps/GoogleMaps";
 
 export default (
   <Switch>
@@ -24,21 +23,7 @@ export default (
     <Route path="/network/:id/create-event/" component={CreateEvent} />
     <Route path="/network/:status/:netId/event/:evId" component={ExpandEvent} />
     <Route path='/edit-network/:id' component={EditNetwork}/>
-    <Route path='/map-test' component={GoogleMaps} />
 
   </Switch>
 );
 
-{/* <Route
-path="/network/:id"
-render={() => {
-    console.log('router')
-    return(
-  <ViewNetwork>
-    <Switch>
-      <Route path="/network/:id/create-event" component={CreateEvent} />
-      <Route path="/network/:id/event/:id" component={ExpandEvent} />
-    </Switch>
-  </ViewNetwork>
-)}}
-/> */}

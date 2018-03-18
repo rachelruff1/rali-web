@@ -3,6 +3,9 @@ import { createEvent } from "../../../../ducks/reducer";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import swal from "sweetalert";
+import TextField from "material-ui/TextField";
+// import TimePicker from "material-ui/TimePicker";
+// import DatePicker from 'material-ui/DatePicker';
 import Header from "../../../Header/AppHeader/AppHeader";
 import GoogleMaps from "../ExpandEvent/GoogleMaps/GoogleMaps";
 
@@ -20,7 +23,6 @@ class NewEvent extends Component {
     };
     this.displayCustom = this.displayCustom.bind(this);
     this.displayMap = this.displayMap.bind(this);
-    // this.updateAddress = this.updateAddress.bind(this);
     this.updateEventName = this.updateEventName.bind(this);
     this.updateEventDate = this.updateEventDate.bind(this);
     this.updateEventTime = this.updateEventTime.bind(this);
@@ -42,12 +44,6 @@ class NewEvent extends Component {
       map: true
     });
   }
-
-  // updateAddress() {
-  //   this.props.eventLocation === ""
-  //     ? this.setState({ address: this.props.googleAddress })
-  //     : this.setState({ address: this.props.eventLocation });
-  // }
 
   updateEventName(e) {
     return this.setState({
@@ -75,29 +71,32 @@ class NewEvent extends Component {
     });
   }
 
-  checkAllFields(){
-    this.state.eventName !== '' && this.state.eventDate !== '' && this.state.eventTime !== '' && this.state.eventDescription !== '' ? 
-    (
-      this.props.createEvent(
-        this.props.match.params.id,
-        this.state.eventName,
-       this.state.eventDate,
-        this.state.eventTime,
-        this.state.eventLocation,
-        this.props.googleAddress,
-        this.state.eventDescription
-      )
-        .then(swal("Event created!"))
-        .then(response =>
-          this.props.history.push(`/network/${this.props.match.params.id}`))
-        ) : (swal('Please complete all fields.'))
+  checkAllFields() {
+    this.state.eventName !== "" &&
+    this.state.eventDate !== "" &&
+    this.state.eventTime !== "" &&
+    this.state.eventDescription !== ""
+      ? this.props
+          .createEvent(
+            this.props.match.params.id,
+            this.state.eventName,
+            this.state.eventDate,
+            this.state.eventTime,
+            this.state.eventLocation,
+            this.props.googleAddress,
+            this.state.eventDescription
+          )
+          .then(swal("Event created!"))
+          .then(response =>
+            this.props.history.push(`/network/${this.props.match.params.id}`)
+          )
+      : swal("Please complete all fields.");
   }
-
 
   render() {
     console.log(this);
 
-    const { googleAddress, createEvent } = this.props;
+    const { googleAddress } = this.props;
 
     const {
       eventName,
@@ -106,7 +105,8 @@ class NewEvent extends Component {
       eventLocation,
       eventDescription
     } = this.state;
-    const {checkAllFields,
+    const {
+      checkAllFields,
       displayCustom,
       displayMap,
       updateEventName,
@@ -117,39 +117,38 @@ class NewEvent extends Component {
     } = this;
 
     const networkid = this.props.match.params.id;
-console.log(this.props.user);
+    console.log(this.props.user);
     return (
       <div>
         <Header />
+        <h1>Create New Event</h1>
         <div className="event-name">
-          <p>Event Name</p>
-          <input
-            // placeholder="Event Name"
-            type="text"
+          <TextField
+            hintText="Event Name"
             onChange={e => updateEventName(e.target.value)}
           />
         </div>
+        <br />
         <div className="event-date">
-          <p>Date</p>
-          <input
-            // placeholder="Date"
-            type="date"
-            onChange={e => updateEventDate(e.target.value)}
-          />
-        </div>
-        <div className="event-time">
-          <p>Time</p>
-          <input
-            // placeholder="Time"
-            type="time"
-            onChange={e => updateEventTime(e.target.value)}
-          />
-        </div>
-
+        <h3>Date</h3>
+        <input
+          // placeholder="Date"
+          type="date"
+          onChange={e => updateEventDate(e.target.value)}
+        />
+      </div>
+      <div className="event-time">
+        <h3>Time</h3>
+        <input
+          // placeholder="Time"
+          type="time"
+          onChange={e => updateEventTime(e.target.value)}
+        />
+      </div>
+        <br />
         <div className="location">
-          <p>Location</p>
+        <h3>Location</h3>
           <label className="container">
-            Enter custom location:
             <input
               type="radio"
               defaultChecked="checked"
@@ -159,50 +158,28 @@ console.log(this.props.user);
             <span className="checkmark" />
           </label>
           {this.state.custom === true ? (
-            <input
-              placeholder="Location"
-              type="text"
+            <TextField
+              hintText="Custom location"
               onChange={e => updateEventLocation(e.target.value)}
             />
-          ) : null}
+          ) : <p>Custom location</p>}
 
           <label className="container">
-            Find on map
+            
             <input type="radio" name="radio" onClick={displayMap} />
-            <span className="checkmark" />
+            <span className="checkmark" />Find on map
           </label>
           {this.state.map === true ? <GoogleMaps /> : null}
         </div>
+        <br />
         <div className="event-description">
-          <p>Description</p>
-          <input
-            placeholder="Description"
-            type="text"
+          <TextField
+            hintText="Description"
             onChange={e => updateEventDescription(e.target.value)}
           />
+          <br />
         </div>
-        <button
-          onClick={
-            () => checkAllFields()
-
-              // createEvent(
-              //   networkid,
-              //   eventName,
-              //   eventDate,
-              //   eventTime,
-              //   eventLocation,
-              //   googleAddress,
-              //   eventDescription
-              // )
-              //   .then(swal("Event created!"))
-              //   .then(response =>
-              //     this.props.history.push(`/network/${networkid}`)
-              //   )
-  
-          }
-        >
-          Create New Event
-        </button>
+        <button onClick={() => checkAllFields()}>Create New Event</button>
         <Link to={`/network/${networkid}`}>
           <button>Back</button>
         </Link>
@@ -212,9 +189,10 @@ console.log(this.props.user);
 }
 
 let mapStateToProps = state => {
-  const { googleAddress,user } = state;
+  const { googleAddress, user } = state;
   return {
-    googleAddress, user
+    googleAddress,
+    user
   };
 };
 

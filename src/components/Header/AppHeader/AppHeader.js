@@ -2,29 +2,41 @@ import React from "react";
 import logo from "../logo.png";
 import "./Header.css";
 import { Link } from "react-router-dom";
+import globe from "./globe.png";
+import home from "./home.png";
+import profile from "./profile.png";
 
 export default function AppHeader() {
   return (
     <header className="app-header">
       <div className="navbar">
         <img className="logo" src={logo} alt="logo" />
-        <Link to="/profile">
-          <p>Profile</p>
-        </Link>
-        <Link to="/manage-networks">
-          {" "}
-          <p>Manage Networks</p>
-        </Link>
-        <Link to="/network-selector">
-          <p>Home</p>
-        </Link>
+        <ul className="navbar-options">
+          <li>
+            <Link to="/profile">
+              <img className="header-icon" src={profile} alt="profile" />
+              <p>Profile</p>
+            </Link>
+          </li>
+          <li>
+            <Link to="/manage-networks">
+              <img className="header-icon" src={globe} alt="globe" />
+              <p>Manage Networks</p>
+            </Link>
+          </li>
+          <li>
+            <Link to="/network-selector">
+              <img className="header-icon" src={home} alt="home" />
+              <p>Home</p>
+            </Link>
+          </li>
+        </ul>
       </div>
     </header>
   );
 }
 
-
-  /* <header className="ahp-header">
+/* <header className="ahp-header">
 <div className="navbar">
   <img className="logo" src={logo} alt="logo" />
   <ul className="navbar-content">
@@ -43,7 +55,7 @@ export default function AppHeader() {
 </div>
 </header> */
 
-  /* <header className="ahp-header">
+/* <header className="ahp-header">
       <div className="navbar">
         <img className="logo" src={logo} alt="logo" />
         <div className="dropdown">
