@@ -20,12 +20,13 @@ class NewEvent extends Component {
     };
     this.displayCustom = this.displayCustom.bind(this);
     this.displayMap = this.displayMap.bind(this);
-    this.updateAddress = this.updateAddress.bind(this);
+    // this.updateAddress = this.updateAddress.bind(this);
     this.updateEventName = this.updateEventName.bind(this);
     this.updateEventDate = this.updateEventDate.bind(this);
     this.updateEventTime = this.updateEventTime.bind(this);
     this.updateEventLocation = this.updateEventLocation.bind(this);
     this.updateEventDescription = this.updateEventDescription.bind(this);
+    this.checkAllFields = this.checkAllFields.bind(this);
   }
 
   displayCustom() {
@@ -42,11 +43,11 @@ class NewEvent extends Component {
     });
   }
 
-  updateAddress() {
-    this.props.eventLocation === ""
-      ? this.setState({ address: this.props.googleAddress })
-      : this.setState({ address: this.props.eventLocation });
-  }
+  // updateAddress() {
+  //   this.props.eventLocation === ""
+  //     ? this.setState({ address: this.props.googleAddress })
+  //     : this.setState({ address: this.props.eventLocation });
+  // }
 
   updateEventName(e) {
     return this.setState({
@@ -74,6 +75,25 @@ class NewEvent extends Component {
     });
   }
 
+  checkAllFields(){
+    this.state.eventName !== '' && this.state.eventDate !== '' && this.state.eventTime !== '' && this.state.eventDescription !== '' ? 
+    (
+      this.props.createEvent(
+        this.props.match.params.id,
+        this.state.eventName,
+       this.state.eventDate,
+        this.state.eventTime,
+        this.state.eventLocation,
+        this.props.googleAddress,
+        this.state.eventDescription
+      )
+        .then(swal("Event created!"))
+        .then(response =>
+          this.props.history.push(`/network/${this.props.match.params.id}`))
+        ) : (swal('Please complete all fields.'))
+  }
+
+
   render() {
     console.log(this);
 
@@ -86,7 +106,7 @@ class NewEvent extends Component {
       eventLocation,
       eventDescription
     } = this.state;
-    const {
+    const {checkAllFields,
       displayCustom,
       displayMap,
       updateEventName,
@@ -163,21 +183,22 @@ console.log(this.props.user);
         </div>
         <button
           onClick={
-            () =>
-              createEvent(
-                networkid,
-                eventName,
-                eventDate,
-                eventTime,
-                eventLocation,
-                googleAddress,
-                eventDescription
-              )
-                .then(swal("Event created!"))
-                .then(response =>
-                  this.props.history.push(`/network/${networkid}`)
-                )
-            // .then(response => this.props.history.push(`/network/${networkid}`))
+            () => checkAllFields()
+
+              // createEvent(
+              //   networkid,
+              //   eventName,
+              //   eventDate,
+              //   eventTime,
+              //   eventLocation,
+              //   googleAddress,
+              //   eventDescription
+              // )
+              //   .then(swal("Event created!"))
+              //   .then(response =>
+              //     this.props.history.push(`/network/${networkid}`)
+              //   )
+  
           }
         >
           Create New Event
