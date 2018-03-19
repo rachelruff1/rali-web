@@ -138,6 +138,16 @@ const adminDeleteNetwork = (req, res, next) => {
     .catch(err => { console.log(err); next(err) });
 };
 
+const getUserCount = (req, res, next) => {
+  const db = req.app.get('db');
+  const {id} = req.params;
+  console.log(id);
+  db.network
+    .user_count([id])
+    .then((userCount) => res.status(200).send(userCount))
+    .catch(err=> { console.log(err);next(err)});
+}
+
 module.exports = {
   getNetworks,
   createNetwork,
@@ -148,6 +158,7 @@ module.exports = {
   editNetworkPassword,
   getNetwork,
   adminDeleteNetwork,
-  joinNetwork
+  joinNetwork,
+  getUserCount
 };
 //[req.user.authid]

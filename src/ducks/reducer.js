@@ -15,7 +15,8 @@ const initialState = {
   allNetworkEvents: [],
   activeNetwork: {},
   eventDetail: {},
-  googleAddress: ""
+  googleAddress: "",
+  userCount: ''
 };
 
 const GET_USER = "GET_USER";
@@ -36,6 +37,7 @@ const LEAVE_NETWORK = "LEAVE_NETWORK";
 const EDIT_NETWORK_NAME = "EDIT_NETWORK_NAME";
 const EDIT_NETWORK_PASSWORD = "EDIT_NETWORK_PASSWORD";
 const ADMIN_DELETE_NETWORK = "ADMIN_DELETE_NETWORK";
+const GET_USER_COUNT = "GET_USER_COUNT";
 
 const GET_MY_NETWORK_EVENTS = "GET_MY_NETWORK_EVENTS";
 const GET_ALL_NETWORK_EVENTS = "GET_ALL_NETWORK_EVENTS";
@@ -109,16 +111,29 @@ export default function reducer(state = initialState, action) {
     case `${VERIFY_NETWORK}_REJECTED`:
       return Object.assign({}, state, { isLoading: false, didErr: true });
     case `${VERIFY_NETWORK}_FULFILLED`:
-      console.log(
-        "action.payload:",
-        action.payload,
-        "joinedNetwork:",
-        initialState.joinedNetwork
-      );
+      // console.log(
+      //   "action.payload:",
+      //   action.payload,
+      //   "joinedNetwork:",
+      //   initialState.joinedNetwork
+      // );
       return Object.assign({}, state, {
         joinedNetwork: action.payload
       });
 
+      case `${GET_USER_COUNT}_PENDING`:
+      return Object.assign({}, state, { isLoading: true });
+    case `${GET_USER_COUNT}_REJECTED`:
+      return Object.assign({}, state, { isLoading: false, didErr: true });
+    case `${GET_USER_COUNT}_FULFILLED`:
+      console.log(
+        "action.payload:",
+        action.payload);
+      return Object.assign({}, state, {
+        userCount: action.payload
+      });
+
+    
     //EVENTS
 
     case `${GET_MY_NETWORK_EVENTS}_PENDING`:
@@ -334,6 +349,17 @@ export function adminDeleteNetwork(networkid) {
       .then(resp => resp.data)
       .catch(console.log)
   };
+}
+
+export function getUserCount(networkid){
+  console.log('getusercount:', networkid);
+  return {
+    type: GET_USER_COUNT,
+    payload: axios
+    .get(`/api/getUserCount/${networkid}`)
+    .then(resp => {console.log(resp); resp.data})
+    .catch(console.log)
+  }
 }
 
 //EVENTS

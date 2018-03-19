@@ -34,3 +34,14 @@ padding-left: 8px;
     /* text-decoration: none; */
 color: black;
 }
+
+.view-network-container-big {
+  background: url('mug.jpg');
+  /* background-attachment: fixed; */
+  background-position: center;
+  /* background-repeat: no-repeat; */
+  background-size: cover;
+  margin-top: 0;
+  height: 1600px;
+  width: 100%;
+}

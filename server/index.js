@@ -112,6 +112,7 @@ app.put('/api/editNetworkName', nCtrl.editNetworkName);
 app.put('/api/editNetworkPassword', nCtrl.editNetworkPassword);
 app.delete(`/api/adminDeleteNetwork/:networkid`, nCtrl.adminDeleteNetwork)
 app.post('/api/joinNetwork', nCtrl.joinNetwork);
+app.get('/api/getUserCount/:id', nCtrl.getUserCount);
 
 app.get("/api/getMyNetworkEvents/:id", eCtrl.getMyNetworkEvents);
 app.get("/api/getAllNetworkEvents/:id", eCtrl.getAllNetworkEvents);

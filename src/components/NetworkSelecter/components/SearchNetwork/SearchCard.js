@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import swal from "sweetalert";
 import "./SearchNetwork.css";
+import TextField from "material-ui/TextField";
+import RaisedButton from "material-ui/RaisedButton";
 import { joinNetwork } from "../../../../ducks/reducer";
 
 class SearchCard extends Component {
@@ -26,14 +28,18 @@ class SearchCard extends Component {
     } else joinNetwork(this.props.network.networkid) && swal("Network joined!");
   }
   render() {
-    console.log(this);
+    // console.log(this);
+    const style = {
+      margin: 12
+    };
 
     return (
       <div className="search-result-container">
-        <div>{this.props.network.name}</div>
-        <input
-          type="password"
-          placeholder="Enter network password.."
+        {/* <div className="search-result-name"> */}
+          <p>{this.props.network.name}</p>
+        {/* </div> */}
+        <TextField
+          floatingLabelText="Enter password"
           onChange={e => this.updateConfirmPassword(e.target.value)}
         />
         <button onClick={() => this.verifyPasswordMatch()}>Submit</button>

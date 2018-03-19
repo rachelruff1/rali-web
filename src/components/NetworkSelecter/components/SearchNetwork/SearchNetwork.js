@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import SearchCard from "./SearchCard";
 import { connect } from "react-redux";
+import TextField from "material-ui/TextField";
 import "./SearchNetwork.css";
 import Header from "../../../Header/AppHeader/AppHeader";
 import {
@@ -26,12 +27,12 @@ class SearchNetwork extends Component {
       networkSearchResults &&
       networkSearchResults.map((c, i) => <SearchCard key={i} network={c} />);
     return (
-      <div>
+      <div className='search-container'>
         <Header />
         <div className="network-search-container">
-          <input
-            type="text"
-            placeholder="Enter network name.."
+        <h1>Search for a Network</h1>
+        <TextField
+              floatingLabelText="Network name"
             onChange={e => updateNetworkSearch(e.target.value)}
           />
           <button onClick={() => performSearch(networkSearch)}>Search</button>
