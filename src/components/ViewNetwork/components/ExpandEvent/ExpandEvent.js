@@ -13,6 +13,7 @@ import EditEvent from "./EditEvent/EditEvent";
 import Header from "../../../Header/AppHeader/AppHeader";
 import GoogleMaps from "./GoogleMaps/GoogleMaps";
 import UserContact from "./UserContact/UserContact";
+import './ExpandEvent.css';
 
 class ExpandEvent extends Component {
   constructor(props) {
@@ -120,8 +121,43 @@ class ExpandEvent extends Component {
     console.log(this);
     console.log(creatorid, "id", this.props.user.id);
 
+    //Javascript to change date format
+
+let monthsArr = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
+
+const ddate = this.state.eventDate;
+const month = Number(ddate.slice(5, 7));
+const day = Number(ddate.slice(8, 11));
+const dtime = this.state.eventTime;
+const monthDisplay = monthsArr[month - 1];
+const hourCheck = () => {
+  const hour = Number(dtime.slice(0, 2));
+  const minutes = dtime.slice(3, 6);
+  if (hour > 12) {
+    return `${hour - 12}:${minutes} pm`;
+  } else {
+    return `${hour}:${minutes} am`;
+  }
+};
+
+
+
+
     return this.state.isEditing ? (
-      <div>
+      <div className='expand-app-container'>
         <Header />
         <h1>Edit Event</h1>
 
@@ -141,14 +177,13 @@ class ExpandEvent extends Component {
         />
       </div>
     ) : (
-      <div>
+      <div className='expand-app-container'>
         <Header />
-        <Link to={`/network/${this.props.match.params.netId}`}>
-          <button>Back</button>
-        </Link>
+        <div className='expand-app-content'>
+       
         <h1>{eventName === "" ? name : this.state.eventName}</h1>
-        <p>Date: {eventDate}</p>
-        <p>Time: {eventTime}</p>
+        <p>Date: {monthDisplay} {day}</p>
+        <p>Time: {dtime}</p>
         <p>Location: {eventLocation === "" ? eventGLocation : eventLocation}</p>
         <p>Description: {eventDescription}</p>
         <button onClick={this.toggleContact}>Contact host</button>
@@ -170,6 +205,9 @@ class ExpandEvent extends Component {
             >
               Delete
             </button>
+            <Link to={`/network/${this.props.match.params.netId}`}>
+          <button>Back</button>
+        </Link>
           </div>
         ) : this.props.match.params.status === "joined" ? (
           <div>
@@ -197,6 +235,9 @@ class ExpandEvent extends Component {
             >
               Leave
             </button>
+            <Link to={`/network/${this.props.match.params.netId}`}>
+          <button>Back</button>
+        </Link>
           </div>
         ) : (
           <div>
@@ -225,8 +266,9 @@ class ExpandEvent extends Component {
             >
               Join
             </button>
-          </div>
-        )}
+            </div>
+          
+        )}</div>
         {/* <GoogleMaps /> */}
       </div>
     );
@@ -251,43 +293,4 @@ export default withRouter(
   })(ExpandEvent)
 );
 
-// let monthsArr = [
-//   "January",
-//   "February",
-//   "March",
-//   "April",
-//   "May",
-//   "June",
-//   "July",
-//   "August",
-//   "September",
-//   "October",
-//   "November",
-//   "December"
-// ];
 
-// let displayDate = date;
-// let month = Number(displayDate.slice(5,7));
-// let day = Number(displayDate.slice(8, 11));
-// console.log( month, day)
-// let date = this.props.events.date;
-// let month = Number(date.slice(5, 7));
-// let day = Number(date.slice(8, 11));
-// let time = this.props.events.time;
-// let monthDisplay = monthsArr[month - 1];
-// let hourCheck = () => {
-//   let hour = Number(time.slice(0, 2));
-//   let minutes = time.slice(3, 6);
-//   console.log("hour:", hour, "minutes:", minutes);
-//   if (hour > 12) {
-//     return `${hour - 12}:${minutes} pm`;
-//   } else {
-//     return `${hour}:${minutes} am`;
-//   }
-// };
-
-// componentWillReceiveProps(nextProps) {
-//   if (this.props.eventDetail.eventid != nextProps.eventDetail.eventid) {
-//     this.setState({ eventDetail: nextProps.eventDetail });
-//   }
-// }

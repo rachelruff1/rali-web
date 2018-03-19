@@ -22,7 +22,6 @@ class NetworkEvents extends Component {
       allNetworkEvents.map((c, i) => <EventCard key={i} events={c} status={this.state.status}/>);
     return (
       <div className="network-events-map-container">
-        <h3>Network Events</h3>
         <div>{allNetworkEventsMap}</div>
       </div>
     );

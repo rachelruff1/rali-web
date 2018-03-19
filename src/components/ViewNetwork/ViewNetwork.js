@@ -44,13 +44,18 @@ class ViewNetwork extends Component {
         <Header />
         <div className="view-network-container">
           <h1>{this.props.activeNetwork.name}</h1>
-          <p>
-            {userCount} {userCount > 1 ? "active members" : "active member"}
-          </p>
-          <Link to={`/network/${networkid}/create-event/`}> <button>Create New Event</button></Link>
+          <div className="inline-network">
+            <p>
+              {userCount} {userCount > 1 ? "active members" : "active member"}
+            </p>
+            <Link to={`/network/${networkid}/create-event/`}>
+              {" "}
+              <button>+ Create New Event</button>
+            </Link>
+          </div>
           <div className="conditional-events-container">
-            <button onClick={()=>this.showMy()}>My events</button>
-            <button onClick={()=>this.showNetwork()}>Network Events</button>
+            <button onClick={() => this.showMy()}>My events</button>
+            <button onClick={() => this.showNetwork()}>Network Events</button>
             <div className="events-container">
               {this.state.toggleView === false ? (
                 <div className="my-events-container">

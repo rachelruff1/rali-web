@@ -8,6 +8,7 @@ import TextField from "material-ui/TextField";
 // import DatePicker from 'material-ui/DatePicker';
 import Header from "../../../Header/AppHeader/AppHeader";
 import GoogleMaps from "../ExpandEvent/GoogleMaps/GoogleMaps";
+import './CreateEvent.css';
 
 class NewEvent extends Component {
   constructor(props) {
@@ -122,21 +123,21 @@ class NewEvent extends Component {
       <div className = 'create-event-container'>
         <Header />
         <h1>Create New Event</h1>
-        <div className="event-name">
+        <div className="create-event-input">
           <TextField
             hintText="Event name"
             onChange={e => updateEventName(e.target.value)}
           />
         </div>
         
-        <div className="event-date">
+        <div className="create-event-input">
         <h3>Date</h3>
         <input
           type="date"
           onChange={e => updateEventDate(e.target.value)}
         />
       </div>
-      <div className="event-time">
+      <div className="create-event-input">
         <h3>Time</h3>
         <input
           type="time"
@@ -156,10 +157,11 @@ class NewEvent extends Component {
             <span className="checkmark" />
           </label>
           {this.state.custom === true ? (
+            <div className = 'create-event-input'>
             <TextField
               hintText="Custom"
               onChange={e => updateEventLocation(e.target.value)}
-            />
+            /></div>
           ) : <p>Custom location</p>}
 
           <label className="container">
@@ -170,17 +172,18 @@ class NewEvent extends Component {
           {this.state.map === true ? <GoogleMaps /> : null}
         </div>
         
-        <div className="event-description">
+        <div className="create-event-input">
           <TextField
           hintText="Event description"
             onChange={e => updateEventDescription(e.target.value)}
           />
           
         </div>
+        <div className = 'create-event-buttons'>
         <button onClick={() => checkAllFields()}>Create New Event</button>
         <Link to={`/network/${networkid}`}>
           <button>Back</button>
-        </Link>
+        </Link></div>
       </div>
     );
   }

@@ -10,9 +10,12 @@
     opacity: 0.8;
   }
     
-    .event-card-container p {
-    color: black;
-    }
+  .event-card-container{
+      color: black;
+      width: 100%;
+  }
+
+
 
     .event-card-container h3 {
         color: black;
@@ -20,17 +23,9 @@
         padding-left: 25px;
     }
 
-    .event-card-content h3 {
-        /* padding-left: 7px; */
-    
-    }
+  
 
-    .event-card-content h4 {
-        color: black;
-        
-        /* margin-left: 26%;
-        margin-top: 15px; */
-    }
+    /*  */
 
     .event-card-content p {
         /* margin-right: 100px;
@@ -39,5 +34,5 @@
 
     .stacked-event-card {
        width: 50%;
-       padding-left: 13%;
+       padding-left: 15%;
     }

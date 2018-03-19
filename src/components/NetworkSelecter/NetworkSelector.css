@@ -19,7 +19,6 @@
   border-radius: 10px;
   background-color: rgb(160, 83, 106);
   color: white;
-  font-family: "Roboto", sans-serif;
 }
 .create-search-buttons button:hover {
 opacity: .9;
