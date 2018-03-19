@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Header from "../../AppHeader/AppHeader";
 import "../Profile.css";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";

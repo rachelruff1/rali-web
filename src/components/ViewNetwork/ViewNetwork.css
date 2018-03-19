@@ -40,8 +40,32 @@
   width: 100%;
 
 }
-
+/*
 .view-network-container button {
+  font-size: 90%;
+
+  cursor: pointer;
+
+  width: 160px;
+  border-radius: 10px;
+  background-color: rgb(160, 83, 106);
+  color: white;
+  margin: 15px;
+}
+
+*/
+.view-network-container button:hover {
+  opacity: .9;
+}
+
+.inline-network{
+  margin-top: 0px;
+  display: inline-flex;
+
+}
+
+.inline-network button{
+  margin-top: 18px;
   font-size: 90%;
   /* margin: 0 5px; */
   cursor: pointer;
@@ -51,12 +75,9 @@
   background-color: rgb(160, 83, 106);
   color: white;
   margin: 15px;
-}
-.view-network-container button:hover {
-  opacity: .9;
+
 }
 
-.inline-network{
-  display: inline-flex;
-
+.view-network-title h1{
+  height: 12px;
 }

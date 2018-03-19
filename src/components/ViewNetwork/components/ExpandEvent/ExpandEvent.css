@@ -23,3 +23,18 @@
 .expand-app-content button:hover {
   opacity: 0.9;
 }
+
+.expand-text {
+  border: 2px solid rgba(0, 0, 0, 0.418);
+  margin:20px;
+  padding:0 30px;
+  display: inline-block;
+}
+
+.host-button{
+  border: 2px solid rgba(0, 0, 0, 0.418);
+  font-weight: bolder;
+}
+.contact-box {
+  width: 10px
+}

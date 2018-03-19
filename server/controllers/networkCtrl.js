@@ -129,7 +129,7 @@ const getNetwork = (req, res, next) => {
 const adminDeleteNetwork = (req, res, next) => {
   const db = req.app.get("db");
   const { networkid } = req.params;
-  console.log(networkid);
+  // console.log(networkid);
   db.network
     .admin_delete_network([networkid])
     // .then(() => db.network.delete_en([networkid]))
@@ -141,7 +141,7 @@ const adminDeleteNetwork = (req, res, next) => {
 const getUserCount = (req, res, next) => {
   const db = req.app.get('db');
   const {id} = req.params;
-  console.log(id);
+  // console.log(id);
   db.network
     .get_count([id])
     .then((resp) => {console.log(resp);res.status(200).send(resp)})

@@ -43,15 +43,16 @@ class ViewNetwork extends Component {
       <div className="view-network-container-big">
         <Header />
         <div className="view-network-container">
+        <div className='view-network-title'>
           <h1>{this.props.activeNetwork.name}</h1>
           <div className="inline-network">
             <p>
-              {count} {count > 1 ? "active members" : "active member"}
+              {count} {count > 1 ? "active members" : "active member"} 
             </p>
             <Link to={`/network/${networkid}/create-event/`}>
               {" "}
               <button>+ Create New Event</button>
-            </Link>
+            </Link></div>
           </div>
           <div className="conditional-events-container">
             <button onClick={() => this.showMy()}>My events</button>

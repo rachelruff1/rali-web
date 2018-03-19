@@ -1,22 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
+import './UserContact.css';
 
-class UserContact extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    console.log(this.props);
+const UserContact = (props) => {
+    console.log(props);
     return (
-      <div>
-        <div>
-          Host: {this.props.first} {this.props.last}
+      <div className='host-contact'>
+        <div className='host-info'>
+         <h3> Host: </h3> <p>{props.first} {props.last}</p>
         </div>
-        <div>Email: {this.props.email}</div>
-        <div>Cell: {this.props.cell}</div>
+        <div className='host-info'><h3> Email: </h3> <p>{props.email}</p></div>
+        <div className='host-info'><h3> Cell: </h3> <p>{props.cell}</p></div>
       </div>
     );
-  }
 }
 
 export default UserContact;

@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import swal from "sweetalert";
 import "./SearchNetwork.css";
 import TextField from "material-ui/TextField";
-import RaisedButton from "material-ui/RaisedButton";
 import { joinNetwork } from "../../../../ducks/reducer";
 
 class SearchCard extends Component {
@@ -29,9 +28,6 @@ class SearchCard extends Component {
   }
   render() {
     // console.log(this);
-    const style = {
-      margin: 12
-    };
 
     return (
       <div className="search-result-container">

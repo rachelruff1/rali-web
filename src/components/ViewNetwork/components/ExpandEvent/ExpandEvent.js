@@ -11,7 +11,6 @@ import { withRouter, Link } from "react-router-dom";
 import swal from "sweetalert";
 import EditEvent from "./EditEvent/EditEvent";
 import Header from "../../../Header/AppHeader/AppHeader";
-import GoogleMaps from "./GoogleMaps/GoogleMaps";
 import UserContact from "./UserContact/UserContact";
 import './ExpandEvent.css';
 
@@ -96,11 +95,6 @@ class ExpandEvent extends Component {
   render() {
     const {
       name,
-      date,
-      time,
-      location,
-      glocation,
-      description,
       creatorid,
       eventid,
       firstname,
@@ -154,8 +148,6 @@ const hourCheck = () => {
 };
 
 
-
-
     return this.state.isEditing ? (
       <div className='expand-app-container'>
         <Header />
@@ -182,14 +174,24 @@ const hourCheck = () => {
         <div className='expand-app-content'>
        
         <h1>{eventName === "" ? name : this.state.eventName}</h1>
-        <p>Date: {monthDisplay} {day}</p>
-        <p>Time: {dtime}</p>
-        <p>Location: {eventLocation === "" ? eventGLocation : eventLocation}</p>
-        <p>Description: {eventDescription}</p>
+        <div className='expand-text'><h3>Date:</h3><p> {monthDisplay} {day}</p></div>
+        <div className='expand-text'><h3>Time:</h3><p> {hourCheck()}</p></div>
+        <div className='expand-text'><h3>Location:</h3><p> {eventLocation === "" ? eventGLocation : eventLocation}</p></div>
+        <div className='expand-text'><h3>Description:</h3><p> {eventDescription}</p></div>
         <button onClick={this.toggleContact}>Contact host</button>
 
         {creatorid === userId ? (
           <div>
+            <div>
+              {this.state.contactHost === true ? (
+                <UserContact
+                  first={firstname}
+                  last={lastname}
+                  email={email}
+                  cell={cell}
+                />
+              ) : null}
+            </div>
             <button onClick={this.toggleEdit}>Edit</button>
             <button
               onClick={() =>
@@ -219,7 +221,7 @@ const hourCheck = () => {
                   email={email}
                   cell={cell}
                 />
-              ) : 'hi'}
+              ) : null }
             </div>
             <button
               onClick={() =>
@@ -235,6 +237,7 @@ const hourCheck = () => {
             >
               Leave
             </button>
+            <br />
             <Link to={`/network/${this.props.match.params.netId}`}>
           <button>Back</button>
         </Link>
@@ -244,6 +247,7 @@ const hourCheck = () => {
             <div>
               {this.state.contactHost === true ? (
                 <div>
+
                 <UserContact
                   first={firstname}
                   last={lastname}

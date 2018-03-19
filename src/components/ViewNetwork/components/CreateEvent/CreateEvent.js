@@ -97,15 +97,6 @@ class NewEvent extends Component {
   render() {
     console.log(this);
 
-    const { googleAddress } = this.props;
-
-    const {
-      eventName,
-      eventDate,
-      eventTime,
-      eventLocation,
-      eventDescription
-    } = this.state;
     const {
       checkAllFields,
       displayCustom,
