@@ -12,22 +12,23 @@ export default function AppHeader() {
       <div className="navbar">
         <img className="logo" src={logo} alt="logo" />
         <ul className="navbar-options">
-          <li>
-            <Link to="/profile">
-              <img className="header-icon" src={profile} alt="profile" />
-              <p>Profile</p>
+        <li>
+            <Link to="/network-selector" style={{ textDecoration: 'none' }}>
+              <img className="header-icon" src={home} alt="home" />
+              <p>Home</p>
             </Link>
           </li>
+          
           <li>
-            <Link to="/manage-networks">
+            <Link to="/manage-networks" style={{ textDecoration: 'none' }}>
               <img className="header-icon" src={globe} alt="globe" />
               <p>Manage Networks</p>
             </Link>
           </li>
           <li>
-            <Link to="/network-selector">
-              <img className="header-icon" src={home} alt="home" />
-              <p>Home</p>
+            <Link to="/profile" style={{ textDecoration: 'none' }}>
+              <img className="header-icon" src={profile} alt="profile" />
+              <p>Profile</p>
             </Link>
           </li>
         </ul>

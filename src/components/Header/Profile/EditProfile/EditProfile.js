@@ -1,47 +1,48 @@
-import React, { Component } from "react";import Header from "../../AppHeader/AppHeader";
+import React, { Component } from "react";
+import Header from "../../AppHeader/AppHeader";
 import "../Profile.css";
-
+import TextField from "material-ui/TextField";
+import RaisedButton from 'material-ui/RaisedButton';
 
 class EditProfile extends Component {
   render() {
-    console.log("this on edit", this);
+    const style = {
+      margin: 12,
+    };
+    // console.log("this on edit", this);
     return (
       <div className="edit-profile">
         {/* <Header/> */}
         <div className="edit-profile-input">
           <form>
-            <input
-              name="firstname"
-              placeholder="First name"
-              label="firstname"
+            <TextField
+              floatingLabelText="First name"
               value={this.props.firstname}
               onChange={this.props.onChange}
             />
-
-            <input
-              name="lastname"
-              placeholder="Last name"
-              label="LastName"
+            <br />
+            <TextField
+              floatingLabelText="Last name"
               value={this.props.lastname}
               onChange={this.props.onChange}
             />
-
-            <input
-              name="email"
-              placeholder="Email"
-              label="Email"
+            <br />
+            <TextField
+              floatingLabelText="Email"
               value={this.props.email}
               onChange={this.props.onChange}
             />
-
-            <input
+            <br />
+            <TextField
               name="cell"
-              placeholder="Cell"
+              floatingLabelText="Cell"
               label="Cell"
               value={this.props.cell}
               onChange={this.props.onChange}
             />
-
+            <br />
+            <br />
+            <br />
             {/* <input
             name="picture"
             placeholder="Upload Image"
@@ -52,17 +53,17 @@ class EditProfile extends Component {
           /> */}
           </form>
         </div>
-        <button
+        <RaisedButton label="Save" style={style}
           // type="submit"
           // disabled={this.props.saving}
           // value={this.props.saving ? "Saving..." : "Save"}
           // className="btn btn-primary"
           onClick={this.props.onSave}
-        >
-          Save
-        </button>
+        />
         {/* <Link to="/network-selector"> */}
-          <button onClick={()=>this.props.toggle.then(window.location.reload())}>Back</button>
+        <RaisedButton label="Back" style={style}
+          onClick={() => this.props.toggle.then(window.location.reload())}
+       />
         {/* </Link> */}
       </div>
     );

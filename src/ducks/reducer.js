@@ -326,7 +326,7 @@ export function getNetwork(networkid) {
 }
 
 export function adminDeleteNetwork(networkid) {
-  console.log("deleteNet", networkid);
+  console.log("deleteNet HIT!!!!!!!!!", networkid);
   return {
     type: ADMIN_DELETE_NETWORK,
     payload: axios

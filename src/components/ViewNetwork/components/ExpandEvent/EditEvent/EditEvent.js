@@ -1,50 +1,56 @@
 import React, { Component } from "react";
+import TextField from "material-ui/TextField";
 
 class EditEvent extends Component {
   render() {
     console.log("this on edit", this);
     return (
       <div>
-      
         <form>
-          <input
-            name="name"
-            label="name"
-            value={this.props.name}
+          <TextField
+            defaultValue={this.props.name}
+            floatingLabelText="Event name"
             onChange={this.props.nameUpdate}
           />
+          <br />
+          <label>
+            <h3>Date</h3>
+          </label>
 
           <input
             name="date"
             label="Date"
-            type='date'
+            type="date"
             value={this.props.date}
             onChange={this.props.dateUpdate}
           />
-
+          <br />
+          <label>
+            <h3>Time</h3>
+          </label>
           <input
             name="time"
-            type='time'
+            type="time"
             label="Time"
             value={this.props.time}
             onChange={this.props.timeUpdate}
           />
+          <br />
 
-          <input
-            name="location"
-            placeholder="Location"
-            label="Location"
-            value={this.props.location}
+          <TextField
+            defaultValue={this.props.location}
+            floatingLabelText="Event location"
             onChange={this.props.locationUpdate}
           />
+          <br />
 
-          <input
-            name="description"
-            placeholder="Description"
-            label="Description"
-            value={this.props.description}
+          <TextField
+            defaultValue={this.props.description}
+            floatingLabelText="Event description"
             onChange={this.props.descriptionUpdate}
           />
+          <br />
+
           <input
             type="submit"
             disabled={this.props.saving}
@@ -53,7 +59,6 @@ class EditEvent extends Component {
             onClick={this.props.onSave}
             // onClick={this.props.toggle}
           />
-         
         </form>
         <button onClick={this.props.toggle}>Back</button>
       </div>

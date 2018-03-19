@@ -32,3 +32,29 @@
   color: white;
   font-family: "Roboto", sans-serif;
 }
+
+
+.edit-network-container button {
+  font-size: 90%;
+  cursor: pointer;
+  padding: 8px 20px;
+  width: 120px;
+  border-radius: 10px;
+  border: 2px solid white;
+  background-color: rgb(131, 55, 78);
+  color: white;
+  font-family: "Roboto", sans-serif;
+}
+
+.edit-network-container input {
+  font-size: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  width: 250px;
+  margin-bottom: 30px;
+}
+
+.edit-network-container {
+  text-align: center;
+}

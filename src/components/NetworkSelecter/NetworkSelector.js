@@ -17,7 +17,7 @@ class NetworkSelector extends Component {
       this.props.networks.length > 0 &&
       this.props.networks.map((c, i) => <NetworkCard key={i} network={c} />);
     return (
-      <div>
+      <div className='net-sel'>
         <Header />
         <div className='network-big-container'>
         <div className="network-selector-container">

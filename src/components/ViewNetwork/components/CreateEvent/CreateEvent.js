@@ -119,20 +119,19 @@ class NewEvent extends Component {
     const networkid = this.props.match.params.id;
     console.log(this.props.user);
     return (
-      <div>
+      <div className = 'create-event-container'>
         <Header />
         <h1>Create New Event</h1>
         <div className="event-name">
           <TextField
-            hintText="Event Name"
+            hintText="Event name"
             onChange={e => updateEventName(e.target.value)}
           />
         </div>
-        <br />
+        
         <div className="event-date">
         <h3>Date</h3>
         <input
-          // placeholder="Date"
           type="date"
           onChange={e => updateEventDate(e.target.value)}
         />
@@ -140,12 +139,11 @@ class NewEvent extends Component {
       <div className="event-time">
         <h3>Time</h3>
         <input
-          // placeholder="Time"
           type="time"
           onChange={e => updateEventTime(e.target.value)}
         />
       </div>
-        <br />
+        
         <div className="location">
         <h3>Location</h3>
           <label className="container">
@@ -159,7 +157,7 @@ class NewEvent extends Component {
           </label>
           {this.state.custom === true ? (
             <TextField
-              hintText="Custom location"
+              hintText="Custom"
               onChange={e => updateEventLocation(e.target.value)}
             />
           ) : <p>Custom location</p>}
@@ -171,13 +169,13 @@ class NewEvent extends Component {
           </label>
           {this.state.map === true ? <GoogleMaps /> : null}
         </div>
-        <br />
+        
         <div className="event-description">
           <TextField
-            hintText="Description"
+          hintText="Event description"
             onChange={e => updateEventDescription(e.target.value)}
           />
-          <br />
+          
         </div>
         <button onClick={() => checkAllFields()}>Create New Event</button>
         <Link to={`/network/${networkid}`}>

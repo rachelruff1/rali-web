@@ -1,44 +1,64 @@
 .network-big-container {
-width: 100%;
+  width: 100%;
+  align-content: center;
 }
 .network-selector-container {
-    text-align: center;
-    align-content: center;
-    width: 80%;
-    padding-left: 10%;
-
+  text-align: center;
+  align-content: center;
 }
 
 .networks-grid {
-    padding-bottom: 30px;
-    /* background-color: black; */
-   
+  padding-bottom: 30px;
+  text-align: center;
+  padding-left: 20%;
 }
-.create-search-buttons button{
-    font-size: 90%;
-    cursor: pointer;
-    padding: 8px 20px;
-    width: 120px;
-    border-radius: 10px;
-    border: 2px solid white;
-    background-color: rgb(131, 55, 78);
-    color: white;
-    font-family: 'Roboto', sans-serif;
+.create-search-buttons button {
+  font-size: 90%;
+  margin: 0 5px;
+  cursor: pointer;
+  padding: 8px 20px;
+  width: 120px;
+  border-radius: 10px;
+  /* border: 2px solid white; */
+  background-color: rgb(131, 55, 78);
+  color: white;
+  font-family: "Roboto", sans-serif;
 }
-  
-  .network-card {
-    background-color: rgba(196, 177, 177, 0.781);
-    height: 55px;
-    cursor: pointer;
-    width: 70%;
-    margin-left: 15%;
-  }
-  
-  .network-card p {
-    padding-top: 2.1%;
-    font-size: 180%;
-    color: rgb(39, 39, 39);
-    text-align: left;
-    margin-left: 30px;
-  }
-  
+
+.network-card {
+  background-color: white;
+  margin: 2% 0;
+  cursor: pointer;
+  width: 70%;
+  border: 1px solid black;
+  box-shadow: 2px 3px #888888;
+  border-radius:8px;
+}
+
+.network-card h3 {
+  color: rgb(39, 39, 39);
+  text-align: left;
+  margin-left: 30px;
+}
+
+.net-sel {
+  /* background-color: rgb(224, 223, 223); */
+
+  background: 
+  /* linear-gradient(
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2)
+    ),  */
+  url(bg.jpg); 
+  background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 0; 
+  height: 100vh;
+  width: 100%;
+}
+
+.network-card-container {
+  text-align: center;
+}

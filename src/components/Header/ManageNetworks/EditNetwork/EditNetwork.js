@@ -2,17 +2,24 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import swal from "sweetalert";
-import { editNetworkName, editNetworkPassword, getNetwork } from "../../../../ducks/reducer";
+import TextField from "material-ui/TextField";
+import RaisedButton from 'material-ui/RaisedButton';
+import {
+  editNetworkName,
+  editNetworkPassword,
+  getNetwork
+} from "../../../../ducks/reducer";
 import AppHeader from "../../AppHeader/AppHeader";
+import '../ManageNetworks.css';
 
 class EditNetwork extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPassword: '',
-      newPassword:'',
-      confirmNewPassword:'',
-      networkName: '',
+      currentPassword: "",
+      newPassword: "",
+      confirmNewPassword: "",
+      networkName: "",
       editName: false
     };
     // this.updateNetworkState = this.updateNetworkState.bind(this);
@@ -25,10 +32,11 @@ class EditNetwork extends Component {
   }
 
   componentDidMount() {
-    this.props.getNetwork(this.props.match.params.id);
-    this.setState({
-      networkName: this.props.activeNetwork
-    });
+    this.props.getNetwork(this.props.match.params.id).then(resp =>
+      this.setState({
+        networkName: this.props.activeNetwork.name
+      })
+    );
   }
 
   updateCurrentPassword(e) {
@@ -49,60 +57,93 @@ class EditNetwork extends Component {
   }
 
   updateNetworkName(e) {
-      return this.setState({ networkName: e , editName: true});
-    }
-
+    return this.setState({ networkName: e, editName: true });
+  }
 
   saveNetworkName(e) {
-
-    this.props.editNetworkName(this.props.activeNetwork.networkid, this.state.networkName);
-    swal('Name updated!');
+    this.props.editNetworkName(
+      this.props.activeNetwork.networkid,
+      this.state.networkName
+    );
+    console.log('clicked');
+    swal("Name updated!");
   }
 
   saveNetworkPassword(e) {
     if (this.state.currentPassword !== this.props.activeNetwork.password) {
-      swal(`Uh oh. Looks like your password isn't correct.`)
+      swal(`Uh oh. Looks like your password isn't correct.`);
     } else if (this.state.newPassword !== this.state.confirmNewPassword) {
-      swal(`Hmm. Looks like your passwords don't match.`)
-    } else if (this.state.currentPassword === this.props.activeNetwork.password && this.state.newPassword === this.state.confirmNewPassword) {
-     this.props.editNetworkPassword(this.props.activeNetwork.networkid, this.state.confirmNewPassword) && swal('Password updated!')
-  } else swal(`Sorry, something isn't working right now.`)}
-
+      swal(`Hmm. Looks like your passwords don't match.`);
+    } else if (
+      this.state.currentPassword === this.props.activeNetwork.password &&
+      this.state.newPassword === this.state.confirmNewPassword
+    ) {
+      this.props.editNetworkPassword(
+        this.props.activeNetwork.networkid,
+        this.state.confirmNewPassword
+      ) && swal("Password updated!");
+    } else swal(`Sorry, something isn't working right now.`);
+  }
 
   render() {
-    console.log("this on edit", this);
+    const style = {
+      margin: 12,
+    };
+    
     return (
-      <div>
+      <div className ='edit-network-container'>
         <AppHeader />
+        <div className='edit-network-content'>
 
-        <h1>Change Network Name</h1>
+        <h3>Change Network Name</h3>
 
-        <input
+        <TextField
+          floatingLabelText="Network name"
           value={(this.state.editName) ? this.state.networkName : this.props.activeNetwork.name }
           onChange={e => this.updateNetworkName(e.target.value)}
         />
-        <button onClick={() => this.saveNetworkName(this.state.networkName)}>
-          Save
-        </button>
-        <h1>Change Password</h1>
-        <p>Old password</p>
-        <input type="password" onChange={e => this.updateCurrentPassword(e.target.value)} />
-        <p>New Password</p>
-        <input type="password" onChange={e => this.updateNewPassword(e.target.value)} />
-        <p>Confirm New Password</p>
-        <input type="password" 
-         onChange={e => this.updateConfirmNewPassword(e.target.value)} />
+        <br />
 
-        <button
-          onClick={() => this.saveNetworkPassword(this.state.confirmNewPassword)
+       
+        <RaisedButton label="Save" style={style} 
+        onClick={() => {console.log('clicked'); this.saveNetworkName(this.state.networkName)}}
+         />
+        <h3>Change Password</h3>
+        <TextField
+          floatingLabelText="Old password"
+          onChange={e => this.updateCurrentPassword(e.target.value)}
+          type="password"
+        />
+        
+        <br />
+        <TextField
+          floatingLabelText="New password"
+          onChange={e => this.updateNewPassword(e.target.value)}
+          type="password"
+        />
+        
+        <br />
+        <TextField
+          floatingLabelText="Confirm new password"
+          onChange={e => this.updateConfirmNewPassword(e.target.value)}
+          type="password"
+        />
+        <br />
+        
+        
+        <RaisedButton label="Save" style={style} 
+          onClick={
+            () => this.saveNetworkPassword(this.state.confirmNewPassword)
             // .then(this.props.history.push("/manage-networks"))
           }
-        >
-          Save
-        </button>
+        />
+         
+        
         <Link to="/manage-networks">
-          <button>Back</button>
+        <RaisedButton label="Back" style={style} 
+          />
         </Link>
+        </div>
       </div>
     );
   }
@@ -115,5 +156,9 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { editNetworkName, editNetworkPassword, getNetwork })(EditNetwork)
+  connect(mapStateToProps, {
+    editNetworkName,
+    editNetworkPassword,
+    getNetwork
+  })(EditNetwork)
 );

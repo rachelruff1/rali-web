@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getUser, editUser, logout } from "../../../ducks/reducer";
 import EditProfile from "./EditProfile/EditProfile";
 import Header from '../../Header/AppHeader/AppHeader';
+import RaisedButton from 'material-ui/RaisedButton';
 import './Profile.css';
 
 class Profile extends Component {
@@ -43,6 +44,9 @@ class Profile extends Component {
     }
   }
   render() {
+    const style = {
+      margin: 12,
+    };
     console.log(this.props);
     const { firstname, lastname, email, cell } = this.props.user;
     return this.state.isEditing ? (
@@ -68,8 +72,8 @@ class Profile extends Component {
         <p>Cell: {cell}</p>
         {/* <p>Profile Picture: {picture}</p> */}
         <div>
-          <button onClick={this.toggleEdit}>Edit</button>
-          <button onClick={()=>this.props.logout().then(this.props.history.push("/"))}>Log Out</button>
+        <RaisedButton backgroundColor='rgb(131, 55, 78)' label="Edit" style={style}  onClick={this.toggleEdit}/>
+        <RaisedButton label="Log Out" style={style} onClick={()=>this.props.logout().then(this.props.history.push("/"))}/>
         </div>
       </div>
     );

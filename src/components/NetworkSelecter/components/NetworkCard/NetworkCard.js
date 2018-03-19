@@ -7,7 +7,7 @@ const NetworkCard = props => (
   <div className="network-card-container">
     <Link to={`/network/${props.network.networkid}`} style={{ textDecoration: 'none' }}>
     <div className="network-card">
-      <p>{props.network.name}</p>
+      <h3>{props.network.name}</h3>
       </div>
     </Link>
   </div>

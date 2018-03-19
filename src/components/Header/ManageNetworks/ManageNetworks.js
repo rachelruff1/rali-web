@@ -6,29 +6,17 @@ import Header from '../../Header/AppHeader/AppHeader';
 import './ManageNetworks.css';
 
 class ManageNetworks extends Component {
-  constructor(props) {
-    super(props);
-    this.state=({
-      deleted: false
-          })
-          this.updateDeleted = this.updateDeleted.bind(this);
-        }
-      
-        updateDeleted(){
-          this.setState = ({
-            deleted: true
-          })
-        }
+ 
 
   componentDidMount() {
     this.props.getNetworks();
   }
   render() {
-    console.log('this.props');
+    // console.log('this.props');
     const manageNetworksMap = this.props.networks.length>0 &&
-    this.props.networks.map((c, i) => <NetworkManagerCard key={i} network={c} delete={()=>this.updateDeleted()}/>);
+    this.props.networks.map((c, i) => <NetworkManagerCard key={i} network={c} />);
 
-    console.log(this.props);
+    // console.log(this.props);
     return (<div>
       <Header/>
       <div className='manage-networks-map'>

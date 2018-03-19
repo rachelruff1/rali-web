@@ -181,7 +181,7 @@ class ExpandEvent extends Component {
                   email={email}
                   cell={cell}
                 />
-              ) : null}
+              ) : 'hi'}
             </div>
             <button
               onClick={() =>
