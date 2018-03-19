@@ -34,8 +34,8 @@ class ViewNetwork extends Component {
     });
   }
   render() {
-    const { userCount } = this.props;
-    console.log(userCount);
+    const { count } = this.props.userCount;
+    console.log(count);
     console.log(this.state.toggleView);
     const networkid = this.props.match.params.id;
 
@@ -46,7 +46,7 @@ class ViewNetwork extends Component {
           <h1>{this.props.activeNetwork.name}</h1>
           <div className="inline-network">
             <p>
-              {userCount} {userCount > 1 ? "active members" : "active member"}
+              {count} {count > 1 ? "active members" : "active member"}
             </p>
             <Link to={`/network/${networkid}/create-event/`}>
               {" "}

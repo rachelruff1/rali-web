@@ -1,0 +1,1 @@
+SELECT COUNT(userid) FROM networks_users WHERE networkid = $1;

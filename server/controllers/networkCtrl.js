@@ -134,7 +134,7 @@ const adminDeleteNetwork = (req, res, next) => {
     .admin_delete_network([networkid])
     // .then(() => db.network.delete_en([networkid]))
     // .then(() => {db.network.delete_n([networkid]);
-    .then(()=>res.status(200).send(resp))
+    .then(()=>res.status(200).send())
     .catch(err => { console.log(err); next(err) });
 };
 
@@ -143,9 +143,9 @@ const getUserCount = (req, res, next) => {
   const {id} = req.params;
   console.log(id);
   db.network
-    .user_count([id])
-    .then((userCount) => res.status(200).send(userCount))
-    .catch(err=> { console.log(err);next(err)});
+    .get_count([id])
+    .then((resp) => {console.log(resp);res.status(200).send(resp)})
+    .catch(err=> { console.log(err)});
 }
 
 module.exports = {

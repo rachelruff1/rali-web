@@ -128,7 +128,7 @@ export default function reducer(state = initialState, action) {
     case `${GET_USER_COUNT}_FULFILLED`:
       console.log(
         "action.payload:",
-        action.payload);
+        action.payload, 'count', action.payload);
       return Object.assign({}, state, {
         userCount: action.payload
       });
@@ -357,7 +357,7 @@ export function getUserCount(networkid){
     type: GET_USER_COUNT,
     payload: axios
     .get(`/api/getUserCount/${networkid}`)
-    .then(resp => {console.log(resp); resp.data})
+    .then(resp => {console.log(resp.data[0].count); return resp.data[0];})
     .catch(console.log)
   }
 }
