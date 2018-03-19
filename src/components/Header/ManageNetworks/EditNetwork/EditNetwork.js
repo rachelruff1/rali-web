@@ -3,14 +3,14 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import swal from "sweetalert";
 import TextField from "material-ui/TextField";
-import RaisedButton from 'material-ui/RaisedButton';
+import RaisedButton from "material-ui/RaisedButton";
 import {
   editNetworkName,
   editNetworkPassword,
   getNetwork
 } from "../../../../ducks/reducer";
 import AppHeader from "../../AppHeader/AppHeader";
-import '../ManageNetworks.css';
+import "../ManageNetworks.css";
 
 class EditNetwork extends Component {
   constructor(props) {
@@ -65,7 +65,7 @@ class EditNetwork extends Component {
       this.props.activeNetwork.networkid,
       this.state.networkName
     );
-    console.log('clicked');
+    console.log("clicked");
     swal("Name updated!");
   }
 
@@ -87,62 +87,72 @@ class EditNetwork extends Component {
 
   render() {
     const style = {
-      margin: 12,
+      margin: 12
     };
-    
+
     return (
-      <div className ='edit-network-container'>
+      <div className="edit-network-container">
         <AppHeader />
-        <div className='edit-network-content'>
+        <h1>Edit Profile</h1>
+        <div className="edit-network-content">
+          <h3>Change Network Name</h3>
+          <div className="edit-network-box">
+            <TextField
+              floatingLabelText="Network name"
+              value={
+                this.state.editName
+                  ? this.state.networkName
+                  : this.props.activeNetwork.name
+              }
+              onChange={e => this.updateNetworkName(e.target.value)}
+            />
+          </div>
+          <br />
 
-        <h3>Change Network Name</h3>
-
-        <TextField
-          floatingLabelText="Network name"
-          value={(this.state.editName) ? this.state.networkName : this.props.activeNetwork.name }
-          onChange={e => this.updateNetworkName(e.target.value)}
-        />
-        <br />
-
-       
-        <RaisedButton label="Save" style={style} 
-        onClick={() => {console.log('clicked'); this.saveNetworkName(this.state.networkName)}}
-         />
-        <h3>Change Password</h3>
-        <TextField
-          floatingLabelText="Old password"
-          onChange={e => this.updateCurrentPassword(e.target.value)}
-          type="password"
-        />
-        
-        <br />
-        <TextField
-          floatingLabelText="New password"
-          onChange={e => this.updateNewPassword(e.target.value)}
-          type="password"
-        />
-        
-        <br />
-        <TextField
-          floatingLabelText="Confirm new password"
-          onChange={e => this.updateConfirmNewPassword(e.target.value)}
-          type="password"
-        />
-        <br />
-        
-        
-        <RaisedButton label="Save" style={style} 
-          onClick={
-            () => this.saveNetworkPassword(this.state.confirmNewPassword)
-            // .then(this.props.history.push("/manage-networks"))
-          }
-        />
-         
-        
-        <Link to="/manage-networks">
-        <RaisedButton label="Back" style={style} 
+          <RaisedButton
+            label="Save"
+            style={style}
+            onClick={() => {
+              console.log("clicked");
+              this.saveNetworkName(this.state.networkName);
+            }}
           />
-        </Link>
+          <h3>Change Password</h3>
+          <div className="edit-network-box">
+            <TextField
+              floatingLabelText="Old password"
+              onChange={e => this.updateCurrentPassword(e.target.value)}
+              type="password"
+            />
+          </div>
+          <div className="edit-network-box">
+            <TextField
+              floatingLabelText="New password"
+              onChange={e => this.updateNewPassword(e.target.value)}
+              type="password"
+            />
+          </div>
+          <div className="edit-network-box">
+            <TextField
+              floatingLabelText="Confirm new password"
+              onChange={e => this.updateConfirmNewPassword(e.target.value)}
+              type="password"
+            />
+          </div>
+          <br />
+
+          <RaisedButton
+            label="Save"
+            style={style}
+            onClick={
+              () => this.saveNetworkPassword(this.state.confirmNewPassword)
+              // .then(this.props.history.push("/manage-networks"))
+            }
+          />
+
+          <Link to="/manage-networks">
+            <RaisedButton label="Back" style={style} />
+          </Link>
         </div>
       </div>
     );

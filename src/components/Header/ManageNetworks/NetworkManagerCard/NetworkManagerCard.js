@@ -3,26 +3,26 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import swal from "sweetalert";
 import { leaveNetwork, adminDeleteNetwork } from "../../../../ducks/reducer";
-import RaisedButton from 'material-ui/RaisedButton';
 import "../ManageNetworks.css";
 
 class NetworkManagerCard extends Component {
   render() {
-    const style = {
-      margin: 12,
-    };
+    
     // console.log('this.props', this.props.network.userid,
     // this.props.network.networkid);
     return this.props.network.creatorid === this.props.network.userid ? (
       <div className="network-manager-card">
-        <p>{this.props.network.name}</p>
+      <div className='network-manager-box' >
+        <h3>{this.props.network.name}</h3>
+        </div>
+        <div className='network-manager-card-buttons'>
         <Link
           to={`/edit-network/${this.props.network.networkid}`}
           network={this.props.network}
         >
-          <RaisedButton label="Edit" style={style} />
+          <button>Edit</button> 
         </Link>
-        <RaisedButton label="Delete" style={style}
+        <button
           onClick={
             () =>
               this.props
@@ -30,12 +30,15 @@ class NetworkManagerCard extends Component {
                 .then(swal("Network Deleted"))
             .then(window.location.reload())
           }
-        />
+        >Delete</button></div>
       </div>
     ) : (
       <div className="network-manager-card">
-        <p>{this.props.network.name}</p>
-        <RaisedButton label="Leave Network" style={style}
+      <div className='network-manager-box' >
+        <h3>{this.props.network.name}</h3>
+        </div>
+        <button
+        
           onClick={() =>
             this.props
               .leaveNetwork(
@@ -45,7 +48,7 @@ class NetworkManagerCard extends Component {
               .then(swal("Network removed."))
               .then(window.location.reload())
           }
-        />
+        >Leave Network</button>
       </div>
     );
   }

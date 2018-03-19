@@ -17,9 +17,8 @@ class NetworkSelector extends Component {
       this.props.networks.length > 0 &&
       this.props.networks.map((c, i) => <NetworkCard key={i} network={c} />);
     return (
-      <div className='net-sel'>
+      <div className="net-sel">
         <Header />
-        <div className='network-big-container'>
         <div className="network-selector-container">
           {/* <h1>
             {this.props.user ? this.props.user.firstname : "Blank"}'s Networks
@@ -36,7 +35,6 @@ class NetworkSelector extends Component {
           </div>
           <div className="networks-grid">{networksMap}</div>
         </div>
-      </div>
       </div>
     );
   }

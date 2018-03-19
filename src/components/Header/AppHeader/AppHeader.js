@@ -10,34 +10,46 @@ export default function AppHeader() {
   return (
     <header className="app-header">
       <div className="navbar">
-        <img className="logo" src={logo} alt="logo" />
-        <ul className="navbar-options">
-        <li>
-            <Link to="/network-selector" style={{ textDecoration: 'none' }}>
-              <img className="header-icon" src={home} alt="home" />
-              <p>Home</p>
-            </Link>
-          </li>
-          
-          <li>
-            <Link to="/manage-networks" style={{ textDecoration: 'none' }}>
-              <img className="header-icon" src={globe} alt="globe" />
-              <p>Manage Networks</p>
-            </Link>
-          </li>
-          <li>
-            <Link to="/profile" style={{ textDecoration: 'none' }}>
-              <img className="header-icon" src={profile} alt="profile" />
-              <p>Profile</p>
-            </Link>
-          </li>
-        </ul>
+        <Link to="/network-selector" style={{ textDecoration: "none" }}>
+          <img className="logo" src={logo} alt="logo" />{" "}
+        </Link>
+        <div className="dropdown">
+          <button>
+            <div className="hamburger-menu" />
+            <div className="hamburger-menu" />
+            <div className="hamburger-menu" />
+          </button>
+          <div className="dropdown-content">
+            <ul className="navbar-options">
+              <li className="app-home">
+                <Link to="/network-selector" style={{ textDecoration: "none" }}>
+                  <img className="header-icon" src={home} alt="home" />
+                  <p>Home</p>
+                </Link>
+              </li>
+
+              <li className="app-networks">
+                <Link to="/manage-networks" style={{ textDecoration: "none" }}>
+                  <img className="header-icon" src={globe} alt="globe" />
+                  <p>Manage Networks</p>
+                </Link>
+              </li>
+              <li className="app-profile">
+                <Link to="/profile" style={{ textDecoration: "none" }}>
+                  <img className="header-icon" src={profile} alt="profile" />
+                  <p>Profile</p>
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </header>
   );
 }
 
-/* <header className="ahp-header">
+{
+  /* <header className="ahp-header">
 <div className="navbar">
   <img className="logo" src={logo} alt="logo" />
   <ul className="navbar-content">
@@ -54,9 +66,9 @@ export default function AppHeader() {
     </ul>
   
 </div>
-</header> */
+</header> 
 
-/* <header className="ahp-header">
+ <header className="ahp-header">
       <div className="navbar">
         <img className="logo" src={logo} alt="logo" />
         <div className="dropdown">
@@ -79,4 +91,5 @@ export default function AppHeader() {
           </div>
         </div>
       </div>
-    </header> */
+    </header>  */
+}

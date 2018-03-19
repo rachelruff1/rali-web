@@ -17,8 +17,9 @@ class ManageNetworks extends Component {
     this.props.networks.map((c, i) => <NetworkManagerCard key={i} network={c} />);
 
     // console.log(this.props);
-    return (<div>
+    return (<div className='manage-networks-big'>
       <Header/>
+      <h1>Manage Networks</h1>
       <div className='manage-networks-map'>
         {manageNetworksMap}
         </div>

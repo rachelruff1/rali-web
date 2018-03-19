@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import './CreateNetwork.css';
 import swal from 'sweetalert';
+import TextField from "material-ui/TextField";
 import Header from '../../../Header/AppHeader/AppHeader';
 import {
   updateNetworkName,
@@ -14,21 +15,22 @@ class CreateNetwork extends Component {
   render() {
     console.log(this.props);
     return (
-      <div>
+      <div className='create-network-big'>
       <Header/>
       <div className="network-creator-container">
       <h1>Create New Network </h1>
-        <input
-          type="text"
-          placeholder="Enter network name.."
+      <div className='create-network-field'>
+      <TextField
+              floatingLabelText="Enter network name"
           onChange={e => this.props.updateNetworkName(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Enter network password.."
+        /></div>
+        <div className='create-network-field'>
+       <TextField
+              floatingLabelText="Enter network password"
+              type='password'
           onChange={e => this.props.updateNetworkPassword(e.target.value)}
-        />
-        
+        /></div>
+        <br />
         <button
           onClick={() =>
             this.props

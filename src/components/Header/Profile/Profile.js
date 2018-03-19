@@ -72,7 +72,7 @@ class Profile extends Component {
         <p>Cell: {cell}</p>
         {/* <p>Profile Picture: {picture}</p> */}
         <div>
-        <RaisedButton backgroundColor='rgb(131, 55, 78)' label="Edit" style={style}  onClick={this.toggleEdit}/>
+        <RaisedButton label="Edit" style={style}  onClick={this.toggleEdit}/>
         <RaisedButton label="Log Out" style={style} onClick={()=>this.props.logout().then(this.props.history.push("/"))}/>
         </div>
       </div>
