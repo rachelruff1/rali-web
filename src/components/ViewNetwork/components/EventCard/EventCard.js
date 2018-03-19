@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
-import "../../ViewNetwork.css";
+import "./EventCard.css";
 
 class EventCard extends Component {
   
@@ -43,14 +43,16 @@ class EventCard extends Component {
             this.props.events.eventid
           }`}
           style={{ textDecoration: "none" }}
-        >
-          <p>{this.props.events.name}</p>
-          <p>
+        ><div className="event-card-content">
+        <h3>
             {monthDisplay} {day}
-          </p>
+          </h3>
+          <div className='stacked-event-card'>
+          <h4>{this.props.events.name}</h4>
+          
           <p>
             {hourCheck()} · {this.props.events.location}
-          </p>
+          </p></div></div>
         </Link>
       </div>
     );

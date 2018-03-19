@@ -16,24 +16,7 @@
   margin-left: 5%;
 }
 
-.event-card-container {
-text-align: left;
-padding-left: 8px;
-    margin: 10px;
-    display: inline-block;
-  background-color: rgba(196, 177, 177, 0.781);
-  height: 120px;
-  cursor: pointer;
-  width: 200px;
-  /* margin-left: 15%; */
-  
 
-}
-
-.event-card-container p {
-    /* text-decoration: none; */
-color: black;
-}
 
 .view-network-container-big {
   background: url('mug.jpg');
@@ -43,5 +26,25 @@ color: black;
   background-size: cover;
   margin-top: 0;
   height: 1600px;
+  width: 100%;
+}
+
+.view-network-container {
+  width: 100%;
+}
+
+.conditional-events-container {
+  width: 100%;
+}
+
+.events-container {
+  width: 100%;
+}
+
+.my-events-container{
+  width: 100%;
+}
+
+.network-events-container{
   width: 100%;
 }
