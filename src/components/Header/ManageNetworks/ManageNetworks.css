@@ -48,7 +48,7 @@
 
 .manage-networks-big {
   text-align: center;
-  background: url(bg-light.jpg);
+  background: url('../../../bg-light.jpg');
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -64,7 +64,7 @@
 
 .edit-network-container {
   text-align: center;
-  background: url(bg-light.jpg);
+  background: url('../../../bg-light.jpg');
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;

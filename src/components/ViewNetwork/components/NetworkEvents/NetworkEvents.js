@@ -17,16 +17,19 @@ class NetworkEvents extends Component {
   }
   render() {
     const { allNetworkEvents } = this.props;
+    console.log(allNetworkEvents);
     const allNetworkEventsMap =
       allNetworkEvents.length > 0 &&
       allNetworkEvents.map((c, i) => <EventCard key={i} events={c} status={this.state.status}/>);
-    return (
+    return allNetworkEvents.length !== 0 ? (
+      
       <div className="network-events-map-container">
       <h3>Network Events</h3>
         <div>{allNetworkEventsMap}</div>
       </div>
-    );
-  }
+    ) : (<div><h3>Network Events</h3><br />
+    <p>No network events .. go make one!</p></div>)
+  };
 }
 
 let mapStateToProps = state => {

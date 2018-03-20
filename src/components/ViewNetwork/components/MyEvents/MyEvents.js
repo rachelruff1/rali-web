@@ -16,21 +16,21 @@ class MyEvents extends Component {
     this.props.getMyNetworkEvents(this.props.networkid);
   }
   render() {
-    // console.log(this);
     const {myNetworkEvents} = this.props;
+    console.log(this.props);
     const myJoinedEventsMap =
       myNetworkEvents.length > 0 &&
       myNetworkEvents.map((c, i) => 
         <EventCard key={i} events={c} status={this.state.status}/>
       );
 
-    return (
+    return myNetworkEvents.length !== 0 ? (
       <div className="my-events-map-container">
       <h3>My Events</h3>
         <div>{myJoinedEventsMap}</div>
       </div>
-    );
-  }
+    ) : (<div><h3>My Events</h3><br /><p>No joined events .. go join or make one!</p></div>)
+  };
 }
 
 let mapStateToProps = state => {

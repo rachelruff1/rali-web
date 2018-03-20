@@ -79,10 +79,8 @@ passport.use(
 );
 
 
-//app.use(express.static(`${__dirname}/../build`));
-// const path = require('path');
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../build/index.html'));});
+app.use(express.static(`${__dirname}/../build`));
+
 
 passport.serializeUser((user, done) => {
   return done(null, user);
@@ -123,4 +121,12 @@ app.put('/api/editEvent/', eCtrl.editEvent);
 app.post('/api/joinEvent', eCtrl.joinEvent);
 app.delete('/api/leaveEvent/:id', eCtrl.leaveEvent);
 
+
+const path = require('path');
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'));});
+
+
 app.listen(port, console.log(`Listening on port ${port}`));
+
+
