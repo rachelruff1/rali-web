@@ -32,7 +32,7 @@ class EditProfile extends Component {
             <TextField
               floatingLabelText="Email"
               value={this.props.email}
-              onChange={e => this.props.updateEmail(e.target.value)}
+              onChange={e => this.props.updateE(e.target.value)}
             />
           </div>
 
@@ -42,7 +42,7 @@ class EditProfile extends Component {
               floatingLabelText="Cell"
               label="Cell"
               value={this.props.cell}
-              onChange={e => this.props.updateCell(e.target.value)}
+              onChange={e => this.props.updateC(e.target.value)}
             />
           </div>
         </div>

@@ -75,7 +75,7 @@ updateCell(e){
           email={email}
           updateE={this.updateEmail}
           cell={cell}
-          updateCell={this.updateCell}
+          updateC={this.updateCell}
           onSave={this.saveUser}
           toggle={this.toggleEdit}
         />
