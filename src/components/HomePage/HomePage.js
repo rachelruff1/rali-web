@@ -11,7 +11,7 @@ export default class HomePage extends Component {
           <div className="hp-content-container">
             <img src={logo} alt='logo'/>
             <p>Where connection happens.</p>
-            <a href="http://localhost:3001/login">
+            <a href="/login">
               <button>Login/Register</button>
             </a>
           </div>
