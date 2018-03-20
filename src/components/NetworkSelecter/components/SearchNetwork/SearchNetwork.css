@@ -45,12 +45,19 @@
 
 .search-container {
   background: url('../../../../bg-light.jpg');
-  background-attachment: fixed;
+  
+  background-repeat: no-repeat;
+  
+    background-attachment: fixed;
+    
+    background-size: cover;
+    
+    background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   margin-top: 0;
-  height: 100vh;
+  height: 1200px;
   width: 100%;
 }
 

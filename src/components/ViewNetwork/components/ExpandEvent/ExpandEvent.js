@@ -12,7 +12,9 @@ import swal from "sweetalert";
 import EditEvent from "./EditEvent/EditEvent";
 import Header from "../../../Header/AppHeader/AppHeader";
 import UserContact from "./UserContact/UserContact";
-import './ExpandEvent.css';
+import RaisedButton from "material-ui/RaisedButton";
+
+import "./ExpandEvent.css";
 
 class ExpandEvent extends Component {
   constructor(props) {
@@ -25,8 +27,8 @@ class ExpandEvent extends Component {
       eventDate: "",
       eventTime: "",
       eventLocation: "",
-      eventGLocation: '',
-      eventDescription: "", 
+      eventGLocation: "",
+      eventDescription: "",
       userId: {}
     };
     this.toggleEdit = this.toggleEdit.bind(this);
@@ -69,7 +71,7 @@ class ExpandEvent extends Component {
       this.state.eventLocation,
       this.state.eventDescription
     );
-    swal('Event updated!');
+    swal("Event updated!");
   }
 
   toggleContact() {
@@ -117,39 +119,41 @@ class ExpandEvent extends Component {
 
     //Javascript to change date format
 
-let monthsArr = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December"
-];
+    let monthsArr = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
 
-const ddate = this.state.eventDate;
-const month = Number(ddate.slice(5, 7));
-const day = Number(ddate.slice(8, 11));
-const dtime = this.state.eventTime;
-const monthDisplay = monthsArr[month - 1];
-const hourCheck = () => {
-  const hour = Number(dtime.slice(0, 2));
-  const minutes = dtime.slice(3, 6);
-  if (hour > 12) {
-    return `${hour - 12}:${minutes} pm`;
-  } else {
-    return `${hour}:${minutes} am`;
-  }
-};
-
+    const ddate = this.state.eventDate;
+    const month = Number(ddate.slice(5, 7));
+    const day = Number(ddate.slice(8, 11));
+    const dtime = this.state.eventTime;
+    const monthDisplay = monthsArr[month - 1];
+    const hourCheck = () => {
+      const hour = Number(dtime.slice(0, 2));
+      const minutes = dtime.slice(3, 6);
+      if (hour > 12) {
+        return `${hour - 12}:${minutes} pm`;
+      } else {
+        return `${hour}:${minutes} am`;
+      }
+    };
+    const style = {
+      margin: 12
+    };
 
     return this.state.isEditing ? (
-      <div className='expand-app-container'>
+      <div className="expand-app-container">
         <Header />
         <h1>Edit Event</h1>
 
@@ -169,110 +173,131 @@ const hourCheck = () => {
         />
       </div>
     ) : (
-      <div className='expand-app-container'>
+      <div className="expand-app-container">
         <Header />
-        <div className='expand-app-content'>
-       
-        <h1>{eventName === "" ? name : this.state.eventName}</h1>
-        <div className='expand-text'><h3>Date:</h3><p> {monthDisplay} {day}</p></div>
-        <div className='expand-text'><h3>Time:</h3><p> {hourCheck()}</p></div>
-        <div className='expand-text'><h3>Location:</h3><p> {eventLocation === "" ? eventGLocation : eventLocation}</p></div>
-        <div className='expand-text'><h3>Description:</h3><p> {eventDescription}</p></div>
-        <button onClick={this.toggleContact}>Contact host</button>
-
-        {creatorid === userId ? (
-          <div>
-            <div>
-              {this.state.contactHost === true ? (
-                <UserContact
-                  first={firstname}
-                  last={lastname}
-                  email={email}
-                  cell={cell}
-                />
-              ) : null}
+        <div className="expand-app-content">
+          <h1>{eventName === "" ? name : this.state.eventName}</h1>
+          <div class-name="expand-content">
+            <div className="expand-text">
+              <h3>Date:</h3>
+              <p>
+                {" "}
+                {monthDisplay} {day}
+              </p>
             </div>
-            <button onClick={this.toggleEdit}>Edit</button>
-            <button
-              onClick={() =>
-                this.props
-                  .adminDeleteEvent(eventid)
-                  .then(swal(`Event deleted.`))
-                  .then(
-                    this.props.history.push(
-                      `/network/${this.props.match.params.netId}`
+            <div className="expand-text">
+              <h3>Time:</h3>
+              <p> {hourCheck()}</p>
+            </div>
+            <div className="expand-text">
+              <h3>Location:</h3>
+              <p> {eventLocation === "" ? eventGLocation : eventLocation}</p>
+            </div>
+            <div className="expand-text">
+              <h3>Description:</h3>
+              <p> {eventDescription}</p>
+            </div>
+          </div>
+          <RaisedButton
+            label="Contact host"
+            style={style}
+            onClick={this.toggleContact}
+          />
+
+          {creatorid === userId ? (
+            <div>
+              <div>
+                {this.state.contactHost === true ? (
+                  <UserContact
+                    first={firstname}
+                    last={lastname}
+                    email={email}
+                    cell={cell}
+                  />
+                ) : null}
+              </div>
+              <button onClick={this.toggleEdit}>Edit</button>
+              <button
+                onClick={() =>
+                  this.props
+                    .adminDeleteEvent(eventid)
+                    .then(swal(`Event deleted.`))
+                    .then(
+                      this.props.history.push(
+                        `/network/${this.props.match.params.netId}`
+                      )
                     )
-                  )
-              }
-            >
-              Delete
-            </button>
-            <Link to={`/network/${this.props.match.params.netId}`}>
+                }
+              >
+                Delete
+              </button>
+              <br />
+              <Link to={`/network/${this.props.match.params.netId}`}>
           <button>Back</button>
         </Link>
-          </div>
-        ) : this.props.match.params.status === "joined" ? (
-          <div>
-            <div>
-              {this.state.contactHost === true ? (
-                <UserContact
-                  first={firstname}
-                  last={lastname}
-                  email={email}
-                  cell={cell}
-                />
-              ) : null }
             </div>
-            <button
-              onClick={() =>
-                this.props
-                  .leaveEvent(eventid)
-                  .then(swal(`Event left.`))
-                  .then(
-                    this.props.history.push(
-                      `/network/${this.props.match.params.netId}`
+          ) : this.props.match.params.status === "joined" ? (
+            <div>
+              <div>
+                {this.state.contactHost === true ? (
+                  <UserContact
+                    first={firstname}
+                    last={lastname}
+                    email={email}
+                    cell={cell}
+                  />
+                ) : null}
+              </div>
+              <button
+                onClick={() =>
+                  this.props
+                    .leaveEvent(eventid)
+                    .then(swal(`Event left.`))
+                    .then(
+                      this.props.history.push(
+                        `/network/${this.props.match.params.netId}`
+                      )
                     )
-                  )
-              }
-            >
-              Leave
-            </button>
-            <br />
-            <Link to={`/network/${this.props.match.params.netId}`}>
+                }
+              >
+                Leave
+              </button>
+              <br />
+              <Link to={`/network/${this.props.match.params.netId}`}>
           <button>Back</button>
         </Link>
-          </div>
-        ) : (
-          <div>
+            </div>
+          ) : (
             <div>
-              {this.state.contactHost === true ? (
-                <div>
-
-                <UserContact
-                  first={firstname}
-                  last={lastname}
-                  email={email}
-                  cell={cell}
-                /></div> 
-              ): null}
-            </div>
-            <button
-              onClick={() =>
-                this.props
-                  .joinEvent(eventid)
-                  .then(swal("Event Joined!"))
-                  .then(
-                    this.props.history.push(
-                      `/network/${this.props.match.params.netId}`
+              <div>
+                {this.state.contactHost === true ? (
+                  <div>
+                    <UserContact
+                      first={firstname}
+                      last={lastname}
+                      email={email}
+                      cell={cell}
+                    />
+                  </div>
+                ) : null}
+              </div>
+              <button
+                onClick={() =>
+                  this.props
+                    .joinEvent(eventid)
+                    .then(swal("Event Joined!"))
+                    .then(
+                      this.props.history.push(
+                        `/network/${this.props.match.params.netId}`
+                      )
                     )
-                  )
-              }
-            >
-              Join
-            </button>
+                }
+              >
+                Join
+              </button>
             </div>
-          
-        )}</div>
+          )}
+        </div>
         {/* <GoogleMaps /> */}
       </div>
     );
@@ -296,5 +321,3 @@ export default withRouter(
     leaveEvent
   })(ExpandEvent)
 );
-
-

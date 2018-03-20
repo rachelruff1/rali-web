@@ -8,7 +8,7 @@ class EditProfile extends Component {
     const style = {
       margin: 12
     };
-    // console.log("this on edit", this);
+    console.log("this on edit", this);
     return (
       <div className="edit-profile">
         <div className="edit-profile-input">

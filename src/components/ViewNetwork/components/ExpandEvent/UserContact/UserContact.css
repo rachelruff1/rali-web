@@ -1,7 +1,3 @@
-/* .host-contact {
-    display: inline-flex;
-} */
-
 .host-contact {
     display: inline-block;
 }
@@ -9,14 +5,10 @@
     display: inline-block;
     margin: 5px;
     line-height: 12px;
-    /* height: 10px; */
-    /* height: 20px; */
     display: flex;
 }
 
 .host-info h3{
     margin: 5px;
     padding-top:10px;
-    /* display: inline-block; */
-    /* height: 10px; */
 }

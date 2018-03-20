@@ -35,7 +35,7 @@ class SearchCard extends Component {
           <p>{this.props.network.name}</p>
         {/* </div> */}
         <TextField
-          floatingLabelText="Enter password"
+          floatingLabelText="Enter password" type='password'
           onChange={e => this.updateConfirmPassword(e.target.value)}
         />
         <button onClick={() => this.verifyPasswordMatch()}>Submit</button>

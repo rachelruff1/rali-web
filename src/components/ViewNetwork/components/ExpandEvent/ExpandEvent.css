@@ -1,12 +1,12 @@
 .expand-app-container {
   text-align: center;
   background: url("../../mug.jpg");
-  /* background-attachment: fixed; */
+  background-attachment: fixed;
   background-position: center;
-  /* background-repeat: no-repeat; */
-  background-size: cover;
+  background-repeat: no-repeat;
+  /* background-size: cover; */
   margin-top: 0;
-  height: 1600px;
+  height: 1200px;
   width: 100%;
 }
 
@@ -25,16 +25,20 @@
 }
 
 .expand-text {
-  border: 2px solid rgba(0, 0, 0, 0.418);
-  margin:20px;
-  padding:0 30px;
-  display: inline-block;
+  /* border: 2px solid rgba(0, 0, 0, 0.418); */
+  /* margin:20px; */
+  /* padding:0 30px; */
+  /* display: block; */
+  display: flex;
+  justify-content: center;
 }
 
-.host-button{
+.expand-content {
+  background-color: black;
   border: 2px solid rgba(0, 0, 0, 0.418);
-  font-weight: bolder;
 }
-.contact-box {
-  width: 10px
+
+.expand-text p {
+  margin-top: 22px;
+  margin-left: 10px;
 }

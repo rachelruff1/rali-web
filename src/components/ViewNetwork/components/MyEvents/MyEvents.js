@@ -26,6 +26,7 @@ class MyEvents extends Component {
 
     return (
       <div className="my-events-map-container">
+      <h3>My Events</h3>
         <div>{myJoinedEventsMap}</div>
       </div>
     );

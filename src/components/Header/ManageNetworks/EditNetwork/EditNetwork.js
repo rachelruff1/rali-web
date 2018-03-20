@@ -22,7 +22,6 @@ class EditNetwork extends Component {
       networkName: "",
       editName: false
     };
-    // this.updateNetworkState = this.updateNetworkState.bind(this);
     this.saveNetworkName = this.saveNetworkName.bind(this);
     this.saveNetworkPassword = this.saveNetworkPassword.bind(this);
     this.updateCurrentPassword = this.updateCurrentPassword.bind(this);
@@ -93,7 +92,7 @@ class EditNetwork extends Component {
     return (
       <div className="edit-network-container">
         <AppHeader />
-        <h1>Edit Profile</h1>
+        <h1>Edit Network</h1>
         <div className="edit-network-content">
           <h3>Change Network Name</h3>
           <div className="edit-network-box">

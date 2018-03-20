@@ -9,14 +9,13 @@
 
 .navbar p {
   font-size: 16px;
-  color: rgb(63, 63, 63);
+  color: rgb(41, 41, 41);
   margin: 0px 25px;
   text-decoration: none;
   font-weight: bold;
   font-size: 120%;
   line-height: 30px;
   text-decoration: none;
-
 }
 
 .logo {
@@ -45,49 +44,22 @@
 }
 
 .responsive-nav {
-    float:right;
-    margin-top: 50px;
-
+  float: right;
+  margin-top: 50px;
 }
 
 .navbar-options {
-    margin-top: 60px;
+  margin-top: 60px;
 }
 
+@media screen and (max-width: 650px) {
+  .navbar-options {
+    display: none !important;
+  }
+}
 
-    /* @media (min-width: 768px) {
-        .navbar { 
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }} */
-
-
-        /* @media screen and (min-width: 992px) {
-            #mn_menu {
-              display: none;
-            }
-         }
-
-
-         @media only screen and (min-width: 320px) and (max-width: 536px) {
-            .nav {
-              width:100%;
-            }
-            .nav-item {
-              width:100%;
-              float:left;
-            }
-          } */
-
-          @media screen and (max-width: 650px) {
-            .navbar-options {
-                display: none !important;
-            }
-        }
-
-        @media screen and (min-width: 650px) {
-            .responsive-nav {
-                display: none !important;
-            }
-        }
+@media screen and (min-width: 650px) {
+  .responsive-nav {
+    display: none !important;
+  }
+}

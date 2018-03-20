@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import TextField from "material-ui/TextField";
+import RaisedButton from "material-ui/RaisedButton";
+
 
 class EditEvent extends Component {
   render() {
     console.log("this on edit", this);
+    const style = {
+      margin: 12
+    };
     return (
       <div>
         <form>
@@ -51,16 +56,12 @@ class EditEvent extends Component {
           />
           <br />
 
-          <input
-            type="submit"
-            disabled={this.props.saving}
-            value={this.props.saving ? "Saving..." : "Save"}
-            className="btn btn-primary"
+          <RaisedButton label="Save" style={style}
             onClick={this.props.onSave}
             // onClick={this.props.toggle}
           />
         </form>
-        <button onClick={this.props.toggle}>Back</button>
+        <RaisedButton label="Back" style={style}onClick={this.props.toggle}/>
       </div>
     );
   }
