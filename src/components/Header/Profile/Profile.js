@@ -11,56 +11,72 @@ class Profile extends Component {
     super(props);
     this.state = {
       isEditing: false,
-      user: this.props.user
+      firstname: '',
+      lastname: '',
+      email: '',
+      cell: ''
     };
     this.toggleEdit = this.toggleEdit.bind(this);
-    this.updateUserState = this.updateUserState.bind(this);
     this.saveUser = this.saveUser.bind(this);
+    this.updateFName=this.updateFName.bind(this);
+    this.updateLName=this.updateLName.bind(this);
+    this.updateEmail=this.updateEmail.bind(this);
+    this.updateCell=this.updateCell.bind(this);
   }
 
   componentDidMount() {
-    this.props.getUser();
+    this.props.getUser().then(resp => this.setState({
+      firstname: this.props.user.firstname,
+      lastname: this.props.user.lastname,
+      email: this.props.user.email,
+      cell: this.props.user.cell
+    }));
   }
 
   toggleEdit() {
     this.setState({ isEditing: !this.state.isEditing });
   }
+updateFName(e){
+  this.setState({firstname:e})
+}
 
-  updateUserState(e) {
-    const field = e.target.name;
-    const user = this.state.user;
-    user[field] = e.target.value;
-    return this.setState({ user: user });
-  }
+updateLName(e){
+  this.setState({lastname:e})
+}
+
+updateEmail(e){
+  this.setState({email:e})
+}
+
+updateCell(e){
+  this.setState({cell:e})
+}
 
   saveUser(e) {
-    e.preventDefault();
-    this.props.editUser(this.state.user);
+    this.props.editUser(this.state.firstname, this.state.lastname, this.state.email, this.state.cell);
     window.location.reload();
   }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.user.id !== nextProps.user.id) {
-      this.setState({ user: nextProps.user });
-    }
-  }
+
   render() {
     const style = {
       margin: 12,
     };
     console.log(this.props);
-    const { firstname, lastname, email, cell } = this.props.user;
+    const { firstname, lastname, email, cell } = this.state;
     return this.state.isEditing ? (
       <div className='edit-profile-container'>
         <Header/>
         <h1>Edit Profile</h1>
         <EditProfile
-          firstname={this.state.user.firstname}
-          lastname={this.state.user.lastname}
-          email={this.state.user.email}
-          cell={this.state.user.cell}
-          // picture={this.state.user.picture}
+          firstname={firstname}
+          updateFN={this.updateFName}
+          lastname={lastname}
+          updateLN={this.updateLName}
+          email={email}
+          updateE={this.updateEmail}
+          cell={cell}
+          updateCell={this.updateCell}
           onSave={this.saveUser}
-          onChange={this.updateUserState}
           toggle={this.toggleEdit}
         />
       </div>
@@ -70,7 +86,6 @@ class Profile extends Component {
         <h1>{`${firstname} ${lastname}`}</h1>
         <p>Email: {email}</p>
         <p>Cell: {cell}</p>
-        {/* <p>Profile Picture: {picture}</p> */}
         <div>
         <RaisedButton label="Edit" style={style}  onClick={this.toggleEdit}/>
         <RaisedButton label="Log Out" style={style} onClick={()=>this.props.logout().then(this.props.history.push("/"))}/>

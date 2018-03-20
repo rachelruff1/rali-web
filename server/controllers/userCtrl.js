@@ -18,7 +18,7 @@ const getUser = (req, res, next) => {
 
 const editUser = (req, res, next) => {
   const db = req.app.get('db');
-  const {firstname, lastname, cell, email, picture} = req.body.user;
+  const {firstname, lastname, cell, email, picture} = req.body;
   db.user
   .edit_user([req.user.authid, firstname, lastname, email, cell, picture])
   .then(res.status(200).send())

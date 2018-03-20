@@ -16,7 +16,7 @@ class EditProfile extends Component {
             <TextField
               floatingLabelText="First name"
               value={this.props.firstname}
-              onChange={this.props.onChange}
+              onChange={e => this.props.updateFN(e.target.value)}
             />
           </div>
 
@@ -24,7 +24,7 @@ class EditProfile extends Component {
             <TextField
               floatingLabelText="Last name"
               value={this.props.lastname}
-              onChange={this.props.onChange}
+              onChange={e => this.props.updateLN(e.target.value)}
             />
           </div>
 
@@ -32,7 +32,7 @@ class EditProfile extends Component {
             <TextField
               floatingLabelText="Email"
               value={this.props.email}
-              onChange={this.props.onChange}
+              onChange={e => this.props.updateEmail(e.target.value)}
             />
           </div>
 
@@ -42,7 +42,7 @@ class EditProfile extends Component {
               floatingLabelText="Cell"
               label="Cell"
               value={this.props.cell}
-              onChange={this.props.onChange}
+              onChange={e => this.props.updateCell(e.target.value)}
             />
           </div>
         </div>

@@ -188,13 +188,13 @@ export function getUser() {
   };
 }
 
-export function editUser(user) {
-  console.log("hit edit", user);
+export function editUser(firstname, lastname, email, cell) {
+  console.log("hit edit", firstname, lastname, email, cell);
   //eventid, name, date, time, location, description
   return {
     type: EDIT_USER,
     payload: axios
-      .put("/api/editUser/", { user })
+      .put("/api/editUser/", { firstname, lastname, email, cell })
       .then(resp => resp.data)
       .catch(console.log)
   };
